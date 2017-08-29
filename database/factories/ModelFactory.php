@@ -11,9 +11,25 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+/**@var \Illuminate\Database\Eloquent\Factory $factory */
+
+$factory->define(\App\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'email' => $faker->email,
+        'email' => $faker->safeEmail,
+        'birthday' => $faker->dateTimeBetween(),
+        'password' => '123456789',
+    ];
+});
+
+$factory->define(\App\Models\Client::class, function (Faker\Generator $faker) {
+    return [
+
+    ];
+});
+
+$factory->define(\App\Models\Trainer::class, function (Faker\Generator $faker) {
+    return [
+
     ];
 });

@@ -1,0 +1,58 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Mark
+ * Date: 2017-08-29
+ * Time: 18:10
+ */
+
+namespace App\Transformers;
+
+
+use App\Models\Client;
+use App\Models\Trainer;
+use App\Models\User;
+use League\Fractal\TransformerAbstract;
+
+class UserTransformer extends TransformerAbstract
+{
+    protected $availableIncludes = [
+        'userable',
+        'client',
+        'trainer'
+    ];
+
+    public function transform(User $user)
+    {
+        return [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'birthday' => $user->birthday->format('Y-m-d')
+        ];
+    }
+
+    public function includeUserable(User $user)
+    {
+        switch ($user->userable_type) {
+            case Client::class:
+                return $this->item($user->userable, new ClientTransformer());
+                break;
+            case Trainer::class:
+                return $this->item($user->userable, new TrainerTransformer());
+                break;
+            default:
+                throw new \LogicException('Wrong user type');
+        }
+    }
+
+    public function includeClient(User $user)
+    {
+        return $this->item($user->client, new ClientTransformer());
+    }
+
+    public function includeTrainer(User $user)
+    {
+        return $this->item($user->trainer, new TrainerTransformer());
+    }
+}

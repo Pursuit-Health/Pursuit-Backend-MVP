@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property User $user
+ * @method static self query()
  * @mixin Builder
  */
 class Trainer extends Model

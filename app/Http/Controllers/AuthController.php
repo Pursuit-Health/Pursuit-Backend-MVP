@@ -14,7 +14,7 @@ use App\Validation\Rules;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     public function login(Request $request)
     {
@@ -39,7 +39,7 @@ class LoginController extends Controller
             ->first();
 
         return fractal($user, new UserTransformer())
-            ->parseIncludes(array_merge(['userable'], $this->getIncludes()))
+            ->parseIncludes(['userable'])
             ->addMeta(['token' => $token])
             ->respond();
     }
