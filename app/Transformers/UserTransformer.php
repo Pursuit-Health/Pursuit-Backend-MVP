@@ -36,10 +36,10 @@ class UserTransformer extends TransformerAbstract
     {
         switch ($user->userable_type) {
             case Client::class:
-                return $this->item($user->userable, new ClientTransformer());
+                return $this->item($user->userable, new ClientTransformer(), 'userable');
                 break;
             case Trainer::class:
-                return $this->item($user->userable, new TrainerTransformer());
+                return $this->item($user->userable, new TrainerTransformer(), 'userable');
                 break;
             default:
                 throw new \LogicException('Wrong user type');
@@ -48,11 +48,11 @@ class UserTransformer extends TransformerAbstract
 
     public function includeClient(User $user)
     {
-        return $this->item($user->client, new ClientTransformer());
+        return $this->item($user->client, new ClientTransformer(), 'client');
     }
 
     public function includeTrainer(User $user)
     {
-        return $this->item($user->trainer, new TrainerTransformer());
+        return $this->item($user->trainer, new TrainerTransformer(), 'trainer');
     }
 }

@@ -122,7 +122,7 @@ if ($app->environment() === 'local') {
 */
 
 /** @noinspection PhpUnusedParameterInspection */
-$app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
+$app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'params'], function ($app) {
     require __DIR__ . '/../routes/web.php';
 });
 

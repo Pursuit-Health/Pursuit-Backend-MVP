@@ -14,22 +14,23 @@
 $app->get('/', function () use ($app) {
     return $app->version();
 });
+$app->group(['prefix' => '/v1'], function () use ($app) {
+    $app->group(['prefix' => '/auth'], function () use ($app) {
+        $app->get('/refresh', ['uses' => 'AuthController@refresh', 'middleware' => 'jwt.refresh']);
 
-$app->group(['prefix' => '/auth'], function () use ($app) {
-    $app->get('/refresh', ['uses' => 'AuthController@refresh', 'middleware' => 'jwt.refresh']);
+        $app->post('/login', 'AuthController@login');
+        $app->post('/logout', 'AuthController@logout');
 
-    $app->post('/login', 'AuthController@login');
-    $app->post('/logout', 'AuthController@logout');
-
-    $app->post('/register/{user_type:client|trainer}', 'AuthController@register');
-});
-
-$app->group(['middleware' => 'jwt.auth'], function () use ($app) {
-    $app->group(['prefix' => '/client', 'middleware' => 'user_type:client'], function () {
-
+        $app->post('/register/{user_type:client|trainer}', 'AuthController@register');
     });
 
-    $app->group(['prefix' => '/trainer', 'middleware' => 'user_type:trainer'], function () {
+    $app->group(['middleware' => 'jwt.auth'], function () use ($app) {
+        $app->group(['prefix' => '/client', 'middleware' => 'user_type:client'], function () {
 
+        });
+
+        $app->group(['prefix' => '/trainer', 'middleware' => 'user_type:trainer'], function () {
+
+        });
     });
 });
