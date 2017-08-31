@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-08-29.
+    * Generated on 2017-08-31.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -21,6 +21,7 @@ namespace PHPSTORM_META {
         'view.engine.resolver' => Illuminate\View\Engines\EngineResolver::class,
         'blade.compiler' => Illuminate\View\Compilers\BladeCompiler::class,
         'files' => Illuminate\Filesystem\Filesystem::class,
+        'url' => Laravel\Lumen\Routing\UrlGenerator::class,
         'Illuminate\Contracts\Debug\ExceptionHandler' => App\Exceptions\Handler::class,
         'Illuminate\Contracts\Console\Kernel' => App\Console\Kernel::class,
         'Illuminate\Contracts\Filesystem\Factory' => Illuminate\Filesystem\FilesystemManager::class,
@@ -100,6 +101,7 @@ namespace PHPSTORM_META {
         'view.engine.resolver' => Illuminate\View\Engines\EngineResolver::class,
         'blade.compiler' => Illuminate\View\Compilers\BladeCompiler::class,
         'files' => Illuminate\Filesystem\Filesystem::class,
+        'url' => Laravel\Lumen\Routing\UrlGenerator::class,
         'Illuminate\Contracts\Debug\ExceptionHandler' => App\Exceptions\Handler::class,
         'Illuminate\Contracts\Console\Kernel' => App\Console\Kernel::class,
         'Illuminate\Contracts\Filesystem\Factory' => Illuminate\Filesystem\FilesystemManager::class,
@@ -179,6 +181,7 @@ namespace PHPSTORM_META {
         'view.engine.resolver' => Illuminate\View\Engines\EngineResolver::class,
         'blade.compiler' => Illuminate\View\Compilers\BladeCompiler::class,
         'files' => Illuminate\Filesystem\Filesystem::class,
+        'url' => Laravel\Lumen\Routing\UrlGenerator::class,
         'Illuminate\Contracts\Debug\ExceptionHandler' => App\Exceptions\Handler::class,
         'Illuminate\Contracts\Console\Kernel' => App\Console\Kernel::class,
         'Illuminate\Contracts\Filesystem\Factory' => Illuminate\Filesystem\FilesystemManager::class,
@@ -258,6 +261,7 @@ namespace PHPSTORM_META {
         'view.engine.resolver' => Illuminate\View\Engines\EngineResolver::class,
         'blade.compiler' => Illuminate\View\Compilers\BladeCompiler::class,
         'files' => Illuminate\Filesystem\Filesystem::class,
+        'url' => Laravel\Lumen\Routing\UrlGenerator::class,
         'Illuminate\Contracts\Debug\ExceptionHandler' => App\Exceptions\Handler::class,
         'Illuminate\Contracts\Console\Kernel' => App\Console\Kernel::class,
         'Illuminate\Contracts\Filesystem\Factory' => Illuminate\Filesystem\FilesystemManager::class,
@@ -337,6 +341,7 @@ namespace PHPSTORM_META {
         'view.engine.resolver' => Illuminate\View\Engines\EngineResolver::class,
         'blade.compiler' => Illuminate\View\Compilers\BladeCompiler::class,
         'files' => Illuminate\Filesystem\Filesystem::class,
+        'url' => Laravel\Lumen\Routing\UrlGenerator::class,
         'Illuminate\Contracts\Debug\ExceptionHandler' => App\Exceptions\Handler::class,
         'Illuminate\Contracts\Console\Kernel' => App\Console\Kernel::class,
         'Illuminate\Contracts\Filesystem\Factory' => Illuminate\Filesystem\FilesystemManager::class,
@@ -416,6 +421,7 @@ namespace PHPSTORM_META {
         'view.engine.resolver' => Illuminate\View\Engines\EngineResolver::class,
         'blade.compiler' => Illuminate\View\Compilers\BladeCompiler::class,
         'files' => Illuminate\Filesystem\Filesystem::class,
+        'url' => Laravel\Lumen\Routing\UrlGenerator::class,
         'Illuminate\Contracts\Debug\ExceptionHandler' => App\Exceptions\Handler::class,
         'Illuminate\Contracts\Console\Kernel' => App\Console\Kernel::class,
         'Illuminate\Contracts\Filesystem\Factory' => Illuminate\Filesystem\FilesystemManager::class,
@@ -495,6 +501,7 @@ namespace PHPSTORM_META {
         'view.engine.resolver' => Illuminate\View\Engines\EngineResolver::class,
         'blade.compiler' => Illuminate\View\Compilers\BladeCompiler::class,
         'files' => Illuminate\Filesystem\Filesystem::class,
+        'url' => Laravel\Lumen\Routing\UrlGenerator::class,
         'Illuminate\Contracts\Debug\ExceptionHandler' => App\Exceptions\Handler::class,
         'Illuminate\Contracts\Console\Kernel' => App\Console\Kernel::class,
         'Illuminate\Contracts\Filesystem\Factory' => Illuminate\Filesystem\FilesystemManager::class,

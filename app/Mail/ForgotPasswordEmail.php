@@ -27,7 +27,7 @@ class ForgotPasswordEmail extends Mailable
     public function __construct(User $user)
     {
         $this->user = $user;
-        $this->config = config('email_templates.forgot_password')[$user->userable_type];
+        $this->config = config('email_templates.forgotPassword');
     }
 
     public function build()
@@ -40,13 +40,13 @@ class ForgotPasswordEmail extends Mailable
 
     public function getLink()
     {
+
         /**@var EmailLink $link */
-        $base_url = $this->config['url'];
         $link = EmailLink::query()->create([
             EmailLinkContract::USER_ID => $this->user->id,
-            EmailLinkContract::ACTION => EmailActions::SET_PASSWORD,
+            EmailLinkContract::ACTION => EmailActions::PASSWORD_RECOVER,
         ]);
 
-        return $base_url . $link->hash;
+        return route('email', ['destination' => 'forgot-password', 'hash' => $link->hash]);
     }
 }

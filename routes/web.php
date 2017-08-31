@@ -14,12 +14,19 @@
 $app->get('/', function () use ($app) {
     return $app->version();
 });
+
 $app->group(['prefix' => '/v1'], function () use ($app) {
+    $app->get('/emails/{destination}/{hash}', ['uses' => 'EmailController@redirect', 'as' => 'email']);
+
+
     $app->group(['prefix' => '/auth'], function () use ($app) {
         $app->get('/refresh', ['uses' => 'AuthController@refresh', 'middleware' => 'jwt.refresh']);
 
         $app->post('/login', 'AuthController@login');
         $app->post('/logout', 'AuthController@logout');
+
+        $app->post('/forgot-password', 'AuthController@forgotPassword');
+        $app->post('/set-password', 'AuthController@setPassword');
 
         $app->post('/register/{user_type:client|trainer}', 'AuthController@register');
     });

@@ -34,11 +34,14 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property array $attributes
  * @property string $user_type
  * @property string $userable_type
+ * @property EmailLink $email_link
  * @property \Carbon\Carbon $birthday
  * @property Client|Trainer $userable
  * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $created_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmail($email)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EmailLink[] $emailLink
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($id)
  */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
@@ -106,13 +109,22 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function trainer()
     {
         return $this->belongsTo(Trainer::class, UserContract::USERABLE_ID);
+    }
 
+    public function emailLink()
+    {
+        return $this->hasMany(EmailLink::class);
     }
 
     //SCOPES
     public function scopeWhereEmail(Builder $builder, $email)
     {
         return $builder->where(UserContract::EMAIL, $email);
+    }
+
+    public function scopeWhereId(Builder $builder, $id)
+    {
+        return $builder->where(UserContract::ID, $id);
     }
 
 }

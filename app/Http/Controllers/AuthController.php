@@ -9,7 +9,10 @@
 namespace App\Http\Controllers;
 
 
+use App\Constants\EmailActions;
+use App\Mail\ForgotPasswordEmail;
 use App\Models\Client;
+use App\Models\EmailLink;
 use App\Models\Relations\UserRelations;
 use App\Models\Trainer;
 use App\Models\User;
@@ -17,6 +20,7 @@ use App\Transformers\UserTransformer;
 use App\Validation\Rules;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class AuthController extends Controller
@@ -34,7 +38,7 @@ class AuthController extends Controller
         ]);
 
         if (!$token) {
-            throw new HttpException(401, 'Wrong email or password');
+            throw new HttpException(401, 'Wrong email or password!');
         }
 
         /**@var User $user */
@@ -81,5 +85,45 @@ class AuthController extends Controller
             ->parseIncludes([UserRelations::USERABLE])
             ->addMeta(['user_type' => $user->user_type])
             ->respond();
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $this->validate($request, [
+            Rules::email()
+        ]);
+
+        /**@var User $user */
+        $user = User::query()->whereEmail($request['email'])->first();
+        $emailLink = new EmailLink();
+        $emailLink->user_id = $user->id;
+        $emailLink->action = EmailActions::PASSWORD_RECOVER;
+        $emailLink->save();
+
+        Mail::to($user->email)->send(new ForgotPasswordEmail($user));
+
+    }
+
+    public function setPassword(Request $request)
+    {
+        $this->validate($request, [
+            Rules::hash(),
+            Rules::password(),
+        ]);
+
+        /**@var EmailLink $email*/
+        $email = EmailLink::query()
+            ->whereAction(EmailActions::PASSWORD_RECOVER)
+            ->whereHash($request['hash'])
+            ->firstOrFail();
+
+        $user = $email->user;
+        $user->password = $request['password'];
+        $user->save();
+
+        EmailLink::query()
+            ->whereUser($email->user_id)
+            ->whereAction(EmailActions::PASSWORD_RECOVER)
+            ->delete();
     }
 }
