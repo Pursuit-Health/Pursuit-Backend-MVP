@@ -7,5 +7,5 @@
  */
 
 return [
-    'avatars_path' => '/avatars'
+    'avatars_path' => '/public/avatars'
 ];
