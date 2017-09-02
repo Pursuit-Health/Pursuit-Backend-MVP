@@ -76,6 +76,12 @@ class Rules
         ];
     }
 
-
+    public static function avatar(): array
+    {
+        return [
+            'field' => 'avatar',
+            'rule' => 'required|image|mimes:jpeg,png'
+        ];
+    }
 
 }

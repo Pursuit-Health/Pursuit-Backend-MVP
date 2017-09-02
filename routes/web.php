@@ -32,11 +32,16 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
     });
 
     $app->group(['middleware' => 'jwt.auth'], function () use ($app) {
-        $app->group(['prefix' => '/client', 'middleware' => 'user_type:client'], function () {
+        $app->group(['prefix' => '/settings'], function () use ($app) {
+            $app->put('/password', 'SettingsController@password');
+            $app->post('/avatar', 'SettingsController@avatar');
+        });
+
+        $app->group(['prefix' => '/client', 'middleware' => 'user_type:client', 'namespace' => 'Client'], function () {
 
         });
 
-        $app->group(['prefix' => '/trainer', 'middleware' => 'user_type:trainer'], function () {
+        $app->group(['prefix' => '/trainer', 'middleware' => 'user_type:trainer', 'namespace' => 'Trainer'], function () {
 
         });
     });

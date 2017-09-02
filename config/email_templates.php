@@ -10,6 +10,6 @@ return [
     'forgotPassword' => [
         'template' => 'emails.forgotPassword',
         'subject' => 'Pursuit Health - Password Forgot',
-        'deeplink' => 'deeplink://jlkajflksdfa/asfdasd/fasdf/asdf/asdf/asdf/asdf/'
+        'deeplink' => 'helthpersuit://helthpersuit.com/restore?hash='
     ]
 ];

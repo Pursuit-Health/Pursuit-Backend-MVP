@@ -42,6 +42,8 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmail($email)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EmailLink[] $emailLink
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($id)
+ * @property string|null $avatar_url
+ * @property string|null $avatar_path
  */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {

@@ -81,9 +81,14 @@ class AuthController extends Controller
         $user = $userable->user()->save(User::query()->create($request->all()));
         $user->load(UserRelations::USERABLE);
 
+        $token = Auth::login($user);
+
         return fractal($user, new UserTransformer())
             ->parseIncludes([UserRelations::USERABLE])
-            ->addMeta(['user_type' => $user->user_type])
+            ->addMeta([
+                'user_type' => $user->user_type,
+                'token' => $token,
+            ])
             ->respond();
     }
 
@@ -100,6 +105,7 @@ class AuthController extends Controller
         $emailLink->action = EmailActions::PASSWORD_RECOVER;
         $emailLink->save();
 
+        //TODO: make this call async
         Mail::to($user->email)->send(new ForgotPasswordEmail($user));
 
     }

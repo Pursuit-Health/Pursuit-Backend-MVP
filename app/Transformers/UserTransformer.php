@@ -28,7 +28,8 @@ class UserTransformer extends TransformerAbstract
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            'birthday' => $user->birthday->format('Y-m-d')
+            'avatar' => $user->avatar_url,
+            'birthday' => $user->birthday->format('Y-m-d'),
         ];
     }
 
