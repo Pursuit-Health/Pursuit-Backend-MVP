@@ -10,9 +10,14 @@ class ClientSeeder extends \Illuminate\Database\Seeder
 {
     public function run()
     {
-        factory(\App\Models\Client::class, 50)->create()->each(function (\App\Models\Client $client) {
-            /** @noinspection PhpParamsInspection */
-            $client->user()->save(factory(\App\Models\User::class)->make());
-        });
+        $trainers = \App\Models\Trainer::all();
+        for ($i = 0; $i < 3; $i++) {
+            factory(\App\Models\Client::class, $trainers->count())->make()->each(function (\App\Models\Client $client, int $n) use ($trainers) {
+                /** @noinspection PhpParamsInspection */
+                $client->trainer_id = $trainers->get($n)->id;
+                $client->save();
+                $client->user()->save(factory(\App\Models\User::class)->make());
+            });
+        }
     }
 }

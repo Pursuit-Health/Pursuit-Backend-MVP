@@ -56,6 +56,11 @@ class AuthController extends Controller
             ->respond();
     }
 
+    public function logout()
+    {
+        Auth::logout();
+    }
+
     public function register(Request $request)
     {
         $this->validate($request, [
@@ -63,11 +68,12 @@ class AuthController extends Controller
             Rules::birthday(),
             Rules::password(),
             Rules::uniqueEmail(),
+            Rules::trainerIdIfClient(),
         ]);
 
         switch ($request['user_type']) {
             case 'client':
-                $userable = Client::query()->create();
+                $userable = Client::query()->create($request->all());
                 break;
             case 'trainer';
                 $userable = Trainer::query()->create();

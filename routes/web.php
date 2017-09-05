@@ -23,7 +23,6 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
         $app->get('/refresh', ['uses' => 'AuthController@refresh', 'middleware' => 'jwt.refresh']);
 
         $app->post('/login', 'AuthController@login');
-        $app->post('/logout', 'AuthController@logout');
 
         $app->post('/forgot-password', 'AuthController@forgotPassword');
         $app->post('/set-password', 'AuthController@setPassword');
@@ -32,6 +31,8 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
     });
 
     $app->group(['middleware' => 'jwt.auth'], function () use ($app) {
+        $app->post('/auth/logout', 'AuthController@logout');
+
         $app->group(['prefix' => '/settings'], function () use ($app) {
             $app->put('/password', 'SettingsController@password');
             $app->post('/avatar', 'SettingsController@avatar');

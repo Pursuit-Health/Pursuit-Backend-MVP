@@ -51,12 +51,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     protected $table = UserContract::_TABLE;
     protected $fillable = [
+        UserContract::NAME,
         UserContract::EMAIL,
         UserContract::PASSWORD,
-        UserContract::NAME,
         UserContract::BIRTHDAY,
-        UserContract::USERABLE_TYPE,
         UserContract::USERABLE_ID,
+        UserContract::USERABLE_TYPE,
     ];
     protected $casts = [
         UserContract::BIRTHDAY => 'date',

@@ -13,4 +13,5 @@ class ClientContract
 {
     const _TABLE = 'clients';
     const ID = 'id';
+    const TRAINER_ID = 'trainer_id';
 }

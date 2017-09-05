@@ -33,7 +33,7 @@ class Rules
     {
         return [
             'field' => 'password',
-            'rule' => 'required|min:8|max:32'
+            'rule' => 'required|min:8|max:40'
         ];
     }
 
@@ -41,7 +41,7 @@ class Rules
     {
         return [
             'field' => 'name',
-            'rule' => 'required|min:1|max:70'
+            'rule' => 'required|min:1|max:100'
         ];
     }
 
@@ -81,6 +81,14 @@ class Rules
         return [
             'field' => 'avatar',
             'rule' => 'required|image|mimes:jpeg,png'
+        ];
+    }
+
+    public static function trainerIdIfClient(): array
+    {
+        return [
+            'field' => 'trainer_id',
+            'rule' => 'required_if:user_type,client|exists:trainers,id',
         ];
     }
 
