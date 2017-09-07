@@ -33,3 +33,35 @@ $factory->define(\App\Models\Trainer::class, function (Faker\Generator $faker) {
 
     ];
 });
+
+$factory->define(\App\Models\Exercise::class, function (\Faker\Generator $generator) {
+    return [
+        'name' => implode(' ', $generator->words())
+    ];
+});
+
+$factory->define(\App\Models\CountExercise::class, function (\Faker\Generator $generator) {
+    return [
+        'count' => $generator->numberBetween(1, 100),
+        'weight' => $generator->numberBetween(25, 200),
+        'times' => $generator->numberBetween(1, 10),
+    ];
+});
+
+$factory->define(\App\Models\Template::class, function (\Faker\Generator $generator) {
+    return [
+        'name' => implode(' ', $generator->words()),
+        'image_id' => $generator->numberBetween(1, 10),
+        'time' => $generator->numberBetween(10, 180),
+    ];
+});
+
+$factory->define(\App\Models\Event::class, function (\Faker\Generator $generator) {
+    $start = $generator->dateTimeBetween('now', '+1 day');
+    return [
+        'date' => $generator->dateTimeBetween('+1 day', '+2 month'),
+        'start_at' => $start,
+        'end_at' => $start->add(new DateInterval('PT' . $generator->numberBetween(0, 2) . 'H' . $generator->numberBetween(0, 59) . 'M')),
+        'location' => $generator->address,
+    ];
+});

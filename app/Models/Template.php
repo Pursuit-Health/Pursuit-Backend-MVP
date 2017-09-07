@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin Builder
  * @method static self query()
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Exercise[] $exercises
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereTrainer($id)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $events
  */
 class Template extends Model
 {
@@ -47,5 +49,16 @@ class Template extends Model
     public function exercises()
     {
         return $this->hasMany(Exercise::class);
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
+    //SCOPES
+    public function scopeWhereTrainer(Builder $builder, $id)
+    {
+        return $builder->where(TemplateContract::TRAINER_ID, $id);
     }
 }

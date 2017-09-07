@@ -9,6 +9,7 @@
 namespace App\Models;
 
 
+use App\Models\Contracts\ClientContract;
 use App\Models\Contracts\EventContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -28,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static self query()
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Client[] $clients
  * @property-read \App\Models\Trainer $trainer
+ * @property int $template_id
+ * @property-read \App\Models\Template $template
  */
 class Event extends Model
 {
@@ -37,10 +40,12 @@ class Event extends Model
         EventContract::END_AT,
         EventContract::START_AT,
         EventContract::TRAINER_ID,
+        EventContract::TEMPLATE_ID,
     ];
     protected $dates = [
-        EventContract::START_AT,
+        EventContract::DATE,
         EventContract::END_AT,
+        EventContract::START_AT,
     ];
 
     public function trainer()
@@ -50,6 +55,11 @@ class Event extends Model
 
     public function clients()
     {
-        return $this->belongsToMany(Client::class);
+        return $this->belongsToMany(Client::class, EventContract::_PIVOT);
+    }
+
+    public function template()
+    {
+        return $this->belongsTo(Template::class);
     }
 }

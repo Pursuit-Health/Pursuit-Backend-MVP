@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $events
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Client whereTrainer($id)
  */
 class Client extends Model
 {
@@ -37,6 +38,12 @@ class Client extends Model
 
     public function events()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class, ClientContract::_PIVOT);
+    }
+
+    //SCOPES
+    public function scopeWhereTrainer(Builder $builder, $id)
+    {
+        return $builder->where(ClientContract::TRAINER_ID, $id);
     }
 }

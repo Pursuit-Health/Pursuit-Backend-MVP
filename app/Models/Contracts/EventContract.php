@@ -12,9 +12,11 @@ namespace App\Models\Contracts;
 class EventContract
 {
     const _TABLE = 'events';
+    const _PIVOT = 'events_clients_pivot';
     const ID = 'id';
     const DATE = 'date';
     const END_AT = 'end_at';
     const START_AT  = 'start_at';
     const TRAINER_ID = 'trainer_id';
+    const TEMPLATE_ID = 'template_id';
 }

@@ -11,7 +11,7 @@ namespace App\Models\Contracts;
 
 class CountExerciseContract
 {
-    const _TABLE = 'count_exercise';
+    const _TABLE = 'count_exercises';
     const COUNT = 'count';
     const TIMES = 'times';
     const WEIGHT = 'weight';
