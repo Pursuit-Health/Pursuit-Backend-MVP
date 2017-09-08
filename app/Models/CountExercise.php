@@ -20,8 +20,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $count
  * @property int $times
  * @property int $weight
+ * @property int $trainer_id
  * @property Exercise $exercise
  * @mixin Builder
+ * @property int $template_id
  */
 class CountExercise extends Model
 {

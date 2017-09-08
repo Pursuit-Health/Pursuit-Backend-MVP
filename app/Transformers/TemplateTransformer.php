@@ -9,11 +9,16 @@
 namespace App\Transformers;
 
 
+use App\Models\Relations\TemplateRelations;
 use App\Models\Template;
 use League\Fractal\TransformerAbstract;
 
 class TemplateTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = [
+        TemplateRelations::EXERCISES
+    ];
+
     public function transform(Template $template)
     {
         return [
@@ -22,5 +27,10 @@ class TemplateTransformer extends TransformerAbstract
             'time' => $template->time,
             'image_id' => $template->image_id,
         ];
+    }
+
+    public function includeExercises(Template $template)
+    {
+        return $this->collection($template->exercises, new ExerciseTransformer());
     }
 }

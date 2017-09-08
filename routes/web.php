@@ -43,8 +43,15 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
 
         });
 
-        $app->group(['prefix' => '/trainer', 'middleware' => 'user_type:trainer', 'namespace' => 'Trainer'], function () {
+        $app->group(['prefix' => '/trainer', 'middleware' => 'user_type:trainer', 'namespace' => 'Trainer'], function () use ($app) {
+            $app->group(['prefix' => '/templates'], function () use ($app) {
+                $app->get('/', 'TemplateController@get');
 
+                $app->group(['prefix' => '/{template_id:[\d]+}'], function () use ($app) {
+                    $app->get('/', 'TemplateController@getDetailsById');
+                    $app->delete('/', 'TemplateController@delete');
+                });
+            });
         });
     });
 });

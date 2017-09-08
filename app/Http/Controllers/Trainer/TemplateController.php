@@ -10,8 +10,11 @@ namespace App\Http\Controllers\Trainer;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Relations\ExerciseRelations;
+use App\Models\Relations\TemplateRelations;
 use App\Models\Template;
-use App\Transformers\TrainerTransformer;
+use App\Transformers\TemplateTransformer;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TemplateController extends Controller
@@ -23,6 +26,33 @@ class TemplateController extends Controller
 //            ->scrollable($request) TODO: enable this
             ->get();
 
-        return fractal($templates, new TrainerTransformer());
+        return fractal($templates, new TemplateTransformer());
+    }
+
+    public function getDetailsById(Request $request)
+    {
+        $template = Template::query()
+            ->with([
+                TemplateRelations::EXERCISES . '.' . ExerciseRelations::EXERCISABLE
+            ])
+            ->whereTrainer(Auth::user()->userable_id)
+            ->findOrFail($request['template_id']);
+
+        return fractal($template, new TemplateTransformer())
+            ->parseIncludes([
+                TemplateRelations::EXERCISES . '.' . ExerciseRelations::EXERCISABLE
+            ])
+            ->respond();
+
+    }
+
+    public function delete(Request $request)
+    {
+        /**@var Template $template*/
+        $template = Template::query()
+            ->whereTrainer(Auth::user()->userable_id)
+            ->findOrFail($request['template_id']);
+
+        $template->delete();
     }
 }

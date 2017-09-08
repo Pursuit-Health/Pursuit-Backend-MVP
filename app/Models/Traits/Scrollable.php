@@ -6,7 +6,7 @@
  * Time: 14:20
  */
 
-namespace App\Traits;
+namespace App\Models\Traits;
 
 
 use Illuminate\Database\Eloquent\Builder;
