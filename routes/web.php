@@ -28,6 +28,7 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
         $app->post('/set-password', 'AuthController@setPassword');
 
         $app->post('/register/{user_type:client|trainer}', 'AuthController@register');
+        $app->get('/register/trainers', 'AuthController@getTrainers');
     });
 
     $app->group(['middleware' => 'jwt.auth'], function () use ($app) {

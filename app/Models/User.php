@@ -70,19 +70,22 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function getJWTCustomClaims(): array
     {
-        return [];
-//        $userable_type = $this->attributes[UserContract::USERABLE_TYPE];
-//        switch ($userable_type) {
-//            case Client::class:
-//                return [];
-//                break;
-//            case Trainer::class:
-//                return [];
-//                break;
-//            default:
-//                throw new LogicException('Undefined user type');
-//                break;
-//        }
+        $userable_type = $this->attributes[UserContract::USERABLE_TYPE];
+        switch ($userable_type) {
+            case Client::class:
+                return [
+                    'utp' => lcfirst(last(explode('\\', $userable_type)))
+                ];
+                break;
+            case Trainer::class:
+                return [
+                    'utp' => lcfirst(last(explode('\\', $userable_type)))
+                ];
+                break;
+            default:
+                throw new LogicException('Undefined user type');
+                break;
+        }
     }
 
     //MUTATORS

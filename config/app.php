@@ -7,5 +7,6 @@
  */
 
 return [
-    'avatars_path' => '/public/avatars'
+    'avatars_path' => '/public/avatars',
+    'items_per_request' => 20
 ];

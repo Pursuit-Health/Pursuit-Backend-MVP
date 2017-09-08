@@ -13,9 +13,11 @@ use App\Constants\EmailActions;
 use App\Mail\ForgotPasswordEmail;
 use App\Models\Client;
 use App\Models\EmailLink;
+use App\Models\Relations\TrainerRelations;
 use App\Models\Relations\UserRelations;
 use App\Models\Trainer;
 use App\Models\User;
+use App\Transformers\TrainerTransformer;
 use App\Transformers\UserTransformer;
 use App\Validation\Rules;
 use Illuminate\Http\Request;
@@ -59,6 +61,22 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
+    }
+
+    public function getTrainers()
+    {
+        $trainers = Trainer::query()
+            ->with(TrainerRelations::USER)
+            ->get();
+
+        return fractal($trainers, new TrainerTransformer())
+            ->parseIncludes([
+                TrainerRelations::USER
+            ])
+            ->parseFieldsets([
+                TrainerRelations::USER => UserTransformer::F_NAME_ONLY
+            ])
+            ->respond();
     }
 
     public function register(Request $request)
@@ -123,7 +141,7 @@ class AuthController extends Controller
             Rules::password(),
         ]);
 
-        /**@var EmailLink $email*/
+        /**@var EmailLink $email */
         $email = EmailLink::query()
             ->whereAction(EmailActions::PASSWORD_RECOVER)
             ->whereHash($request['hash'])

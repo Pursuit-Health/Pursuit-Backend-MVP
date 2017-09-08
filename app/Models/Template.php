@@ -10,6 +10,7 @@ namespace App\Models;
 
 
 use App\Models\Contracts\TemplateContract;
+use App\Traits\Scrollable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,12 +34,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Template extends Model
 {
+    use Scrollable;
+
     protected $table = TemplateContract::_TABLE;
     protected $fillable = [
         TemplateContract::NAME,
         TemplateContract::TIME,
         TemplateContract::IMAGE_ID,
         TemplateContract::TRAINER_ID,
+    ];
+
+    protected $casts = [
+        TemplateContract::TIME => 'int'
     ];
 
     public function trainer()

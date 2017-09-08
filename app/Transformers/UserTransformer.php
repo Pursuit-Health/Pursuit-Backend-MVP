@@ -10,16 +10,21 @@ namespace App\Transformers;
 
 
 use App\Models\Client;
+use App\Models\Relations\UserRelations;
 use App\Models\Trainer;
 use App\Models\User;
 use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
 {
+    const F_NAME_ONLY = [
+        'name'
+    ];
+
     protected $availableIncludes = [
-        'userable',
-        'client',
-        'trainer'
+        UserRelations::CLIENT,
+        UserRelations::TRAINER,
+        UserRelations::USERABLE,
     ];
 
     public function transform(User $user)
