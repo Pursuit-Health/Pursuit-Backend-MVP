@@ -14,6 +14,7 @@ use App\Models\Relations\ExerciseRelations;
 use App\Models\Relations\TemplateRelations;
 use App\Models\Template;
 use App\Transformers\TemplateTransformer;
+use App\Validation\Rules;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,11 +49,24 @@ class TemplateController extends Controller
 
     public function delete(Request $request)
     {
-        /**@var Template $template*/
+        /**@var Template $template */
         $template = Template::query()
             ->whereTrainer(Auth::user()->userable_id)
             ->findOrFail($request['template_id']);
 
         $template->delete();
+    }
+
+    public function create(Request $request)
+    {
+        $this->validate($request, [
+            Rules::name(),
+            Rules::time(),
+            Rules::imageId(),
+            Rules::exercises(),
+        ]);
+
+        $exercises = $request['exercises'];
+
     }
 }

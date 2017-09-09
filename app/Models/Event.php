@@ -9,7 +9,6 @@
 namespace App\Models;
 
 
-use App\Models\Contracts\ClientContract;
 use App\Models\Contracts\EventContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

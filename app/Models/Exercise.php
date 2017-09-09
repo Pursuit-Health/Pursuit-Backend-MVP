@@ -29,6 +29,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Exercise extends Model
 {
+    const TYPES = [
+        'countExercise'
+    ];
+
     public $timestamps = false;
     protected $table = ExerciseContract::_TABLE;
     protected $fillable = [

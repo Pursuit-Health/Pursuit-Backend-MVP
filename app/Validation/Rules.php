@@ -92,4 +92,62 @@ class Rules
         ];
     }
 
+    public static function imageId(): array
+    {
+        return [
+            'field' => 'image_id',
+            'rule' => 'required|numeric'
+        ];
+    }
+
+    public static function time(): array
+    {
+        return [
+            'field' => 'time',
+            'rule' => 'required|numeric'
+        ];
+    }
+
+    public static function exercises(): array
+    {
+        return [
+            [
+                'field' => 'exercises',
+                'rule' => 'required|array',
+            ],
+            [
+                'field' => 'exercises.*',
+                'rule' => 'required|array'
+            ],
+            [
+                'field' => 'exercises.*.type',
+                'rule' => [
+                    'required',
+                    Rule::in(Exercise::TYPES),
+                ]
+            ],
+            [
+                'field' => 'exercises.*.name',
+                'rule' => 'required|min:1|max:100',
+            ],
+            [
+                'field' => 'exercises.*.exercisable',
+                'rule' => 'required|array'
+            ],
+            [
+                'field' => 'exercises.*.exercisable.count',
+                'rule' => 'required|numeric'
+            ],
+            [
+                'field' => 'exercises.*.exercisable.weight',
+                'rule' => 'required|numeric'
+            ],
+            [
+                'field' => 'exercises.*.exercisable.times',
+                'rule' => 'required|numeric'
+            ],
+
+        ];
+    }
+
 }
