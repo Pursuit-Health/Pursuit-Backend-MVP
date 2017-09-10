@@ -6,4 +6,4 @@
  * Time: 17:40
  */
 
-system('composer run-script gen-meta');
+system('php composer.phar run-script gen-meta');

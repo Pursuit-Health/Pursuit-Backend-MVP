@@ -20,7 +20,7 @@ class CountExerciseTransformer extends TransformerAbstract
             'id' => $exercise->id,
             'times' => $exercise->times,
             'count' => $exercise->count,
-            'weight' => $exercise->times,
+            'weight' => $exercise->weight,
         ];
     }
 }

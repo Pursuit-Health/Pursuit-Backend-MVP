@@ -9,6 +9,9 @@
 namespace App\Validation;
 
 
+use App\Models\Exercise;
+use Illuminate\Validation\Rule;
+
 class Rules
 {
     public static function email(): array
