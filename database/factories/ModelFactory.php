@@ -36,17 +36,16 @@ $factory->define(\App\Models\Trainer::class, function (Faker\Generator $faker) {
 
 $factory->define(\App\Models\Exercise::class, function (\Faker\Generator $generator) {
     return [
-        'name' => implode(' ', $generator->words())
+        'name' => implode(' ', $generator->words()),
+        'type' => \App\Models\Exercises\CountExercise::class,
+        'data' => [
+            'count' => $generator->numberBetween(1, 100),
+            'weight' => $generator->numberBetween(25, 200),
+            'times' => $generator->numberBetween(1, 10),
+        ]
     ];
 });
 
-$factory->define(\App\Models\CountExercise::class, function (\Faker\Generator $generator) {
-    return [
-        'count' => $generator->numberBetween(1, 100),
-        'weight' => $generator->numberBetween(25, 200),
-        'times' => $generator->numberBetween(1, 10),
-    ];
-});
 
 $factory->define(\App\Models\Template::class, function (\Faker\Generator $generator) {
     return [
