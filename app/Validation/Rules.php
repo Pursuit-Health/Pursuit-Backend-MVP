@@ -9,9 +9,6 @@
 namespace App\Validation;
 
 
-use App\Models\Exercise;
-use Illuminate\Validation\Rule;
-
 class Rules
 {
     public static function email(): array
@@ -113,43 +110,49 @@ class Rules
 
     public static function exercises(): array
     {
+        return array_merge(
+            [
+                [
+                    'field' => 'exercises',
+                    'rule' => 'required|array|min:1|max:10',
+                ],
+                [
+                    'field' => 'exercises.*',
+                    'rule' => 'required|array|size:3'
+                ],
+
+                [
+                    'field' => 'exercises.*.name',
+                    'rule' => 'required|min:1|max:100',
+                ],
+                [
+                    'field' => 'exercises.*.type',
+                    'rule' => 'required|exercise',
+                ],
+            ],
+            static::countExercise()
+        );
+    }
+
+    protected static function countExercise(): array
+    {
         return [
             [
-                'field' => 'exercises',
-                'rule' => 'required|array',
+                'field' => 'exercises.*.data',
+                'rule' => 'required|array|size:3'
             ],
             [
-                'field' => 'exercises.*',
-                'rule' => 'required|array'
-            ],
-            [
-                'field' => 'exercises.*.type',
-                'rule' => [
-                    'required',
-                    Rule::in(Exercise::TYPES),
-                ]
-            ],
-            [
-                'field' => 'exercises.*.name',
-                'rule' => 'required|min:1|max:100',
-            ],
-            [
-                'field' => 'exercises.*.exercisable',
-                'rule' => 'required|array'
-            ],
-            [
-                'field' => 'exercises.*.exercisable.count',
+                'field' => 'exercises.*.data.count',
                 'rule' => 'required|numeric'
             ],
             [
-                'field' => 'exercises.*.exercisable.weight',
+                'field' => 'exercises.*.data.weight',
                 'rule' => 'required|numeric'
             ],
             [
-                'field' => 'exercises.*.exercisable.times',
+                'field' => 'exercises.*.data.times',
                 'rule' => 'required|numeric'
             ],
-
         ];
     }
 

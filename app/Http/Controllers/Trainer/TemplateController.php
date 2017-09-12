@@ -10,9 +10,7 @@ namespace App\Http\Controllers\Trainer;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\CountExercise;
 use App\Models\Exercise;
-use App\Models\Relations\ExerciseRelations;
 use App\Models\Relations\TemplateRelations;
 use App\Models\Template;
 use App\Transformers\TemplateTransformer;
@@ -25,7 +23,7 @@ class TemplateController extends Controller
     public function get()
     {
         $templates = Template::query()
-            ->whereTrainer(Auth::user()->userable_id)
+            ->linkedTrainer()
 //            ->scrollable($request) TODO: enable this
             ->get();
 
@@ -36,14 +34,14 @@ class TemplateController extends Controller
     {
         $template = Template::query()
             ->with([
-                TemplateRelations::EXERCISES . '.' . ExerciseRelations::EXERCISABLE
+                TemplateRelations::EXERCISES
             ])
-            ->whereTrainer(Auth::user()->userable_id)
+            ->linkedTrainer()
             ->findOrFail($request['template_id']);
 
         return fractal($template, new TemplateTransformer())
             ->parseIncludes([
-                TemplateRelations::EXERCISES . '.' . ExerciseRelations::EXERCISABLE
+                TemplateRelations::EXERCISES
             ])
             ->respond();
 
@@ -53,7 +51,7 @@ class TemplateController extends Controller
     {
         /**@var Template $template */
         $template = Template::query()
-            ->whereTrainer(Auth::user()->userable_id)
+            ->linkedTrainer()
             ->findOrFail($request['template_id']);
 
         $template->delete();
@@ -74,32 +72,22 @@ class TemplateController extends Controller
 
         $exercises = $request['exercises'];
 
+        $e = [];
+
         /**@var array $exercises */
         foreach ($exercises as $exercise) {
-            /** @noinspection DegradedSwitchInspection */
-            switch ($exercise['type']) {
-                case 'countExercise':
-                    $exr = new CountExercise($exercise['exercisable']);
-                    break;
-                default:
-                    throw new \LogicException('Unknown exercise type');
-            }
-            $exr->template_id = $template->id;
-            $exr->save();
-
-            $e = new Exercise($exercise);
-            $e->template_id = $template->id;
-
-            $exr->exercise()->save($e);
+            $e[] = new Exercise($exercise);
         }
 
+        $template->exercises()->saveMany($e);
+
         $template->load([
-            TemplateRelations::EXERCISES . '.' . ExerciseRelations::EXERCISABLE
+            TemplateRelations::EXERCISES
         ]);
 
         return fractal($template, new TemplateTransformer())
             ->parseIncludes([
-                TemplateRelations::EXERCISES . '.' . ExerciseRelations::EXERCISABLE
+                TemplateRelations::EXERCISES
             ])
             ->respond();
 
@@ -107,7 +95,6 @@ class TemplateController extends Controller
 
     public function edit(Request $request)
     {
-        //FIXME: remake full template logic
         $this->validate($request, [
             Rules::name(),
             Rules::time(),
@@ -115,7 +102,32 @@ class TemplateController extends Controller
             Rules::exercises(),
         ]);
 
-        $this->delete($request);
-        return $this->create($request);
+        /**@var Template $template */
+        $template = Template::query()
+            ->linkedTrainer()
+            ->findOrFail($request['template_id']);
+
+        $template->exercises()->delete();
+
+        $exercises = $request['exercises'];
+
+        $e = [];
+        /**@var array $exercises */
+        foreach ($exercises as $exercise) {
+            $e[] = new Exercise($exercise);
+        }
+
+        $template->exercises()->saveMany($e);
+
+        $template->load([
+            TemplateRelations::EXERCISES
+        ]);
+
+        return fractal($template, new TemplateTransformer())
+            ->parseIncludes([
+                TemplateRelations::EXERCISES
+            ])
+            ->respond();
+
     }
 }

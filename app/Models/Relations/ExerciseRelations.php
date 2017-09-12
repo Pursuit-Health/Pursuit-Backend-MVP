@@ -12,6 +12,4 @@ namespace App\Models\Relations;
 class ExerciseRelations
 {
     const TEMPLATE = 'template';
-    const EXERCISABLE = 'exercisable';
-
 }

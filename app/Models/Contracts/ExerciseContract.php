@@ -14,7 +14,7 @@ class ExerciseContract
     const _TABLE = 'exercises';
     const ID = 'id';
     const NAME = 'name';
+    const TYPE = 'type';
+    const DATA = 'data';
     const TEMPLATE_ID = 'template_id';
-    const EXERCISABLE_ID = 'exercisable_id';
-    const EXERCISABLE_TYPE = 'exercisable_type';
 }

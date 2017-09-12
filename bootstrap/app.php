@@ -93,9 +93,10 @@ $app->routeMiddleware(array(
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\ValidationProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
-$app->register(Spatie\Fractal\FractalServiceProvider::class);
 $app->register(\Illuminate\Mail\MailServiceProvider::class);
+$app->register(Spatie\Fractal\FractalServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
 
