@@ -39,8 +39,7 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
             $app->post('/avatar', 'SettingsController@avatar');
         });
 
-        $app->group(['prefix' => '/client', 'middleware' => 'user_type:client', 'namespace' => 'Client'], function () {
-
+        $app->group(['prefix' => '/client', 'middleware' => 'user_type:client', 'namespace' => 'Client'], function () use ($app) {
         });
 
         $app->group(['prefix' => '/trainer', 'middleware' => 'user_type:trainer', 'namespace' => 'Trainer'], function () use ($app) {
@@ -53,6 +52,21 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
                     $app->put('/', 'TemplateController@edit');
                     $app->delete('/', 'TemplateController@delete');
                 });
+            });
+
+            $app->group(['prefix' => '/events'], function () use ($app) {
+                $app->get('/', 'EventController@get');
+                $app->post('/', 'EventController@create');
+
+                $app->group(['prefix' => '/{event_id:[\d]+}'], function () use ($app) {
+                    $app->put('/', 'EventController@edit');
+                    $app->delete('/', 'EventController@delete');
+                });
+            });
+
+
+            $app->group(['prefix' => '/clients'], function () use ($app) {
+                $app->get('/', 'ClientController@get');
             });
         });
     });

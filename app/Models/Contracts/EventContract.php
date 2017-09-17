@@ -16,7 +16,7 @@ class EventContract
     const ID = 'id';
     const DATE = 'date';
     const END_AT = 'end_at';
+    const LOCATION = 'location';
     const START_AT  = 'start_at';
     const TRAINER_ID = 'trainer_id';
-    const TEMPLATE_ID = 'template_id';
 }

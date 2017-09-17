@@ -63,6 +63,11 @@ class AuthController extends Controller
         Auth::logout();
     }
 
+    public function refresh()
+    {
+
+    }
+
     public function getTrainers()
     {
         $trainers = Trainer::query()

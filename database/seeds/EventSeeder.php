@@ -12,10 +12,8 @@ class EventSeeder extends \Illuminate\Database\Seeder
     {
         $trainers = \App\Models\Trainer::all(['id']);
         for ($i = 0; $i < $trainers->count(); $i++) {
-            $templates = \App\Models\Template::query()->whereTrainer($trainers->get($i)->id)->limit(3)->get(['id']);
             $clients = \App\Models\Client::query()->whereTrainer($trainers->get($i)->id)->limit(2)->get(['id']);
-            factory(\App\Models\Event::class, 3)->make(['trainer_id' => $trainers->get($i)->id])->each(function (\App\Models\Event $event, $n) use ($clients, $templates) {
-                $event->template_id = $templates->get($n)->id;
+            factory(\App\Models\Event::class, 3)->make(['trainer_id' => $trainers->get($i)->id])->each(function (\App\Models\Event $event, $n) use ($clients) {
                 $event->save();
                 $event->clients()->attach($n === 2 ? [$clients->get(0)->id, $clients->get(1)->id] : $clients->get($n)->id);
             });

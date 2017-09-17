@@ -14,11 +14,20 @@ use League\Fractal\TransformerAbstract;
 
 class ClientTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = [
+        'user'
+    ];
+
     public function transform(Client $client)
     {
         return [
             'id' => $client->id,
-            'trainer_id' => $client->trainer_id
+            //'trainer_id' => $client->trainer_id
         ];
+    }
+
+    public function includeUser(Client $client)
+    {
+        return $this->item($client->user, new UserTransformer());
     }
 }

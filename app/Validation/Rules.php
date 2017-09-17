@@ -9,6 +9,10 @@
 namespace App\Validation;
 
 
+use App\Models\Contracts\ClientContract;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+
 class Rules
 {
     public static function email(): array
@@ -105,6 +109,71 @@ class Rules
         return [
             'field' => 'time',
             'rule' => 'required|numeric'
+        ];
+    }
+
+    public static function startDate(): array
+    {
+        return [
+            'field' => 'start_date',
+            'rule' => 'required|date'
+        ];
+    }
+
+    public static function endDate(): array
+    {
+        return [
+            'field' => 'end_date',
+            'rule' => 'required|date|after:start_date'
+        ];
+    }
+
+    public static function date(): array
+    {
+        return [
+            'field' => 'date',
+            'rule' => 'required|date_format:Y-m-d|after:yesterday'
+        ];
+    }
+
+    public static function startAt(): array
+    {
+        return [
+            'field' => 'start_at',
+            'rule' => 'required|date_format:H:i'
+        ];
+    }
+
+    public static function endAt(): array
+    {
+        return [
+            'field' => 'end_at',
+            'rule' => 'required|date_format:H:i|after:start_at'
+        ];
+    }
+
+    public static function location(): array
+    {
+        return [
+            'field' => 'location',
+            'rule' => 'required|max:100'
+        ];
+    }
+
+    public static function clients(): array
+    {
+        return [
+            'field' => 'clients',
+            'rule' => [
+                'required',
+                'array',
+                'min:1',
+                'max:10',
+                Rule::exists(ClientContract::_TABLE, 'id')->where(function ($builder) {
+                    /**@var \Illuminate\Database\Eloquent\Builder $builder */
+                    return $builder->where(ClientContract::TRAINER_ID, Auth::user()->userable_id);
+                })
+            ]
         ];
     }
 

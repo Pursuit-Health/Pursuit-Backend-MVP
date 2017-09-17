@@ -56,11 +56,11 @@ $factory->define(\App\Models\Template::class, function (\Faker\Generator $genera
 });
 
 $factory->define(\App\Models\Event::class, function (\Faker\Generator $generator) {
-    $start = $generator->dateTimeBetween('now', '+1 day');
+    $start = $generator->dateTimeBetween('today', '+18 hours');
     return [
         'date' => $generator->dateTimeBetween('+1 day', '+2 month'),
         'start_at' => $start,
-        'end_at' => $start->add(new DateInterval('PT' . $generator->numberBetween(0, 2) . 'H' . $generator->numberBetween(0, 59) . 'M')),
+        'end_at' => $start->add(new DateInterval('PT' . $generator->numberBetween(0, 3) . 'H' . $generator->numberBetween(0, 59) . 'M')),
         'location' => $generator->address,
     ];
 });

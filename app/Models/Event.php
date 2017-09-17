@@ -12,24 +12,29 @@ namespace App\Models;
 use App\Models\Contracts\EventContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * App\Models\Event
  *
  * @property int $id
- * @property string $date
- * @property string $end_at
  * @property int $trainer_id
- * @property string $start_at
  * @property string $location
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @mixin Builder
  * @method static self query()
+ * @method self findOrFail($id, $columns)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Client[] $clients
  * @property-read \App\Models\Trainer $trainer
  * @property int $template_id
+ * @property \Carbon\Carbon $date
+ * @property \Carbon\Carbon $end_at
+ * @property \Carbon\Carbon $start_at
  * @property-read \App\Models\Template $template
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event linkedTrainer()
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereTrainer($id)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event betweenDates($start, $end)
  */
 class Event extends Model
 {
@@ -38,14 +43,14 @@ class Event extends Model
         EventContract::DATE,
         EventContract::END_AT,
         EventContract::START_AT,
+        EventContract::LOCATION,
         EventContract::TRAINER_ID,
-        EventContract::TEMPLATE_ID,
     ];
-    protected $dates = [
-        EventContract::DATE,
-        EventContract::END_AT,
-        EventContract::START_AT,
-    ];
+
+    public function setLinkedTrainer()
+    {
+        $this->trainer_id = Auth::user()->userable_id;
+    }
 
     public function trainer()
     {
@@ -60,5 +65,27 @@ class Event extends Model
     public function template()
     {
         return $this->belongsTo(Template::class);
+    }
+
+    //SCOPES
+    public function scopeWhereTrainer(Builder $builder, $id)
+    {
+        return $builder->where(EventContract::TRAINER_ID, $id);
+    }
+
+    public function scopeLinkedTrainer(Builder $builder)
+    {
+        /**@var self $builder */
+        return $builder->whereTrainer(Auth::user()->userable_id);
+    }
+
+    public function scopeBetweenDates(Builder $builder, $start, $end)
+    {
+        return $builder->when($start && $end, function (Builder $builder) use ($end, $start) {
+            return $builder
+                ->where(EventContract::DATE, '>=', $start)
+                ->where(EventContract::DATE, '<=', $end);
+
+        });
     }
 }

@@ -12,6 +12,7 @@ namespace App\Models;
 use App\Models\Contracts\ClientContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * App\Models\Client
@@ -22,7 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $events
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Client whereTrainer($id)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client whereTrainer($id)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client linkedTrainer()
  */
 class Client extends Model
 {
@@ -45,5 +47,11 @@ class Client extends Model
     public function scopeWhereTrainer(Builder $builder, $id)
     {
         return $builder->where(ClientContract::TRAINER_ID, $id);
+    }
+
+    public function scopeLinkedTrainer(Builder $builder)
+    {
+        /**@var self $builder */
+        return $builder->whereTrainer(Auth::user()->userable_id);
     }
 }
