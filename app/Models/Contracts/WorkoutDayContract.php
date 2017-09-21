@@ -12,6 +12,8 @@ namespace App\Models\Contracts;
 class WorkoutDayContract
 {
     const _TABLE = 'workout_days';
-    const TEMPLATE_ID = 'template_id';
+    const ID = 'id';
     const DATE = 'date';
+    const WORKOUT_ID = 'workout_id';
+    const TEMPLATE_ID = 'template_id';
 }

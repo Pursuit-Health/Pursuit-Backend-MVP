@@ -11,6 +11,8 @@ namespace App\Validation;
 
 use App\Models\Contracts\ClientContract;
 use App\Models\Contracts\TemplateContract;
+use App\Models\Contracts\WorkoutDayContract;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
@@ -253,6 +255,21 @@ class Rules
                 'field' => 'exercises.*.data.times',
                 'rule' => 'required|numeric'
             ],
+        ];
+    }
+
+    public static function submitWorkoutDay(): array
+    {
+        return [
+            'field' => 'workout_id',
+            'rule' => [
+                'required',
+                'numeric',
+                Rule::unique(WorkoutDayContract::_TABLE, WorkoutDayContract::WORKOUT_ID)->where(function ($builder) {
+                    /**@var \Illuminate\Database\Eloquent\Builder $builder */
+                    $builder->where(WorkoutDayContract::DATE, (new Carbon('now'))->format('Y-m-d'));
+                })
+            ]
         ];
     }
 

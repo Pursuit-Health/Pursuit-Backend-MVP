@@ -40,6 +40,17 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
         });
 
         $app->group(['prefix' => '/client', 'middleware' => 'user_type:client', 'namespace' => 'Client'], function () use ($app) {
+            $app->group(['prefix' => '/events'], function () use ($app) {
+                $app->get('/', 'EventController@get');
+            });
+
+            $app->group(['prefix' => '/workouts'], function () use ($app) {
+                $app->get('/', 'WorkoutController@get');
+
+                $app->group(['prefix' => '/{workout_id:[\d]+}'], function () use ($app) {
+                    $app->post('/submit', 'WorkoutController@submit');
+                });
+            });
         });
 
         $app->group(['prefix' => '/trainer', 'middleware' => 'user_type:trainer', 'namespace' => 'Trainer'], function () use ($app) {

@@ -19,6 +19,7 @@ class WorkoutTransformer extends TransformerAbstract
         WorkoutRelations::CLIENT,
         WorkoutRelations::TEMPLATE,
         WorkoutRelations::WORKOUT_DAYS,
+        WorkoutRelations::CURRENT_WORKOUT_DAY,
     ];
 
     public function transform(Workout $workout)
@@ -42,5 +43,12 @@ class WorkoutTransformer extends TransformerAbstract
     public function includeWorkoutDays(Workout $workout)
     {
         return $this->collection($workout->workoutDays, new WorkoutDayTransformer());
+    }
+
+    public function includeCurrentWorkoutDay(Workout $workout)
+    {
+        return $workout->currentWorkoutDay
+            ? $this->item($workout->currentWorkoutDay, new WorkoutDayTransformer())
+            : $this->null();
     }
 }

@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $events
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client whereTrainer($id)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client linkedTrainer()
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Workout[] $workouts
  */
 class Client extends Model
 {

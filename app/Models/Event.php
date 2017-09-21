@@ -10,6 +10,7 @@ namespace App\Models;
 
 
 use App\Models\Contracts\EventContract;
+use App\Models\Relations\EventRelations;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ use Illuminate\Support\Facades\Auth;
  * @property \Carbon\Carbon $updated_at
  * @mixin Builder
  * @method static self query()
- * @method self findOrFail($id, $columns)
+ * @method self findOrFail($id, $columns = ['*'])
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Client[] $clients
  * @property-read \App\Models\Trainer $trainer
  * @property int $template_id
@@ -34,7 +35,9 @@ use Illuminate\Support\Facades\Auth;
  * @property-read \App\Models\Template $template
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event linkedTrainer()
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereTrainer($id)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event betweenDates($start, $end)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event betweenDates($start, $end)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event linkedClient()
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereClient($id)
  */
 class Event extends Model
 {
@@ -71,6 +74,19 @@ class Event extends Model
     public function scopeWhereTrainer(Builder $builder, $id)
     {
         return $builder->where(EventContract::TRAINER_ID, $id);
+    }
+
+    public function scopeWhereClient(Builder $builder, $id)
+    {
+        return $builder->whereHas(EventRelations::CLIENTS, function (Builder $builder) use ($id) {
+            $builder->where('client_id', $id);
+        });
+    }
+
+    public function scopeLinkedClient(Builder $builder)
+    {
+        /**@var self $builder */
+        return $builder->whereClient(Auth::user()->userable_id);
     }
 
     public function scopeLinkedTrainer(Builder $builder)

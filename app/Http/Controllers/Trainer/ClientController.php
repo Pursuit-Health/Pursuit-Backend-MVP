@@ -11,7 +11,6 @@ namespace App\Http\Controllers\Trainer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
-use App\Models\Contracts\WorkoutContract;
 use App\Models\Workout;
 use App\Transformers\ClientTransformer;
 use App\Transformers\WorkoutTransformer;
@@ -39,10 +38,7 @@ class ClientController extends Controller
             Rules::templateId(),
         ]);
 
-        $workout = Workout::query()->firstOrCreate([
-            WorkoutContract::CLIENT_ID => $request['client_id'],
-            WorkoutContract::TEMPLATE_ID => $request['client_id'],
-        ]);
+        $workout = Workout::query()->firstOrCreate($request->all());
 
         return fractal($workout, new WorkoutTransformer());
 

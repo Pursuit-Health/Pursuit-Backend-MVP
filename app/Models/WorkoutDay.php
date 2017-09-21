@@ -10,6 +10,7 @@ namespace App\Models;
 
 
 use App\Models\Contracts\WorkoutDayContract;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $date
  * @mixin Builder
  * @property-read \App\Models\Workout $workout
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\WorkoutDay today()
  */
 class WorkoutDay extends Model
 {
@@ -29,9 +31,20 @@ class WorkoutDay extends Model
     protected $dates = [
         WorkoutDayContract::DATE
     ];
+    protected $fillable = [
+        WorkoutDayContract::TEMPLATE_ID,
+        WorkoutDayContract::WORKOUT_ID,
+        WorkoutDayContract::DATE
+    ];
 
     public function workout()
     {
         return $this->belongsTo(Workout::class);
+    }
+
+    //SCOPES
+    public function scopeToday(Builder $builder)
+    {
+        return $builder->where(WorkoutDayContract::DATE, (new Carbon('now'))->format('Y-m-d'));
     }
 }
