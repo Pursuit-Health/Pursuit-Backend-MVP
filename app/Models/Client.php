@@ -43,6 +43,11 @@ class Client extends Model
         return $this->belongsToMany(Event::class, ClientContract::_PIVOT);
     }
 
+    public function workouts()
+    {
+        return $this->hasMany(Workout::class);
+    }
+
     //SCOPES
     public function scopeWhereTrainer(Builder $builder, $id)
     {

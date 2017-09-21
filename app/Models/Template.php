@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Auth;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $events
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Template linkedTrainer()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Template scrollable(\Illuminate\Http\Request $request)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Workout[] $workouts
  */
 class Template extends Model
 {
@@ -66,6 +67,11 @@ class Template extends Model
         return $this->hasMany(Event::class);
     }
 
+    public function workouts()
+    {
+        return $this->hasMany(Workout::class);
+    }
+
     //SCOPES
     public function scopeWhereTrainer(Builder $builder, $id)
     {
@@ -77,4 +83,6 @@ class Template extends Model
         /**@var self $builder*/
         return $builder->whereTrainer(Auth::user()->userable_id);
     }
+
+
 }

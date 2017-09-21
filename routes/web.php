@@ -67,6 +67,11 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
 
             $app->group(['prefix' => '/clients'], function () use ($app) {
                 $app->get('/', 'ClientController@get');
+
+                $app->group(['prefix' => '/{client_id:[\d]+}'], function () use ($app) {
+                    $app->post('/assign/{template_id:[\d]+}', 'ClientController@assign');
+
+                });
             });
         });
     });

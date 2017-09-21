@@ -11,7 +11,12 @@ namespace App\Http\Controllers\Trainer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\Contracts\WorkoutContract;
+use App\Models\Workout;
 use App\Transformers\ClientTransformer;
+use App\Transformers\WorkoutTransformer;
+use App\Validation\Rules;
+use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
@@ -25,5 +30,22 @@ class ClientController extends Controller
         return fractal($clients, new ClientTransformer())
             ->parseIncludes(['user'])
             ->respond();
+    }
+
+    public function assign(Request $request)
+    {
+        $this->validate($request, [
+            Rules::clientId(),
+            Rules::templateId(),
+        ]);
+
+        $workout = Workout::query()->firstOrCreate([
+            WorkoutContract::CLIENT_ID => $request['client_id'],
+            WorkoutContract::TEMPLATE_ID => $request['client_id'],
+        ]);
+
+        return fractal($workout, new WorkoutTransformer());
+
+
     }
 }

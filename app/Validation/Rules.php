@@ -10,6 +10,7 @@ namespace App\Validation;
 
 
 use App\Models\Contracts\ClientContract;
+use App\Models\Contracts\TemplateContract;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
@@ -172,6 +173,36 @@ class Rules
                 Rule::exists(ClientContract::_TABLE, 'id')->where(function ($builder) {
                     /**@var \Illuminate\Database\Eloquent\Builder $builder */
                     return $builder->where(ClientContract::TRAINER_ID, Auth::user()->userable_id);
+                })
+            ]
+        ];
+    }
+
+    public static function clientId(): array
+    {
+        return [
+            'field' => 'client_id',
+            'rule' => [
+                'required',
+                'numeric',
+                Rule::exists(ClientContract::_TABLE, 'id')->where(function ($builder) {
+                    /**@var \Illuminate\Database\Eloquent\Builder $builder */
+                    return $builder->where(ClientContract::TRAINER_ID, Auth::user()->userable_id);
+                })
+            ]
+        ];
+    }
+
+    public static function templateId(): array
+    {
+        return [
+            'field' => 'template_id',
+            'rule' => [
+                'required',
+                'numeric',
+                Rule::exists(TemplateContract::_TABLE, 'id')->where(function ($builder) {
+                    /**@var \Illuminate\Database\Eloquent\Builder $builder */
+                    return $builder->where(TemplateContract::TRAINER_ID, Auth::user()->userable_id);
                 })
             ]
         ];
