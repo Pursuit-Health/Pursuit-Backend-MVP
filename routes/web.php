@@ -48,6 +48,7 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
                 $app->get('/', 'WorkoutController@get');
 
                 $app->group(['prefix' => '/{workout_id:[\d]+}'], function () use ($app) {
+                    $app->get('/', 'WorkoutController@getById');
                     $app->post('/submit', 'WorkoutController@submit');
                 });
             });
