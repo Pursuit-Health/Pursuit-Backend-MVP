@@ -27,9 +27,8 @@ class UserTypeMiddleware
         $type = Auth::payload()->get('utp');
 
         if ($role !== $type) {
-            throw new HttpException(403, 'Your user does not have access to perform this');
+            abort(403, 'Your user does not have access to perform this');
         }
-
 
         return $next($request);
     }

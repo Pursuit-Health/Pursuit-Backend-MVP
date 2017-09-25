@@ -107,6 +107,8 @@ class TemplateController extends Controller
             ->linkedTrainer()
             ->findOrFail($request['template_id']);
 
+        $template->update($request->all());
+
         $template->exercises()->delete();
 
         $exercises = $request['exercises'];
