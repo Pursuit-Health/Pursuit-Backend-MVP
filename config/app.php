@@ -7,6 +7,7 @@
  */
 
 return [
+    'locale' => 'en',
     'avatars_path' => '/public/avatars',
     'items_per_request' => 20
 ];
