@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Relations\UserRelations;
 use App\Transformers\UserTransformer;
 use App\Validation\Rules;
 use Illuminate\Http\Request;
@@ -17,6 +18,20 @@ use Illuminate\Support\Facades\Storage;
 
 class SettingsController extends Controller
 {
+    public function getInfo()
+    {
+        /**@var \App\Models\User $user */
+        $user = Auth::user()
+            ->load([UserRelations::USERABLE]);
+
+        return fractal($user, new UserTransformer())
+            ->parseIncludes([UserRelations::USERABLE])
+            ->addMeta([
+                'user_type' => $user->user_type,
+            ])
+            ->respond();
+    }
+
     public function password(Request $request)
     {
         $this->validate($request, [

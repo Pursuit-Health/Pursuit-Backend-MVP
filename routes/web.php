@@ -35,6 +35,7 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
         $app->post('/auth/logout', 'AuthController@logout');
 
         $app->group(['prefix' => '/settings'], function () use ($app) {
+            $app->get('/info', 'SettingsController@getInfo');
             $app->put('/password', 'SettingsController@password');
             $app->post('/avatar', 'SettingsController@avatar');
         });

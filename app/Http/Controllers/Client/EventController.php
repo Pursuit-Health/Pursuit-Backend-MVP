@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\Relations\ClientRelations;
 use App\Models\Relations\EventRelations;
 use App\Transformers\EventTransformer;
 use App\Validation\Rules;
@@ -26,14 +27,18 @@ class EventController extends Controller
         ]);
 
         $events = Event::query()
-            ->with(EventRelations::CLIENTS)
+            ->with([
+                EventRelations::CLIENTS . '.' . ClientRelations::USER
+            ])
             ->betweenDates($request['start_date'], $request['end_date'])
             ->linkedClient()
             ->get();
 
 
         return fractal($events, new EventTransformer())
-            ->parseIncludes(EventRelations::CLIENTS)
+            ->parseIncludes([
+                EventRelations::CLIENTS . '.' . ClientRelations::USER
+            ])
             ->respond();
     }
 }

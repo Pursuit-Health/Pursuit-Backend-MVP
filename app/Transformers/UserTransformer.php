@@ -18,7 +18,8 @@ use League\Fractal\TransformerAbstract;
 class UserTransformer extends TransformerAbstract
 {
     const F_NAME_ONLY = [
-        'name'
+        'name',
+        'avatar'
     ];
 
     protected $availableIncludes = [
