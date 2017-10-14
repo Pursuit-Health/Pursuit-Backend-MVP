@@ -107,7 +107,7 @@ class AuthController extends Controller
 
         /**@var Client|Trainer $userable */
         /**@var User $user */
-        $user = $userable->user()->save(User::query()->create($request->all()));
+        $user = $userable->user()->save(new User($request->all()));
         $user->load(UserRelations::USERABLE);
 
         $token = Auth::login($user);
