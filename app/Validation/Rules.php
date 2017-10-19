@@ -26,6 +26,14 @@ class Rules
         ];
     }
 
+    public static function emailExists(): array
+    {
+        return [
+            'field' => 'email',
+            'rule' => 'required|email|exists:users,email'
+        ];
+    }
+
 
     public static function uniqueEmail(): array
     {

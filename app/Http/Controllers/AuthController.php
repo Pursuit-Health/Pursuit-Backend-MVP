@@ -124,7 +124,7 @@ class AuthController extends Controller
     public function forgotPassword(Request $request)
     {
         $this->validate($request, [
-            Rules::email()
+            Rules::emailExists()
         ]);
 
         /**@var User $user */
