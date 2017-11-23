@@ -37,21 +37,42 @@ $factory->define(\App\Models\Trainer::class, function (Faker\Generator $faker) {
 $factory->define(\App\Models\Exercise::class, function (\Faker\Generator $generator) {
     return [
         'name' => implode(' ', $generator->words()),
-        'type' => \App\Models\Exercises\CountExercise::class,
-        'data' => [
-            'count' => $generator->numberBetween(1, 100),
-            'weight' => $generator->numberBetween(25, 200),
-            'times' => $generator->numberBetween(1, 10),
-        ]
+        'image_url' => $generator->imageUrl(),
+        'description' => $generator->text()
     ];
 });
 
 
 $factory->define(\App\Models\Template::class, function (\Faker\Generator $generator) {
     return [
-        'name' => implode(' ', $generator->words()),
+        'name' => $generator->words(3, true),
+        'start_at' => $generator->dateTimeInInterval('-15 days', '+15 days'),
+        'notes' => $generator->text(),
+    ];
+});
+
+$factory->define(\App\Models\TemplateExercise::class, function (\Faker\Generator $generator) {
+    return [
+        'type' => $generator->numberBetween(1, 3),
+        'name' => $generator->words(2, true),
+        'sets' => $generator->numberBetween(1, 10),
+        'reps' => $generator->numberBetween(1, 10),
+        'weight' => $generator->numberBetween(50, 150),
+        'rest' => $generator->numberBetween(1, 10),
+        'notes' => $generator->text(),
+    ];
+});
+
+
+$factory->define(\App\Models\ExerciseDay::class, function (\Faker\Generator $generator) {
+    return [];
+});
+
+
+$factory->define(\App\Models\Category::class, function (\Faker\Generator $generator) {
+    return [
+        'name' => $generator->words(3, true),
         'image_id' => $generator->numberBetween(1, 10),
-        'time' => $generator->numberBetween(10, 180),
     ];
 });
 

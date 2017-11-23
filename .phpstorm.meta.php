@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-09-21.
+    * Generated on 2017-11-23.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -49,6 +49,7 @@ namespace PHPSTORM_META {
         'tymon.jwt.secret' => Tymon\JWTAuth\Console\JWTGenerateSecretCommand::class,
         'filesystem' => Illuminate\Filesystem\FilesystemManager::class,
         'filesystem.disk' => Illuminate\Filesystem\FilesystemAdapter::class,
+        'filesystem.cloud' => Illuminate\Filesystem\FilesystemAdapter::class,
         'command.ide-helper.generate' => Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -131,6 +132,7 @@ namespace PHPSTORM_META {
         'tymon.jwt.secret' => Tymon\JWTAuth\Console\JWTGenerateSecretCommand::class,
         'filesystem' => Illuminate\Filesystem\FilesystemManager::class,
         'filesystem.disk' => Illuminate\Filesystem\FilesystemAdapter::class,
+        'filesystem.cloud' => Illuminate\Filesystem\FilesystemAdapter::class,
         'command.ide-helper.generate' => Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -213,6 +215,7 @@ namespace PHPSTORM_META {
         'tymon.jwt.secret' => Tymon\JWTAuth\Console\JWTGenerateSecretCommand::class,
         'filesystem' => Illuminate\Filesystem\FilesystemManager::class,
         'filesystem.disk' => Illuminate\Filesystem\FilesystemAdapter::class,
+        'filesystem.cloud' => Illuminate\Filesystem\FilesystemAdapter::class,
         'command.ide-helper.generate' => Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -295,6 +298,7 @@ namespace PHPSTORM_META {
         'tymon.jwt.secret' => Tymon\JWTAuth\Console\JWTGenerateSecretCommand::class,
         'filesystem' => Illuminate\Filesystem\FilesystemManager::class,
         'filesystem.disk' => Illuminate\Filesystem\FilesystemAdapter::class,
+        'filesystem.cloud' => Illuminate\Filesystem\FilesystemAdapter::class,
         'command.ide-helper.generate' => Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -377,6 +381,7 @@ namespace PHPSTORM_META {
         'tymon.jwt.secret' => Tymon\JWTAuth\Console\JWTGenerateSecretCommand::class,
         'filesystem' => Illuminate\Filesystem\FilesystemManager::class,
         'filesystem.disk' => Illuminate\Filesystem\FilesystemAdapter::class,
+        'filesystem.cloud' => Illuminate\Filesystem\FilesystemAdapter::class,
         'command.ide-helper.generate' => Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -459,6 +464,7 @@ namespace PHPSTORM_META {
         'tymon.jwt.secret' => Tymon\JWTAuth\Console\JWTGenerateSecretCommand::class,
         'filesystem' => Illuminate\Filesystem\FilesystemManager::class,
         'filesystem.disk' => Illuminate\Filesystem\FilesystemAdapter::class,
+        'filesystem.cloud' => Illuminate\Filesystem\FilesystemAdapter::class,
         'command.ide-helper.generate' => Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -541,6 +547,7 @@ namespace PHPSTORM_META {
         'tymon.jwt.secret' => Tymon\JWTAuth\Console\JWTGenerateSecretCommand::class,
         'filesystem' => Illuminate\Filesystem\FilesystemManager::class,
         'filesystem.disk' => Illuminate\Filesystem\FilesystemAdapter::class,
+        'filesystem.cloud' => Illuminate\Filesystem\FilesystemAdapter::class,
         'command.ide-helper.generate' => Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,

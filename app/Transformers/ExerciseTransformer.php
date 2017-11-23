@@ -11,19 +11,26 @@ namespace App\Transformers;
 
 use App\Models\CountExercise;
 use App\Models\Exercise;
-use Illuminate\Support\Str;
+use App\Models\Relations\ExerciseRelations;
 use League\Fractal\TransformerAbstract;
 
 class ExerciseTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = [
+        ExerciseRelations::CATEGORY,
+        ExerciseRelations::TEMPLATE_EXERCISES,
+    ];
 
     public function transform(Exercise $exercise)
     {
         return [
             'id' => $exercise->id,
             'name' => $exercise->name,
-            'data' => $exercise->data->toArray(),
-            'type' => Str::snake(last(explode('\\', $exercise->type))),
         ];
+    }
+
+    public function includeTemplateExercises(Exercise $exercise)
+    {
+        return $this->collection($exercise->templateExercises, new TemplateExerciseTransformer());
     }
 }

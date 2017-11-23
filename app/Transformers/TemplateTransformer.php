@@ -16,7 +16,7 @@ use League\Fractal\TransformerAbstract;
 class TemplateTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        TemplateRelations::EXERCISES
+        TemplateRelations::TEMPLATE_EXERCISES
     ];
 
     public function transform(Template $template)
@@ -24,13 +24,13 @@ class TemplateTransformer extends TransformerAbstract
         return [
             'id' => $template->id,
             'name' => $template->name,
-            'time' => $template->time,
-            'image_id' => $template->image_id,
+            'notes' => $template->notes,
+            'start_at' => $template->start_at->timestamp,
         ];
     }
 
     public function includeExercises(Template $template)
     {
-        return $this->collection($template->exercises, new ExerciseTransformer());
+        return $this->collection($template->templateExercises, new TemplateExerciseTransformer());
     }
 }

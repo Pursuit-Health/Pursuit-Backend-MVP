@@ -19,22 +19,24 @@ use Illuminate\Support\Facades\Auth;
 /**
  * App\Models\Template
  *
- * @property int $id
- * @property int $time
- * @property string $name
- * @property int $image_id
- * @property int $trainer_id
- * @property Trainer $trainer
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
  * @mixin Builder
  * @method static self query()
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Exercise[] $exercises
- * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereTrainer($id)
+ * @property int $id
+ * @property int $trainer_id
+ * @property int $client_id
+ * @property string $name
+ * @property \Carbon\Carbon $start_at
+ * @property string|null $notes
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property void $template_exercises
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $events
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Template linkedTrainer()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Template scrollable(\Illuminate\Http\Request $request)
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Workout[] $workouts
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Exercise[] $exercises
+ * @property-read \App\Models\Trainer $trainer
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template linkedTrainer()
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template scrollable(\Illuminate\Http\Request $request)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereTrainer($id)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TemplateExercise[] $templateExercises
  */
 class Template extends Model
 {
@@ -43,13 +45,13 @@ class Template extends Model
     protected $table = TemplateContract::_TABLE;
     protected $fillable = [
         TemplateContract::NAME,
-        TemplateContract::TIME,
-        TemplateContract::IMAGE_ID,
+        TemplateContract::START_AT,
+        TemplateContract::CLIENT_ID,
         TemplateContract::TRAINER_ID,
     ];
 
-    protected $casts = [
-        TemplateContract::TIME => 'int'
+    protected $dates = [
+        TemplateContract::START_AT,
     ];
 
     public function trainer()
@@ -57,19 +59,9 @@ class Template extends Model
         return $this->belongsTo(Trainer::class);
     }
 
-    public function exercises()
+    public function templateExercises()
     {
-        return $this->hasMany(Exercise::class);
-    }
-
-    public function events()
-    {
-        return $this->hasMany(Event::class);
-    }
-
-    public function workouts()
-    {
-        return $this->hasMany(Workout::class);
+        return $this->hasMany(TemplateExercise::class);
     }
 
     //SCOPES

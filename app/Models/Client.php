@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Auth;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $events
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client whereTrainer($id)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client linkedTrainer()
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Workout[] $workouts
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Template[] $templates
  */
 class Client extends Model
 {
@@ -44,9 +44,9 @@ class Client extends Model
         return $this->belongsToMany(Event::class, ClientContract::_PIVOT);
     }
 
-    public function workouts()
+    public function templates()
     {
-        return $this->hasMany(Workout::class);
+        return $this->hasMany(Template::class);
     }
 
     //SCOPES

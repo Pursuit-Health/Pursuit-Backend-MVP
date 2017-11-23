@@ -65,11 +65,6 @@ class Event extends Model
         return $this->belongsToMany(Client::class, EventContract::_PIVOT);
     }
 
-    public function template()
-    {
-        return $this->belongsTo(Template::class);
-    }
-
     //SCOPES
     public function scopeWhereTrainer(Builder $builder, $id)
     {

@@ -11,7 +11,7 @@ namespace App\Models\Relations;
 
 class TemplateRelations
 {
-    const EVENTS = 'events';
-    const TRAINER = 'trainer';
-    const EXERCISES = 'exercises';
+    public const CLIENT = 'client';
+    public const TRAINER = 'trainer';
+    public const TEMPLATE_EXERCISES = 'templateExercises';
 }
