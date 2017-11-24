@@ -147,14 +147,6 @@ class Rules
         ];
     }
 
-    public static function startAt(): array
-    {
-        return [
-            'field' => 'start_at',
-            'rule' => 'required|date_format:H:i'
-        ];
-    }
-
     public static function endAt(): array
     {
         return [
@@ -203,6 +195,22 @@ class Rules
         ];
     }
 
+    public static function notes(): array
+    {
+        return [
+            'field' => 'notes',
+            'rule' => 'string|max:1000'
+        ];
+    }
+
+    public static function startAt(): array
+    {
+        return [
+            'field' => 'start_at',
+            'rule' => 'required|date_format:Y-m-d|after_or_equal:today'
+        ];
+    }
+
     public static function templateId(): array
     {
         return [
@@ -228,42 +236,45 @@ class Rules
                 ],
                 [
                     'field' => 'exercises.*',
-                    'rule' => 'required|array|size:3'
+                    'rule' => 'required|array'
                 ],
-
                 [
                     'field' => 'exercises.*.name',
-                    'rule' => 'required|min:1|max:100',
+                    'rule' => 'required_without:exercise_id|min:1|max:100',
+                ],
+                [
+                    'field' => 'exercises.*.exercise_id',
+                    'rule' => 'exists:exercises,id'
+                ],
+                [
+                    'field' => 'exercises.*.sets',
+                    'rule' => 'required|numeric'
+                ],
+                [
+                    'field' => 'exercises.*.reps',
+                    'rule' => 'required|numeric'
+                ],
+                [
+                    'field' => 'exercises.*.weight',
+                    'rule' => 'required|numeric'
+                ],
+                [
+                    'field' => 'exercises.*.rest',
+                    'rule' => 'required|numeric'
+                ],
+                [
+                    'field' => 'exercises.*.notes',
+                    'rule' => 'string|max:1000'
                 ],
                 [
                     'field' => 'exercises.*.type',
-                    'rule' => 'required|exercise',
+                    'rule' => [
+                        'required',
+                        Rule::in([1, 2, 3])
+                    ],
                 ],
-            ],
-            static::countExercise()
+            ]
         );
-    }
-
-    protected static function countExercise(): array
-    {
-        return [
-            [
-                'field' => 'exercises.*.data',
-                'rule' => 'required|array|size:3'
-            ],
-            [
-                'field' => 'exercises.*.data.count',
-                'rule' => 'required|numeric'
-            ],
-            [
-                'field' => 'exercises.*.data.weight',
-                'rule' => 'required|numeric'
-            ],
-            [
-                'field' => 'exercises.*.data.times',
-                'rule' => 'required|numeric'
-            ],
-        ];
     }
 
     public static function submitWorkoutDay(): array

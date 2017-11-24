@@ -26,6 +26,8 @@ class ExerciseTransformer extends TransformerAbstract
         return [
             'id' => $exercise->id,
             'name' => $exercise->name,
+            'image_url' => $exercise->image_url,
+            'description' => $exercise->description,
         ];
     }
 

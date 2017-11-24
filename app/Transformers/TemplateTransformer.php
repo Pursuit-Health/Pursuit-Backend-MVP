@@ -16,7 +16,8 @@ use League\Fractal\TransformerAbstract;
 class TemplateTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        TemplateRelations::TEMPLATE_EXERCISES
+        TemplateRelations::TEMPLATE_EXERCISES,
+        TemplateRelations::DONE
     ];
 
     public function transform(Template $template)
@@ -29,8 +30,14 @@ class TemplateTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeExercises(Template $template)
+    public function includeTemplateExercises(Template $template)
     {
         return $this->collection($template->templateExercises, new TemplateExerciseTransformer());
+    }
+
+    public function includeFinished(Template $template)
+    {
+        //TODO: refactor
+        return $this->item($template->finished, new ValueTransformer());
     }
 }

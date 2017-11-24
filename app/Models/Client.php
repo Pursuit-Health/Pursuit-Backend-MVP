@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Auth;
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client whereTrainer($id)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client linkedTrainer()
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Template[] $templates
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client whereId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client whereTrainerId($value)
  */
 class Client extends Model
 {

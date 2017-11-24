@@ -22,6 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin Builder
  * @method static self query()
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Exercise[] $exercises
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereImageId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereName($value)
  */
 class Category extends Model
 {

@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Client[] $clients
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $events
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Template[] $templates
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Trainer whereId($value)
  */
 class Trainer extends Model
 {

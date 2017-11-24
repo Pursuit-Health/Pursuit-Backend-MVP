@@ -18,7 +18,7 @@ class TemplateExerciseTransformer extends TransformerAbstract
     protected $availableIncludes = [
         TemplateExerciseRelations::EXERCISE,
         TemplateExerciseRelations::EXERCISE_DAYS,
-        TemplateExerciseRelations::CURRENT_EXERCISE_DAY,
+        TemplateExerciseRelations::DONE,
     ];
 
     public function transform(TemplateExercise $exercise): array
@@ -49,8 +49,8 @@ class TemplateExerciseTransformer extends TransformerAbstract
         return $this->collection($exercise->exerciseDays, new ExerciseDayTransformer());
     }
 
-    public function includeCurrentExerciseDays(TemplateExercise $exercise)
+    public function includeDone(TemplateExercise $exercise)
     {
-        return $this->item($exercise->exerciseDays, new ExerciseDayTransformer());
+        return $this->item((bool)$exercise->currentExerciseDay, new ValueTransformer());
     }
 }

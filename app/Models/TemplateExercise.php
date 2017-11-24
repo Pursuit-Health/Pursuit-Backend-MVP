@@ -10,6 +10,7 @@ namespace App\Models;
 
 
 use App\Models\Contracts\TemplateExerciseContract;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,11 +27,24 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $weight
  * @property int $rest
  * @property string|null $notes
+ * @property void $exercise_days
  * @mixin Builder
  * @method static self query()
  * @property-read \App\Models\Template $template
  * @property-read \App\Models\Exercise $exercise
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ExerciseDay[] $exerciseDays
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereExerciseId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereName($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereNotes($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereReps($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereRest($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereSets($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereTemplateId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereType($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereWeight($value)
+ * @property-read \App\Models\ExerciseDay $currentExerciseDay
+ * @property-read \App\Models\ExerciseDay $done
  */
 class TemplateExercise extends Model
 {
@@ -54,11 +68,16 @@ class TemplateExercise extends Model
 
     public function exercise()
     {
-        return $this->hasOne(Exercise::class);
+        return $this->belongsTo(Exercise::class);
     }
 
     public function exerciseDays()
     {
         return $this->hasMany(ExerciseDay::class);
+    }
+
+    public function done()
+    {
+        return $this->hasOne(ExerciseDay::class)->where('created_at', Carbon::now()->format('Y-m-d'));
     }
 }

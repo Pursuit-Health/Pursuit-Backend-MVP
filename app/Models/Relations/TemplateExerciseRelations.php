@@ -13,5 +13,5 @@ class TemplateExerciseRelations
 {
     public const EXERCISE = 'exercise';
     public const EXERCISE_DAYS = 'exerciseDays';
-    public const CURRENT_EXERCISE_DAY = 'currentExerciseDay';
+    public const DONE = 'done';
 }

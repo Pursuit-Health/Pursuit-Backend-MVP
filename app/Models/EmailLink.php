@@ -30,6 +30,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EmailLink whereHash($hash)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EmailLink whereAction($action)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EmailLink whereUser($user_id)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\EmailLink whereCreatedAt($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\EmailLink whereId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\EmailLink whereMetadata($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\EmailLink whereUpdatedAt($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\EmailLink whereUserId($value)
  */
 class EmailLink extends Model
 {

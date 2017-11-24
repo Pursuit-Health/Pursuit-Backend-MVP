@@ -13,7 +13,6 @@ class ExerciseDayContract
 {
     public const _TABLE = 'exercise_days';
     public const ID = 'id';
-    public const UPDATED_AT = 'updated_at';
     public const CREATED_AT = 'created_at';
     public const TEMPLATE_EXERCISE_ID = 'template_exercise_id';
 }

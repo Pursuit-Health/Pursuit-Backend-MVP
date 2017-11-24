@@ -11,8 +11,10 @@ namespace App\Http\Controllers\Trainer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Exercise;
+use App\Models\Relations\TemplateExerciseRelations;
 use App\Models\Relations\TemplateRelations;
 use App\Models\Template;
+use App\Models\TemplateExercise;
 use App\Transformers\TemplateTransformer;
 use App\Validation\Rules;
 use Illuminate\Http\Request;
@@ -20,28 +22,34 @@ use Illuminate\Support\Facades\Auth;
 
 class TemplateController extends Controller
 {
-    public function get()
+    public function get(Request $request)
     {
         $templates = Template::query()
+            ->whereClientId($request['client_id'])
             ->linkedTrainer()
-//            ->scrollable($request) TODO: enable this
+            ->actualOnly()
+            ->with(TemplateRelations::DONE)
             ->get();
 
-        return fractal($templates, new TemplateTransformer());
+        return fractal($templates, new TemplateTransformer())
+            ->parseIncludes('done');
     }
 
     public function getDetailsById(Request $request)
     {
         $template = Template::query()
             ->with([
-                TemplateRelations::EXERCISES
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
             ])
             ->linkedTrainer()
+            ->whereClientId($request['client_id'])
             ->findOrFail($request['template_id']);
 
         return fractal($template, new TemplateTransformer())
             ->parseIncludes([
-                TemplateRelations::EXERCISES
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
             ])
             ->respond();
 
@@ -52,6 +60,7 @@ class TemplateController extends Controller
         /**@var Template $template */
         $template = Template::query()
             ->linkedTrainer()
+            ->whereClientId($request['client_id'])
             ->findOrFail($request['template_id']);
 
         $template->delete();
@@ -61,33 +70,49 @@ class TemplateController extends Controller
     {
         $this->validate($request, [
             Rules::name(),
-            Rules::time(),
-            Rules::imageId(),
+            Rules::notes(),
+            Rules::startAt(),
+            Rules::clientId(),
             Rules::exercises(),
         ]);
+
+        /**@var array $exercises */
+        $exercises = $request['exercises'];
+        $ids = [];
+        foreach ($exercises as $exercise) {
+            if (isset($exercise['exercise_id'])) {
+                $ids[] = $exercise['exercise_id'];
+            }
+        }
+
+        $e = Exercise::query()->findMany($ids, ['id', 'name'])->keyBy('id');
+
 
         $template = new Template($request->all());
         $template->trainer_id = Auth::user()->userable_id;
         $template->save();
 
-        $exercises = $request['exercises'];
-
-        $e = [];
-
-        /**@var array $exercises */
+        $template_exercises = [];
         foreach ($exercises as $exercise) {
-            $e[] = new Exercise($exercise);
+            $template_ex = new TemplateExercise($exercise);
+            if (isset($exercise['exercise_id'])) {
+                $template_ex->name = $e[$exercise['exercise_id']]->name;
+            }
+            $template_exercises[] = $template_ex;
         }
 
-        $template->exercises()->saveMany($e);
+        $template->templateExercises()->saveMany($template_exercises);
+
 
         $template->load([
-            TemplateRelations::EXERCISES
+            TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
+            TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
         ]);
 
         return fractal($template, new TemplateTransformer())
             ->parseIncludes([
-                TemplateRelations::EXERCISES
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
             ])
             ->respond();
 

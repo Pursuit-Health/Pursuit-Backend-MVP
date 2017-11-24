@@ -13,6 +13,7 @@ use App\Models\Contracts\TemplateContract;
 use App\Models\Traits\Scrollable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -37,10 +38,27 @@ use Illuminate\Support\Facades\Auth;
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template scrollable(\Illuminate\Http\Request $request)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereTrainer($id)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TemplateExercise[] $templateExercises
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereClientId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereCreatedAt($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereName($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereNotes($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereStartAt($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereTrainerId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereUpdatedAt($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template actualOnly()
+ * @property-read mixed $finished
+ * @property string|null $deleted_at
+ * @method bool|null forceDelete()
+ * @method \Illuminate\Database\Query\Builder|\App\Models\Template onlyTrashed()
+ * @method bool|null restore()
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereDeletedAt($value)
+ * @method \Illuminate\Database\Query\Builder|\App\Models\Template withTrashed()
+ * @method \Illuminate\Database\Query\Builder|\App\Models\Template withoutTrashed()
  */
 class Template extends Model
 {
-    use Scrollable;
+    use Scrollable, SoftDeletes;
 
     protected $table = TemplateContract::_TABLE;
     protected $fillable = [
@@ -50,8 +68,8 @@ class Template extends Model
         TemplateContract::TRAINER_ID,
     ];
 
-    protected $dates = [
-        TemplateContract::START_AT,
+    protected $casts = [
+        TemplateContract::START_AT => 'date',
     ];
 
     public function trainer()
@@ -76,5 +94,19 @@ class Template extends Model
         return $builder->whereTrainer(Auth::user()->userable_id);
     }
 
+    public function scopeActualOnly(Builder $builder)
+    {
+        /**@var self $builder */
+        return $builder->whereRaw('NOW() + INTERVAL 15 DAY > start_at AND NOW() - INTERVAL 15 DAY < start_at');
+    }
+
+    public function getFinishedAttribute()
+    {
+        $value = true;
+        $this->templateExercises->each(function (TemplateExercise $exercise) use (&$value) {
+            $value = $value && (bool)$exercise->currentExerciseDay;
+        });
+        return $value;
+    }
 
 }

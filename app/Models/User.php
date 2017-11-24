@@ -44,6 +44,15 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($id)
  * @property string|null $avatar_url
  * @property string|null $avatar_path
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAvatarPath($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAvatarUrl($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\User whereBirthday($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCreatedAt($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\User whereName($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePassword($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUserableId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUserableType($value)
  */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {

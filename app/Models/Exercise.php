@@ -26,6 +26,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $description
  * @property-read \App\Models\Category $category
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TemplateExercise[] $templateExercises
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Exercise whereCategoryId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Exercise whereDescription($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Exercise whereId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Exercise whereImageUrl($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Exercise whereName($value)
  */
 class Exercise extends Model
 {

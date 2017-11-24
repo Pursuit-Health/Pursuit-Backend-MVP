@@ -38,6 +38,14 @@ use Illuminate\Support\Facades\Auth;
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event betweenDates($start, $end)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event linkedClient()
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereClient($id)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereCreatedAt($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereDate($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereEndAt($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereLocation($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereStartAt($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereTrainerId($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereUpdatedAt($value)
  */
 class Event extends Model
 {
