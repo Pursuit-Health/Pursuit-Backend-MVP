@@ -45,12 +45,17 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
                 $app->get('/', 'EventController@get');
             });
 
-            $app->group(['prefix' => '/workouts'], function () use ($app) {
-                $app->get('/', 'WorkoutController@get');
+            $app->group(['prefix' => '/templates'], function () use ($app) {
+                $app->get('/', 'TemplateController@get');
 
-                $app->group(['prefix' => '/{workout_id:[\d]+}'], function () use ($app) {
-                    $app->get('/', 'WorkoutController@getById');
-                    $app->post('/submit', 'WorkoutController@submit');
+                $app->group(['prefix' => '/{template_id:[\d]+}'], function () use ($app) {
+                    $app->get('/', 'TemplateController@getById');
+
+                    $app->group(['prefix' => '/exercises'], function () use ($app) {
+                        $app->group(['prefix' => '/{template_exercise_id:[\d]+}'], function () use ($app) {
+                            $app->post('/submit', 'TemplateController@submit');
+                        });
+                    });
                 });
             });
         });
@@ -89,7 +94,7 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
                         $app->post('/', 'TemplateController@create');
 
                         $app->group(['prefix' => '/{template_id:[\d]+}'], function () use ($app) {
-                            $app->get('/', 'TemplateController@getDetailsById');
+                            $app->get('/', 'TemplateController@getById');
                             $app->put('/', 'TemplateController@edit');
                             $app->delete('/', 'TemplateController@delete');
                         });

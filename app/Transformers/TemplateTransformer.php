@@ -17,7 +17,7 @@ class TemplateTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
         TemplateRelations::TEMPLATE_EXERCISES,
-        TemplateRelations::DONE
+        'done',
     ];
 
     public function transform(Template $template)
@@ -35,9 +35,9 @@ class TemplateTransformer extends TransformerAbstract
         return $this->collection($template->templateExercises, new TemplateExerciseTransformer());
     }
 
-    public function includeFinished(Template $template)
+    public function includeDone(Template $template)
     {
         //TODO: refactor
-        return $this->item($template->finished, new ValueTransformer());
+        return $this->item((bool)$template->done, new ValueTransformer());
     }
 }

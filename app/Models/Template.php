@@ -47,7 +47,6 @@ use Illuminate\Support\Facades\Auth;
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereTrainerId($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereUpdatedAt($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template actualOnly()
- * @property-read mixed $finished
  * @property string|null $deleted_at
  * @method bool|null forceDelete()
  * @method \Illuminate\Database\Query\Builder|\App\Models\Template onlyTrashed()
@@ -55,6 +54,8 @@ use Illuminate\Support\Facades\Auth;
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template whereDeletedAt($value)
  * @method \Illuminate\Database\Query\Builder|\App\Models\Template withTrashed()
  * @method \Illuminate\Database\Query\Builder|\App\Models\Template withoutTrashed()
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Template linkedClient()
+ * @property-read bool $done
  */
 class Template extends Model
 {
@@ -90,8 +91,14 @@ class Template extends Model
 
     public function scopeLinkedTrainer(Builder $builder)
     {
-        /**@var self $builder*/
+        /**@var self $builder */
         return $builder->whereTrainer(Auth::user()->userable_id);
+    }
+
+    public function scopeLinkedClient(Builder $builder)
+    {
+        /**@var self $builder */
+        return $builder->whereClientId(Auth::user()->userable_id);
     }
 
     public function scopeActualOnly(Builder $builder)
@@ -100,11 +107,11 @@ class Template extends Model
         return $builder->whereRaw('NOW() + INTERVAL 15 DAY > start_at AND NOW() - INTERVAL 15 DAY < start_at');
     }
 
-    public function getFinishedAttribute()
+    public function getDoneAttribute(): bool 
     {
         $value = true;
         $this->templateExercises->each(function (TemplateExercise $exercise) use (&$value) {
-            $value = $value && (bool)$exercise->currentExerciseDay;
+            $value = $value && (bool)$exercise->done;
         });
         return $value;
     }

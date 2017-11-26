@@ -43,7 +43,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereTemplateId($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereType($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereWeight($value)
- * @property-read \App\Models\ExerciseDay $currentExerciseDay
  * @property-read \App\Models\ExerciseDay $done
  */
 class TemplateExercise extends Model

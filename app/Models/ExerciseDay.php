@@ -10,6 +10,7 @@ namespace App\Models;
 
 
 use App\Models\Contracts\ExerciseDayContract;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,11 +33,18 @@ class ExerciseDay extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        ExerciseDayContract::TEMPLATE_EXERCISE_ID
+        ExerciseDayContract::TEMPLATE_EXERCISE_ID,
+        ExerciseDayContract::CREATED_AT
     ];
     protected $casts = [
         ExerciseDayContract::CREATED_AT => 'date'
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        $this->created_at = Carbon::now();
+        parent::__construct($attributes);
+    }
 
     public function templateExercise()
     {

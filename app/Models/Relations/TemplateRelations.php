@@ -13,6 +13,6 @@ class TemplateRelations
 {
     public const CLIENT = 'client';
     public const TRAINER = 'trainer';
-    public const DONE = 'templateExercises.currentExerciseDay';
+    public const DONE = 'templateExercises.done';
     public const TEMPLATE_EXERCISES = 'templateExercises';
 }

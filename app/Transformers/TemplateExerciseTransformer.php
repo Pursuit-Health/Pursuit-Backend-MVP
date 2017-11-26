@@ -51,6 +51,6 @@ class TemplateExerciseTransformer extends TransformerAbstract
 
     public function includeDone(TemplateExercise $exercise)
     {
-        return $this->item((bool)$exercise->currentExerciseDay, new ValueTransformer());
+        return $this->item((bool)$exercise->done, new ValueTransformer());
     }
 }
