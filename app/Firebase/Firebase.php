@@ -40,13 +40,7 @@ class Firebase
                 'params' => $params
             ]);
 
-            $ex = new FirebaseException('Firebase request failed with code: ' . $resp->getStatusCode() . ' and message: ' . $resp->getBody()->getContents());
-
-            if ($resp->getStatusCode() === 429) {
-                $ex = new FirebaseTooManyRequestException('', 0, $ex);
-            }
-
-            throw $ex;
+            throw new FirebaseException('Firebase request failed with code: ' . $resp->getStatusCode() . ' and message: ' . $resp->getBody()->getContents());
         }
 
         if ($parse_json) {

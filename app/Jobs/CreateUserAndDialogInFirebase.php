@@ -12,7 +12,7 @@ namespace App\Jobs;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
-class CreateUserAndDialogInFirebase extends FirebaseJob
+class CreateUserAndDialogInFirebase extends Job
 {
     protected $to_create;
     protected $existing;

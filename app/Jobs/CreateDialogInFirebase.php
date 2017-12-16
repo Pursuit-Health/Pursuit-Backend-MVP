@@ -13,7 +13,7 @@ use App\Firebase\Firebase;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
-class CreateDialogInFirebase extends FirebaseJob
+class CreateDialogInFirebase extends Job
 {
 
     protected $user1;

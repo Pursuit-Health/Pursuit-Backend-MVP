@@ -13,7 +13,7 @@ use App\Firebase\Firebase;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
-class UpdateUserInFirebase extends FirebaseJob
+class UpdateUserInFirebase extends Job
 {
     protected $user;
 
