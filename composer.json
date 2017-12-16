@@ -14,7 +14,10 @@
         "guzzlehttp/guzzle": "6.3.0",
         "tymon/jwt-auth": "1.0.0-beta.3",
         "league/flysystem": "1.0.41",
-        "league/flysystem-aws-s3-v3": "1.0.18"
+        "league/flysystem-aws-s3-v3": "1.0.18",
+        "predis/predis": "v1.1.1",
+        "illuminate/redis": "5.4.x-dev",
+        "firebase/php-jwt": "v5.0.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

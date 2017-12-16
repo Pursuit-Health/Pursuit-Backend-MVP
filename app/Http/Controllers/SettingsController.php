@@ -54,7 +54,7 @@ class SettingsController extends Controller
 
         if ($user->avatar_path !== null) {
             if (!$disk->delete($user->avatar_path)) {
-                Log::critical('Can`t delete previous company logo', [
+                Log::critical('Can`t delete previous avatar', [
                     'previous_file' => $user->avatar_path,
                     'company_id' => $user->id
                 ]);

@@ -99,6 +99,7 @@ $app->register(\Illuminate\Mail\MailServiceProvider::class);
 $app->register(Spatie\Fractal\FractalServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
+$app->register(\Illuminate\Redis\RedisServiceProvider::class);
 
 //
 //if ($app->environment() === 'production') {

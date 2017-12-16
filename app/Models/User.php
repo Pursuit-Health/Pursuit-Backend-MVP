@@ -31,7 +31,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property int $userable_id
  * @property string $password
  * @property Trainer $trainer
- * @property array $attributes
  * @property string $user_type
  * @property string $userable_type
  * @property EmailLink $email_link
@@ -44,6 +43,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($id)
  * @property string|null $avatar_url
  * @property string|null $avatar_path
+ * @property string|null $uid
  */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {

@@ -161,4 +161,16 @@ class AuthController extends Controller
             ->whereAction(EmailActions::PASSWORD_RECOVER)
             ->delete();
     }
+
+    public function firebaseToken()
+    {
+        $user = Auth::user();
+        if (!$user->uid) {
+            abort(202, 'User is not registered in firebase. Please wait. It can take up to 1 minute');
+        }
+
+        return metaOnly([
+            'token' => firebase_token($user->uid)
+        ]);
+    }
 }
