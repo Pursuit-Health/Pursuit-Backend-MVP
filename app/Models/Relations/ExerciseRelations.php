@@ -11,5 +11,5 @@ namespace App\Models\Relations;
 
 class ExerciseRelations
 {
-    const TEMPLATE = 'template';
+    public const TEMPLATE = 'template';
 }

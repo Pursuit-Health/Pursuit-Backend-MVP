@@ -32,7 +32,7 @@ use Illuminate\Support\Str;
  */
 class Exercise extends Model
 {
-    const EXERCISES_NAMESPACE = 'App\Models\Exercises\\';
+    public const EXERCISES_NAMESPACE = 'App\Models\Exercises\\';
 
     public $timestamps = false;
     protected $table = ExerciseContract::_TABLE;
@@ -76,7 +76,7 @@ class Exercise extends Model
             $value = $value->toArray();
         }
 
-        if (!is_array($value)) {
+        if (!\is_array($value)) {
             throw new \LogicException('Wrong exercise data type');
         }
 

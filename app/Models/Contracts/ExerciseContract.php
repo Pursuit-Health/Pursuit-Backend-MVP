@@ -11,10 +11,10 @@ namespace App\Models\Contracts;
 
 class ExerciseContract
 {
-    const _TABLE = 'exercises';
-    const ID = 'id';
-    const NAME = 'name';
-    const TYPE = 'type';
-    const DATA = 'data';
-    const TEMPLATE_ID = 'template_id';
+    public const _TABLE = 'exercises';
+    public const ID = 'id';
+    public const NAME = 'name';
+    public const TYPE = 'type';
+    public const DATA = 'data';
+    public const TEMPLATE_ID = 'template_id';
 }

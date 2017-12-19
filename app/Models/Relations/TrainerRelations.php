@@ -11,5 +11,5 @@ namespace App\Models\Relations;
 
 class TrainerRelations
 {
-    const USER = 'user';
+    public const USER = 'user';
 }

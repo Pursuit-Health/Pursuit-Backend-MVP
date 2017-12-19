@@ -11,8 +11,8 @@ namespace App\Models\Relations;
 
 class WorkoutRelations
 {
-    const CURRENT_WORKOUT_DAY = 'currentWorkoutDay';
-    const WORKOUT_DAYS = 'workoutDays';
-    const TEMPLATE = 'template';
-    const CLIENT = 'client';
+    public const CURRENT_WORKOUT_DAY = 'currentWorkoutDay';
+    public const WORKOUT_DAYS = 'workoutDays';
+    public const TEMPLATE = 'template';
+    public const CLIENT = 'client';
 }

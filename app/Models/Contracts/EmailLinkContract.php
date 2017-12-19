@@ -11,12 +11,12 @@ namespace App\Models\Contracts;
 
 class EmailLinkContract
 {
-    const _TABLE = 'email_links';
-    const ID = 'id';
-    const HASH = 'hash';
-    const ACTION = 'action';
-    const USER_ID = 'user_id';
-    const METADATA = 'metadata';
-    const CREATED_AT = 'created_at';
-    const UPDATED_AT = 'updated_at';
+    public const _TABLE = 'email_links';
+    public const ID = 'id';
+    public const HASH = 'hash';
+    public const ACTION = 'action';
+    public const USER_ID = 'user_id';
+    public const METADATA = 'metadata';
+    public const CREATED_AT = 'created_at';
+    public const UPDATED_AT = 'updated_at';
 }

@@ -11,11 +11,11 @@ namespace App\Models\Contracts;
 
 class WorkoutContract
 {
-    const _TABLE = 'workouts';
-    const ID = 'id';
-    const CLIENT_ID = 'client_id';
-    const CREATED_AT = 'created_at';
-    const UPDATED_AT = 'updated_at';
-    const TEMPLATE_ID = 'template_id';
+    public const _TABLE = 'workouts';
+    public const ID = 'id';
+    public const CLIENT_ID = 'client_id';
+    public const CREATED_AT = 'created_at';
+    public const UPDATED_AT = 'updated_at';
+    public const TEMPLATE_ID = 'template_id';
 
 }

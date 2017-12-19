@@ -11,6 +11,6 @@ namespace App\Constants;
 
 class EmailActions
 {
-    const ACCEPT_INVITE = 'accept_invite';
-    const PASSWORD_RECOVER = 'password_recover';
+    public const ACCEPT_INVITE = 'accept_invite';
+    public const PASSWORD_RECOVER = 'password_recover';
 }

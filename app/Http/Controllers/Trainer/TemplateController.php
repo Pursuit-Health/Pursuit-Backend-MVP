@@ -54,6 +54,7 @@ class TemplateController extends Controller
             ->linkedTrainer()
             ->findOrFail($request['template_id']);
 
+        /** @noinspection PhpUnhandledExceptionInspection */
         $template->delete();
     }
 
@@ -128,58 +129,6 @@ class TemplateController extends Controller
         return fractal($template, new TemplateTransformer())
             ->parseIncludes([
                 TemplateRelations::EXERCISES
-            ])
-            ->respond();
-
-    }
-
-    public function edit(Request $request)
-    {
-        $this->validate($request, [
-            Rules::name(),
-            Rules::notes(),
-            Rules::exercises(),
-        ]);
-
-        /**@var array $exercises */
-        $exercises = $request['exercises'];
-        $ids = [];
-        foreach ($exercises as $exercise) {
-            if (isset($exercise['exercise_id'])) {
-                $ids[] = $exercise['exercise_id'];
-            }
-        }
-
-        $e = Exercise::query()->findMany($ids, ['id', 'name'])->keyBy('id');
-
-        /**@var Template $template */
-        $template = Template::query()->findOrFail($request['template_id']);
-        $template->name = $request['name'];
-        $template->notes = $request['notes'];
-        $template->save();
-
-        $template_exercises = [];
-        foreach ($exercises as $exercise) {
-            $template_ex = new TemplateExercise($exercise);
-            if (isset($exercise['exercise_id'])) {
-                $template_ex->name = $e[$exercise['exercise_id']]->name;
-            }
-            $template_exercises[] = $template_ex;
-        }
-
-        $template->templateExercises()->delete();
-        $template->templateExercises()->saveMany($template_exercises);
-
-
-        $template->load([
-            TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
-            TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
-        ]);
-
-        return fractal($template, new TemplateTransformer())
-            ->parseIncludes([
-                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
-                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
             ])
             ->respond();
 

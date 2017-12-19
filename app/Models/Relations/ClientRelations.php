@@ -11,5 +11,5 @@ namespace App\Models\Relations;
 
 class ClientRelations
 {
-    const USER = 'user';
+    public const USER = 'user';
 }

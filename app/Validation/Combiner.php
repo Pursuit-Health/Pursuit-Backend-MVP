@@ -32,7 +32,7 @@ class Combiner
     private static function contains_array(array $array): bool
     {
         foreach ($array as $value) {
-            if (!is_array($value)) {
+            if (!\is_array($value)) {
                 return false;
             }
         }

@@ -11,6 +11,6 @@ namespace App\Models\Relations;
 
 class EventRelations
 {
-    const TRAINER = 'trainer';
-    const CLIENTS = 'clients';
+    public const TRAINER = 'trainer';
+    public const CLIENTS = 'clients';
 }

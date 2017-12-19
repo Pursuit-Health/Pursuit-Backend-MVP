@@ -17,7 +17,7 @@ use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
 {
-    const F_NAME_ONLY = [
+    public const F_NAME_ONLY = [
         'name',
         'avatar'
     ];

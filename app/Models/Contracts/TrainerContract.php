@@ -11,6 +11,6 @@ namespace App\Models\Contracts;
 
 class TrainerContract
 {
-    const _TABLE = 'trainers';
-    const ID = 'id';
+    public const _TABLE = 'trainers';
+    public const ID = 'id';
 }

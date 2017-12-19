@@ -11,8 +11,8 @@ namespace App\Models\Relations;
 
 class UserRelations
 {
-    const CLIENT = 'client';
-    const TRAINER = 'trainer';
-    const USERABLE = 'userable';
+    public const CLIENT = 'client';
+    public const TRAINER = 'trainer';
+    public const USERABLE = 'userable';
 
 }
