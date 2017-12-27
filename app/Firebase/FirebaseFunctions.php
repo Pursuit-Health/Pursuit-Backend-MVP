@@ -19,7 +19,7 @@ trait FirebaseFunctions
         $r = $this->request('createUser', [
             'id' => $user->id,
             'name' => $user->name,
-            'photo' => $user->avatar_url,
+            'photo' => 'https://' . env('APP_HOST') . $user->avatar_url,
         ], true);
 
         return $r['uid'];
@@ -30,7 +30,7 @@ trait FirebaseFunctions
         $this->request('updateUser', [
             'uid' => $user->uid,
             'name' => $user->name,
-            'photo' => $user->avatar_url,
+            'photo' => 'https://' . env('APP_HOST') . $user->avatar_url,
         ]);
     }
 
