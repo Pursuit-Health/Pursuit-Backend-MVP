@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\LoadExercises;
 use App\Console\Commands\StorageLinkCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
@@ -15,7 +16,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \Laravelista\LumenVendorPublish\VendorPublishCommand::class,
-        StorageLinkCommand::class
+        StorageLinkCommand::class,
+        LoadExercises::class,
     ];
 
     /**
