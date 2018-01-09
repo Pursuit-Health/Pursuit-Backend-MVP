@@ -211,6 +211,14 @@ class Rules
         ];
     }
 
+    public static function templateStartAt(): array
+    {
+        return [
+            'field' => 'start_at',
+            'rule' => 'required|date_format:Y-m-d|after_or_equal:today|before_or_equal:+14 days'
+        ];
+    }
+
     public static function templateId(): array
     {
         return [

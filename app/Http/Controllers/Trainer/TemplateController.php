@@ -72,9 +72,9 @@ class TemplateController extends Controller
         $this->validate($request, [
             Rules::name(),
             Rules::notes(),
-            Rules::startAt(),
             Rules::clientId(),
             Rules::exercises(),
+            Rules::templateStartAt(),
         ]);
 
         /**@var array $exercises */
