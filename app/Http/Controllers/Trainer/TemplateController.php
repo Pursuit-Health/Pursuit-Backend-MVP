@@ -69,6 +69,7 @@ class TemplateController extends Controller
 
     public function create(Request $request)
     {
+        //TODO: refactor
         $this->validate($request, [
             Rules::name(),
             Rules::notes(),
@@ -100,6 +101,77 @@ class TemplateController extends Controller
                 $template_ex->name = $e[$exercise['exercise_id']]->name;
             }
             $template_exercises[] = $template_ex;
+        }
+
+        $template->templateExercises()->saveMany($template_exercises);
+
+
+        $template->load([
+            TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
+            TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
+        ]);
+
+        return fractal($template, new TemplateTransformer())
+            ->parseIncludes([
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
+            ])
+            ->respond();
+
+    }
+
+
+    public function edit(Request $request)
+    {
+        //TODO: refactor
+        $this->validate($request, [
+            Rules::name(),
+            Rules::notes(),
+            Rules::clientId(),
+            Rules::exercisesEdit(),
+        ]);
+
+        /**@var Template $template */
+        $template = Template::query()
+            ->linkedTrainer()
+            ->whereClientId($request['client_id'])
+            ->findOrFail($request['template_id']);
+
+        $template->name = $request['name'];
+        $template->notes = $request['notes'];
+        $template->save();
+
+        /**@var array $exercises */
+        $exercises = $request['exercises'];
+        $ids = [];
+        foreach ($exercises as $exercise) {
+            if (isset($exercise['exercise_id'])) {
+                $ids[] = $exercise['exercise_id'];
+            }
+        }
+
+        $e = Exercise::query()->findMany($ids, ['id', 'name'])->keyBy('id');
+
+
+        $template_exercises = [];
+        foreach ($exercises as $exercise) {
+            if (isset($exercise['id'])) {
+                TemplateExercise::query()
+                    ->whereId($exercise['id'])
+                    ->whereTemplateId($request['template_id'])
+                    ->update(
+                        collect($exercise)
+                            ->only(['sets', 'reps', 'weight', 'rest', 'notes', 'type'])
+                            ->toArray()
+
+                    );
+            } else {
+                $template_ex = new TemplateExercise($exercise);
+                if (isset($exercise['exercise_id'])) {
+                    $template_ex->name = $e[$exercise['exercise_id']]->name;
+                }
+                $template_exercises[] = $template_ex;
+            }
         }
 
         $template->templateExercises()->saveMany($template_exercises);

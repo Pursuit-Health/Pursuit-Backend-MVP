@@ -236,53 +236,109 @@ class Rules
 
     public static function exercises(): array
     {
-        return array_merge(
+        return [
             [
-                [
-                    'field' => 'exercises',
-                    'rule' => 'required|array|min:1|max:10',
+                'field' => 'exercises',
+                'rule' => 'required|array|min:1|max:20',
+            ],
+            [
+                'field' => 'exercises.*',
+                'rule' => 'required|array'
+            ],
+            [
+                'field' => 'exercises.*.name',
+                'rule' => 'required_without:exercises.*.exercise_id|min:1|max:100',
+            ],
+            [
+                'field' => 'exercises.*.exercise_id',
+                'rule' => 'required_without:exercises.*.name|numeric|exists:exercises,id'
+            ],
+            [
+                'field' => 'exercises.*.sets',
+                'rule' => 'required|numeric'
+            ],
+            [
+                'field' => 'exercises.*.reps',
+                'rule' => 'required|numeric'
+            ],
+            [
+                'field' => 'exercises.*.weight',
+                'rule' => 'required|numeric'
+            ],
+            [
+                'field' => 'exercises.*.rest',
+                'rule' => 'required|numeric'
+            ],
+            [
+                'field' => 'exercises.*.notes',
+                'rule' => 'string|max:1000'
+            ],
+            [
+                'field' => 'exercises.*.type',
+                'rule' => [
+                    'required',
+                    Rule::in([1, 2, 3])
                 ],
-                [
-                    'field' => 'exercises.*',
-                    'rule' => 'required|array'
+            ],
+        ];
+    }
+
+    public static function exercisesEdit(): array
+    {
+        //TODO: refactor (combine with create)
+        return [
+            [
+                'field' => 'template_id',
+                'rule' => 'required|numeric',
+            ],
+            [
+                'field' => 'exercises',
+                'rule' => 'required|array|min:1|max:20',
+            ],
+            [
+                'field' => 'exercises.*',
+                'rule' => 'required|array'
+            ],
+            [
+                'field' => 'exercises.*.name',
+                'rule' => 'required_without_all:exercises.*.exercise_id,exercises.*.id|min:1|max:100',
+            ],
+            [
+                'field' => 'exercises.*.id',
+                'rule' => 'required_without_all:exercises.*.exercise_id,exercises.*.name|numeric',
+            ],
+            [
+                'field' => 'exercises.*.exercise_id',
+                'rule' => 'required_without_all:exercises.*.id,exercises.*.name|numeric|exists:exercises,id'
+            ],
+            [
+                'field' => 'exercises.*.sets',
+                'rule' => 'required|numeric'
+            ],
+            [
+                'field' => 'exercises.*.reps',
+                'rule' => 'required|numeric'
+            ],
+            [
+                'field' => 'exercises.*.weight',
+                'rule' => 'required|numeric'
+            ],
+            [
+                'field' => 'exercises.*.rest',
+                'rule' => 'required|numeric'
+            ],
+            [
+                'field' => 'exercises.*.notes',
+                'rule' => 'string|max:1000'
+            ],
+            [
+                'field' => 'exercises.*.type',
+                'rule' => [
+                    'required',
+                    Rule::in([1, 2, 3])
                 ],
-                [
-                    'field' => 'exercises.*.name',
-                    'rule' => 'required_without:exercise_id|min:1|max:100',
-                ],
-                [
-                    'field' => 'exercises.*.exercise_id',
-                    'rule' => 'exists:exercises,id'
-                ],
-                [
-                    'field' => 'exercises.*.sets',
-                    'rule' => 'required|numeric'
-                ],
-                [
-                    'field' => 'exercises.*.reps',
-                    'rule' => 'required|numeric'
-                ],
-                [
-                    'field' => 'exercises.*.weight',
-                    'rule' => 'required|numeric'
-                ],
-                [
-                    'field' => 'exercises.*.rest',
-                    'rule' => 'required|numeric'
-                ],
-                [
-                    'field' => 'exercises.*.notes',
-                    'rule' => 'string|max:1000'
-                ],
-                [
-                    'field' => 'exercises.*.type',
-                    'rule' => [
-                        'required',
-                        Rule::in([1, 2, 3])
-                    ],
-                ],
-            ]
-        );
+            ],
+        ];
     }
 
     public static function submitWorkoutDay(): array
