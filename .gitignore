@@ -5,3 +5,4 @@ Homestead.yaml
 .env
 composer.phar
 /test.php
+composer.lock
