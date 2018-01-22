@@ -325,7 +325,7 @@ class Rules
             ],
             [
                 'field' => 'exercises.*.rest',
-                'rule' => 'required|numeric'
+                'rule' => 'required|string|max:255'
             ],
             [
                 'field' => 'exercises.*.notes',
