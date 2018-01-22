@@ -259,7 +259,7 @@ class Rules
             ],
             [
                 'field' => 'exercises.*.reps',
-                'rule' => 'required|string|max:255'
+                'rule' => 'required|numeric'
             ],
             [
                 'field' => 'exercises.*.weight',
@@ -267,7 +267,7 @@ class Rules
             ],
             [
                 'field' => 'exercises.*.rest',
-                'rule' => 'required|numeric'
+                'rule' => 'required|string|max:255'
             ],
             [
                 'field' => 'exercises.*.notes',
