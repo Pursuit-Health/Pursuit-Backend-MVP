@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $sets
  * @property int $reps
  * @property int $weight
- * @property int $rest
+ * @property string $rest
  * @property string|null $notes
  * @property void $exercise_days
  * @mixin Builder

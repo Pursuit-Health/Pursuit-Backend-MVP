@@ -56,7 +56,7 @@ $factory->define(\App\Models\TemplateExercise::class, function (\Faker\Generator
         'type' => $generator->numberBetween(1, 3),
         'name' => $generator->words(2, true),
         'sets' => $generator->numberBetween(1, 10),
-        'reps' => $generator->numberBetween(1, 10),
+        'reps' => $generator->numberBetween(1, 10) . ' mins',
         'weight' => $generator->numberBetween(50, 150),
         'rest' => $generator->numberBetween(1, 10),
         'notes' => $generator->text(),

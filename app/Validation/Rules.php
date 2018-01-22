@@ -48,7 +48,7 @@ class Rules
     {
         return [
             'field' => 'password',
-            'rule' => 'required|min:8|max:40'
+            'rule' => 'required|string|min:8|max:40'
         ];
     }
 
@@ -56,7 +56,7 @@ class Rules
     {
         return [
             'field' => 'name',
-            'rule' => 'required|min:1|max:100'
+            'rule' => 'required|string|min:1|max:100'
         ];
     }
 
@@ -65,7 +65,7 @@ class Rules
     {
         return [
             'field' => 'hash',
-            'rule' => 'required|size:40'
+            'rule' => 'required|string|size:40'
         ];
     }
 
@@ -259,7 +259,7 @@ class Rules
             ],
             [
                 'field' => 'exercises.*.reps',
-                'rule' => 'required|numeric'
+                'rule' => 'required|string|max:255'
             ],
             [
                 'field' => 'exercises.*.weight',
