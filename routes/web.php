@@ -61,8 +61,6 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
         });
 
         $app->group(['prefix' => '/trainer', 'middleware' => 'user_type:trainer', 'namespace' => 'Trainer'], function () use ($app) {
-
-
             $app->group(['prefix' => '/events'], function () use ($app) {
                 $app->get('/', 'EventController@get');
                 $app->post('/', 'EventController@create');
@@ -73,13 +71,17 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
                 });
             });
 
-            $app->group(['prefix' => 'categories'], function () use ($app) {
+            $app->group(['prefix' => '/categories'], function () use ($app) {
                 $app->get('/', 'ExerciseController@getCategories');
 
                 $app->group(['prefix' => '/{category_id:[\d]+}'], function () use ($app) {
                     $app->get('/', 'ExerciseController@getCategoryById');
                     $app->get('/exercises', 'ExerciseController@getExercises');
                 });
+            });
+
+            $app->group(['prefix' => '/exercises'], function () use ($app) {
+                $app->post('/search', 'ExerciseController@search');
             });
 
             $app->group(['prefix' => '/clients'], function () use ($app) {
@@ -97,6 +99,10 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
                             $app->get('/', 'TemplateController@getById');
                             $app->put('/', 'TemplateController@edit');
                             $app->delete('/', 'TemplateController@delete');
+
+                            $app->group(['prefix' => '/{exercise_id:[\d]+}'], function () use ($app) {
+                                $app->delete('/', 'TemplateController@deleteExercise');
+                            });
                         });
                     });
 

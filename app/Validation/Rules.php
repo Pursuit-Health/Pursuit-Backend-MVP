@@ -219,6 +219,14 @@ class Rules
         ];
     }
 
+    public static function exerciseSearch(): array
+    {
+        return [
+            'field' => 'phrase',
+            'rule' => 'required|string|max:255'
+        ];
+    }
+
     public static function templateId(): array
     {
         return [

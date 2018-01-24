@@ -67,6 +67,21 @@ class TemplateController extends Controller
         $template->delete();
     }
 
+    public function deleteExercise(Request $request)
+    {
+        $exercise = TemplateExercise::query()
+            ->whereHas('template', function ($builder) use ($request) {
+                /**@var \App\Models\Template $builder */
+                return $builder
+                    ->linkedTrainer()
+                    ->whereClientId($request['client_id'])
+                    ->whereId($request['template_id']);
+            })
+            ->findOrFail($request['exercise_id']);
+
+        $exercise->delete();
+    }
+
     public function create(Request $request)
     {
         //TODO: refactor

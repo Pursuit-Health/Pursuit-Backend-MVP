@@ -14,6 +14,7 @@ use App\Models\Category;
 use App\Models\Exercise;
 use App\Transformers\CategoryTransformer;
 use App\Transformers\ExerciseTransformer;
+use App\Validation\Rules;
 use Illuminate\Http\Request;
 
 class ExerciseController extends Controller
@@ -33,6 +34,13 @@ class ExerciseController extends Controller
     public function getExercises(Request $request)
     {
         $exercises = Exercise::query()->whereCategoryId($request['category_id'])->get();
+        return fractal($exercises, new ExerciseTransformer());
+    }
+
+    public function search(Request $request)
+    {
+        $this->validate($request, [Rules::exerciseSearch()]);
+        $exercises = Exercise::query()->where('name', 'like', '%' . $request['phrase'] . '%')->get();
         return fractal($exercises, new ExerciseTransformer());
     }
 }
