@@ -100,8 +100,10 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
                             $app->put('/', 'TemplateController@edit');
                             $app->delete('/', 'TemplateController@delete');
 
-                            $app->group(['prefix' => '/{exercise_id:[\d]+}'], function () use ($app) {
-                                $app->delete('/', 'TemplateController@deleteExercise');
+                            $app->group(['prefix' => '/exercises'], function () use ($app) {
+                                $app->group(['prefix' => '/{exercise_id:[\d]+}'], function () use ($app) {
+                                    $app->delete('/', 'TemplateController@deleteExercise');
+                                });
                             });
                         });
                     });
