@@ -49,6 +49,7 @@ class TemplateController extends Controller
 
         return fractal($template, new TemplateTransformer())
             ->parseIncludes([
+                'done',
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
             ])
