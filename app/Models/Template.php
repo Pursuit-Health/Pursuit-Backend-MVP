@@ -107,11 +107,15 @@ class Template extends Model
         return $builder->whereRaw('NOW() + INTERVAL 15 DAY > start_at AND NOW() - INTERVAL 15 DAY < start_at');
     }
 
-    public function getDoneAttribute(): bool 
+    public function getDoneAttribute(): bool
     {
+        if ($this->templateExercises->isEmpty()) {
+            return false;
+        }
+
         $value = true;
         $this->templateExercises->each(function (TemplateExercise $exercise) use (&$value) {
-            $value = $value && (bool)$exercise->done;
+            $value = $value && (bool) $exercise->done;
         });
         return $value;
     }
