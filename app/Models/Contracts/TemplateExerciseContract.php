@@ -15,11 +15,11 @@ class TemplateExerciseContract
     public const ID = 'id';
     public const TYPE = 'type';
     public const NAME = 'name';
-    public const SETS = 'sets';
     public const REPS = 'reps';
     public const REST = 'rest';
     public const NOTES = 'notes';
     public const WEIGHT = 'weight';
+    public const SETS_COUNT = 'sets_count';
     public const TEMPLATE_ID = 'template_id';
     public const EXERCISE_ID = 'exercise_id';
 }

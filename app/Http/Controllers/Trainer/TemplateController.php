@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Exercise;
 use App\Models\Relations\TemplateExerciseRelations;
 use App\Models\Relations\TemplateRelations;
+use App\Models\Set;
 use App\Models\Template;
 use App\Models\TemplateExercise;
 use App\Transformers\TemplateTransformer;
@@ -28,19 +29,27 @@ class TemplateController extends Controller
             ->whereClientId($request['client_id'])
             ->linkedTrainer()
             ->actualOnly()
-            ->with(TemplateRelations::DONE)
+            ->with([
+                TemplateRelations::DONE,
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::SETS,
+            ])
             ->get();
 
         return fractal($templates, new TemplateTransformer())
-            ->parseIncludes('done');
+            ->parseIncludes([
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::SETS,
+                'done',
+            ]);
     }
 
     public function getById(Request $request)
     {
         $template = Template::query()
             ->with([
-                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::SETS,
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
+
             ])
             ->actualOnly()
             ->linkedTrainer()
@@ -51,7 +60,9 @@ class TemplateController extends Controller
             ->parseIncludes([
                 'done',
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::SETS,
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
+
             ])
             ->respond();
 
@@ -96,7 +107,7 @@ class TemplateController extends Controller
 
         /**@var array $exercises */
         $exercises = $request['exercises'];
-        $ids = [];
+        $ids       = [];
         foreach ($exercises as $exercise) {
             if (isset($exercise['exercise_id'])) {
                 $ids[] = $exercise['exercise_id'];
@@ -105,32 +116,31 @@ class TemplateController extends Controller
 
         $e = Exercise::query()->findMany($ids, ['id', 'name'])->keyBy('id');
 
-
-        $template = new Template($request->all());
+        $template             = new Template($request->all());
         $template->trainer_id = Auth::user()->userable_id;
         $template->save();
 
-        $template_exercises = [];
         foreach ($exercises as $exercise) {
             $template_ex = new TemplateExercise($exercise);
             if (isset($exercise['exercise_id'])) {
                 $template_ex->name = $e[$exercise['exercise_id']]->name;
             }
-            $template_exercises[] = $template_ex;
+            $template->templateExercises()->save($template_ex);
+            $template_ex->sets()->createMany($exercise['sets']);
         }
-
-        $template->templateExercises()->saveMany($template_exercises);
-
 
         $template->load([
             TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
             TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
+            TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::SETS,
         ]);
 
         return fractal($template, new TemplateTransformer())
             ->parseIncludes([
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::SETS,
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
+
             ])
             ->respond();
 
@@ -153,13 +163,13 @@ class TemplateController extends Controller
             ->whereClientId($request['client_id'])
             ->findOrFail($request['template_id']);
 
-        $template->name = $request['name'];
+        $template->name  = $request['name'];
         $template->notes = $request['notes'];
         $template->save();
 
         /**@var array $exercises */
         $exercises = $request['exercises'];
-        $ids = [];
+        $ids       = [];
         foreach ($exercises as $exercise) {
             if (isset($exercise['exercise_id'])) {
                 $ids[] = $exercise['exercise_id'];
@@ -169,7 +179,6 @@ class TemplateController extends Controller
         $e = Exercise::query()->findMany($ids, ['id', 'name'])->keyBy('id');
 
 
-        $template_exercises = [];
         foreach ($exercises as $exercise) {
             if (isset($exercise['id'])) {
                 TemplateExercise::query()
@@ -177,33 +186,41 @@ class TemplateController extends Controller
                     ->whereTemplateId($request['template_id'])
                     ->update(
                         collect($exercise)
-                            ->only(['sets', 'reps', 'weight', 'rest', 'notes', 'type'])
+                            ->only(['name', 'sets_count', 'rest', 'notes', 'type'])
                             ->toArray()
 
                     );
+
+                Set::whereTemplateExerciseId($exercise['id'])->delete();
+                foreach ($exercise['sets'] as $set) {
+                    $s                       = new Set($set);
+                    $s->template_exercise_id = $exercise['id'];
+                    $s->save();
+                }
             } else {
                 $template_ex = new TemplateExercise($exercise);
                 if (isset($exercise['exercise_id'])) {
                     $template_ex->name = $e[$exercise['exercise_id']]->name;
                 }
-                $template_exercises[] = $template_ex;
+                $template->templateExercises()->save($template_ex);
+                $template_ex->sets()->createMany($exercise['sets']);
             }
         }
 
-        $template->templateExercises()->saveMany($template_exercises);
-
-
         $template->load([
             TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
+            TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::SETS,
             TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
         ]);
 
         return fractal($template, new TemplateTransformer())
             ->parseIncludes([
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::SETS,
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
             ])
             ->respond();
+
 
     }
 }

@@ -19,19 +19,19 @@ class TemplateExerciseTransformer extends TransformerAbstract
         TemplateExerciseRelations::EXERCISE,
         TemplateExerciseRelations::EXERCISE_DAYS,
         TemplateExerciseRelations::DONE,
+        TemplateExerciseRelations::SETS,
     ];
 
     public function transform(TemplateExercise $exercise): array
     {
         return [
-            'id' => $exercise->id,
-            'type' => $exercise->type,
-            'name' => $exercise->name,
-            'sets' => $exercise->sets,
-            'reps' => $exercise->reps,
-            'rest' => $exercise->rest,
-            'notes' => $exercise->notes,
-            'weight' => $exercise->weight,
+            'id'         => $exercise->id,
+            'type'       => $exercise->type,
+            'name'       => $exercise->name,
+            'rest'       => $exercise->rest,
+            'notes'      => $exercise->notes,
+            'sets_count' => $exercise->sets_count,
+
         ];
     }
 
@@ -51,6 +51,11 @@ class TemplateExerciseTransformer extends TransformerAbstract
 
     public function includeDone(TemplateExercise $exercise)
     {
-        return $this->item((bool)$exercise->done, new ValueTransformer());
+        return $this->item((bool) $exercise->done, new ValueTransformer());
+    }
+
+    public function includeSets(TemplateExercise $exercise)
+    {
+        return $this->collection($exercise->sets, new SetTransformer());
     }
 }

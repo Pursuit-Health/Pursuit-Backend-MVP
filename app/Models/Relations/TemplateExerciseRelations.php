@@ -13,5 +13,6 @@ class TemplateExerciseRelations
 {
     public const EXERCISE = 'exercise';
     public const EXERCISE_DAYS = 'exerciseDays';
+    public const SETS = 'sets';
     public const DONE = 'done';
 }

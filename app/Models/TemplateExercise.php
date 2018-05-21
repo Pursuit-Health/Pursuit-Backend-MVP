@@ -9,6 +9,7 @@
 namespace App\Models;
 
 
+use App\Models\Contracts\SetContract;
 use App\Models\Contracts\TemplateExerciseContract;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,21 +18,17 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\TemplateExercise
  *
- * @property int $id
- * @property int $template_id
- * @property int|null $exercise_id
- * @property int $type
- * @property string $name
- * @property int $sets
- * @property int $reps
- * @property int $weight
- * @property string $rest
- * @property string|null $notes
- * @property void $exercise_days
+ * @property int                                                                     $id
+ * @property int                                                                     $template_id
+ * @property int|null                                                                $exercise_id
+ * @property int                                                                     $type
+ * @property string                                                                  $name
+ * @property string                                                                  $rest
+ * @property string|null                                                             $notes
  * @mixin Builder
  * @method static self query()
- * @property-read \App\Models\Template $template
- * @property-read \App\Models\Exercise $exercise
+ * @property-read \App\Models\Template                                               $template
+ * @property-read \App\Models\Exercise                                               $exercise
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ExerciseDay[] $exerciseDays
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereExerciseId($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereId($value)
@@ -43,19 +40,20 @@ use Illuminate\Database\Eloquent\Model;
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereTemplateId($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereType($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereWeight($value)
- * @property-read \App\Models\ExerciseDay $done
+ * @property-read \App\Models\ExerciseDay                                            $done
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Set[]         $sets
+ * @property int|null                                                                $sets_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereSetsCount($value)
  */
 class TemplateExercise extends Model
 {
     public $timestamps = false;
     protected $fillable = [
         TemplateExerciseContract::NAME,
-        TemplateExerciseContract::SETS,
-        TemplateExerciseContract::REPS,
+        TemplateExerciseContract::SETS_COUNT,
         TemplateExerciseContract::REST,
         TemplateExerciseContract::TYPE,
         TemplateExerciseContract::NOTES,
-        TemplateExerciseContract::WEIGHT,
         TemplateExerciseContract::EXERCISE_ID,
         TemplateExerciseContract::TEMPLATE_ID,
     ];
@@ -73,6 +71,15 @@ class TemplateExercise extends Model
     public function exerciseDays()
     {
         return $this->hasMany(ExerciseDay::class);
+    }
+
+    public function sets()
+    {
+        return $this->hasMany(
+            Set::class,
+            SetContract::TEMPLATE_EXERCISE_ID,
+            TemplateExerciseContract::ID
+        );
     }
 
     public function done()

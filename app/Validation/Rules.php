@@ -22,7 +22,7 @@ class Rules
     {
         return [
             'field' => 'email',
-            'rule' => 'required|email'
+            'rule'  => 'required|email',
         ];
     }
 
@@ -30,7 +30,7 @@ class Rules
     {
         return [
             'field' => 'email',
-            'rule' => 'required|email|exists:users,email'
+            'rule'  => 'required|email|exists:users,email',
         ];
     }
 
@@ -39,7 +39,7 @@ class Rules
     {
         return [
             'field' => 'email',
-            'rule' => 'required|email|unique:users,email'
+            'rule'  => 'required|email|unique:users,email',
         ];
     }
 
@@ -48,7 +48,7 @@ class Rules
     {
         return [
             'field' => 'password',
-            'rule' => 'required|string|min:8|max:40'
+            'rule'  => 'required|string|min:8|max:40',
         ];
     }
 
@@ -56,7 +56,7 @@ class Rules
     {
         return [
             'field' => 'name',
-            'rule' => 'required|string|min:1|max:100'
+            'rule'  => 'required|string|min:1|max:100',
         ];
     }
 
@@ -65,7 +65,7 @@ class Rules
     {
         return [
             'field' => 'hash',
-            'rule' => 'required|string|size:40'
+            'rule'  => 'required|string|size:40',
         ];
     }
 
@@ -73,7 +73,7 @@ class Rules
     {
         return [
             'field' => 'birthday',
-            'rule' => 'required|date|before:now'
+            'rule'  => 'required|date|before:now',
         ];
     }
 
@@ -82,12 +82,12 @@ class Rules
         return [
             [
                 'field' => 'skip',
-                'rule' => 'numeric'
+                'rule'  => 'numeric',
             ],
             [
                 'field' => 'limit',
-                'rule' => 'numeric'
-            ]
+                'rule'  => 'numeric',
+            ],
         ];
     }
 
@@ -95,7 +95,7 @@ class Rules
     {
         return [
             'field' => 'avatar',
-            'rule' => 'required|image|mimes:jpeg,png'
+            'rule'  => 'required|image|mimes:jpeg,png',
         ];
     }
 
@@ -103,7 +103,7 @@ class Rules
     {
         return [
             'field' => 'trainer_id',
-            'rule' => 'required_if:user_type,client|exists:trainers,id',
+            'rule'  => 'required_if:user_type,client|exists:trainers,id',
         ];
     }
 
@@ -111,7 +111,7 @@ class Rules
     {
         return [
             'field' => 'image_id',
-            'rule' => 'required|numeric'
+            'rule'  => 'required|numeric',
         ];
     }
 
@@ -119,7 +119,7 @@ class Rules
     {
         return [
             'field' => 'time',
-            'rule' => 'required|numeric'
+            'rule'  => 'required|numeric',
         ];
     }
 
@@ -127,7 +127,7 @@ class Rules
     {
         return [
             'field' => 'start_date',
-            'rule' => 'required|date'
+            'rule'  => 'required|date',
         ];
     }
 
@@ -135,7 +135,7 @@ class Rules
     {
         return [
             'field' => 'end_date',
-            'rule' => 'required|date|after:start_date'
+            'rule'  => 'required|date|after:start_date',
         ];
     }
 
@@ -143,7 +143,7 @@ class Rules
     {
         return [
             'field' => 'date',
-            'rule' => 'required|date_format:Y-m-d|after:yesterday'
+            'rule'  => 'required|date_format:Y-m-d|after:yesterday',
         ];
     }
 
@@ -151,7 +151,7 @@ class Rules
     {
         return [
             'field' => 'end_at',
-            'rule' => 'required|date_format:H:i|after:start_at'
+            'rule'  => 'required|date_format:H:i|after:start_at',
         ];
     }
 
@@ -159,7 +159,7 @@ class Rules
     {
         return [
             'field' => 'location',
-            'rule' => 'required|max:100'
+            'rule'  => 'required|max:100',
         ];
     }
 
@@ -167,7 +167,7 @@ class Rules
     {
         return [
             'field' => 'clients',
-            'rule' => [
+            'rule'  => [
                 'required',
                 'array',
                 'min:1',
@@ -175,8 +175,8 @@ class Rules
                 Rule::exists(ClientContract::_TABLE, 'id')->where(function ($builder) {
                     /**@var \Illuminate\Database\Eloquent\Builder $builder */
                     return $builder->where(ClientContract::TRAINER_ID, Auth::user()->userable_id);
-                })
-            ]
+                }),
+            ],
         ];
     }
 
@@ -184,14 +184,14 @@ class Rules
     {
         return [
             'field' => 'client_id',
-            'rule' => [
+            'rule'  => [
                 'required',
                 'numeric',
                 Rule::exists(ClientContract::_TABLE, 'id')->where(function ($builder) {
                     /**@var \Illuminate\Database\Eloquent\Builder $builder */
                     return $builder->where(ClientContract::TRAINER_ID, Auth::user()->userable_id);
-                })
-            ]
+                }),
+            ],
         ];
     }
 
@@ -199,7 +199,7 @@ class Rules
     {
         return [
             'field' => 'notes',
-            'rule' => 'string|max:1000'
+            'rule'  => 'string|max:1000',
         ];
     }
 
@@ -207,7 +207,7 @@ class Rules
     {
         return [
             'field' => 'start_at',
-            'rule' => 'required|date_format:Y-m-d|after_or_equal:today'
+            'rule'  => 'required|date_format:Y-m-d|after_or_equal:today',
         ];
     }
 
@@ -215,7 +215,7 @@ class Rules
     {
         return [
             'field' => 'start_at',
-            'rule' => 'required|date_format:Y-m-d|after_or_equal:today|before_or_equal:+14 days'
+            'rule'  => 'required|date_format:Y-m-d|after_or_equal:today|before_or_equal:+14 days',
         ];
     }
 
@@ -223,7 +223,7 @@ class Rules
     {
         return [
             'field' => 'phrase',
-            'rule' => 'required|string|max:255'
+            'rule'  => 'required|string|max:255',
         ];
     }
 
@@ -231,14 +231,14 @@ class Rules
     {
         return [
             'field' => 'template_id',
-            'rule' => [
+            'rule'  => [
                 'required',
                 'numeric',
                 Rule::exists(TemplateContract::_TABLE, 'id')->where(function ($builder) {
                     /**@var \Illuminate\Database\Eloquent\Builder $builder */
                     return $builder->where(TemplateContract::TRAINER_ID, Auth::user()->userable_id);
-                })
-            ]
+                }),
+            ],
         ];
     }
 
@@ -247,45 +247,53 @@ class Rules
         return [
             [
                 'field' => 'exercises',
-                'rule' => 'required|array|min:1|max:20',
+                'rule'  => 'required|array|min:1|max:20',
             ],
             [
                 'field' => 'exercises.*',
-                'rule' => 'required|array'
+                'rule'  => 'required|array',
             ],
             [
                 'field' => 'exercises.*.name',
-                'rule' => 'required_without:exercises.*.exercise_id|min:1|max:100',
+                'rule'  => 'required_without:exercises.*.exercise_id|min:1|max:100',
             ],
             [
                 'field' => 'exercises.*.exercise_id',
-                'rule' => 'required_without:exercises.*.name|numeric|exists:exercises,id'
+                'rule'  => 'required_without:exercises.*.name|numeric|exists:exercises,id',
             ],
             [
                 'field' => 'exercises.*.sets',
-                'rule' => 'required|numeric'
+                'rule'  => 'present|array',
             ],
             [
-                'field' => 'exercises.*.reps',
-                'rule' => 'required|numeric'
+                'field' => 'exercises.*.sets.*',
+                'rule'  => 'required|array|set',
             ],
             [
-                'field' => 'exercises.*.weight',
-                'rule' => 'required|numeric'
+                'field' => 'exercises.*.sets.*.reps_min',
+                'rule'  => 'required|numeric',
+            ],
+            [
+                'field' => 'exercises.*.sets.*.weight_min',
+                'rule'  => 'required|numeric',
             ],
             [
                 'field' => 'exercises.*.rest',
-                'rule' => 'required|string|max:255'
+                'rule'  => 'required|string|max:255',
+            ],
+            [
+                'field' => 'exercises.*.sets_count',
+                'rule'  => 'required|integer',
             ],
             [
                 'field' => 'exercises.*.notes',
-                'rule' => 'string|max:1000'
+                'rule'  => 'string|max:1000',
             ],
             [
                 'field' => 'exercises.*.type',
-                'rule' => [
+                'rule'  => [
                     'required',
-                    Rule::in([1, 2, 3])
+                    Rule::in([1, 2, 3]),
                 ],
             ],
         ];
@@ -297,53 +305,61 @@ class Rules
         return [
             [
                 'field' => 'template_id',
-                'rule' => 'required|numeric',
+                'rule'  => 'required|numeric',
             ],
             [
                 'field' => 'exercises',
-                'rule' => 'required|array|min:1|max:20',
+                'rule'  => 'required|array|min:1|max:20',
             ],
             [
                 'field' => 'exercises.*',
-                'rule' => 'required|array'
+                'rule'  => 'required|array',
             ],
             [
                 'field' => 'exercises.*.name',
-                'rule' => 'required_without_all:exercises.*.exercise_id,exercises.*.id|min:1|max:100',
+                'rule'  => 'required_without_all:exercises.*.exercise_id,exercises.*.id|min:1|max:100',
             ],
             [
                 'field' => 'exercises.*.id',
-                'rule' => 'required_without_all:exercises.*.exercise_id,exercises.*.name|numeric',
+                'rule'  => 'required_without_all:exercises.*.exercise_id,exercises.*.name|numeric',
             ],
             [
                 'field' => 'exercises.*.exercise_id',
-                'rule' => 'required_without_all:exercises.*.id,exercises.*.name|numeric|exists:exercises,id'
+                'rule'  => 'required_without_all:exercises.*.id,exercises.*.name|numeric|exists:exercises,id',
             ],
             [
                 'field' => 'exercises.*.sets',
-                'rule' => 'required|numeric'
+                'rule'  => 'present|array',
             ],
             [
-                'field' => 'exercises.*.reps',
-                'rule' => 'required|numeric'
+                'field' => 'exercises.*.sets.*',
+                'rule'  => 'required|array|set',
             ],
             [
-                'field' => 'exercises.*.weight',
-                'rule' => 'required|numeric'
+                'field' => 'exercises.*.sets.*.reps_min',
+                'rule'  => 'required|numeric',
+            ],
+            [
+                'field' => 'exercises.*.sets.*.weight_min',
+                'rule'  => 'required|numeric',
             ],
             [
                 'field' => 'exercises.*.rest',
-                'rule' => 'required|string|max:255'
+                'rule'  => 'required|string|max:255',
+            ],
+            [
+                'field' => 'exercises.*.sets_count',
+                'rule'  => 'required|integer',
             ],
             [
                 'field' => 'exercises.*.notes',
-                'rule' => 'string|max:1000'
+                'rule'  => 'string|max:1000',
             ],
             [
                 'field' => 'exercises.*.type',
-                'rule' => [
+                'rule'  => [
                     'required',
-                    Rule::in([1, 2, 3])
+                    Rule::in([1, 2, 3]),
                 ],
             ],
         ];
@@ -353,14 +369,14 @@ class Rules
     {
         return [
             'field' => 'workout_id',
-            'rule' => [
+            'rule'  => [
                 'required',
                 'numeric',
                 Rule::unique(WorkoutDayContract::_TABLE, WorkoutDayContract::WORKOUT_ID)->where(function ($builder) {
                     /**@var \Illuminate\Database\Eloquent\Builder $builder */
                     $builder->where(WorkoutDayContract::DATE, (new Carbon('now'))->format('Y-m-d'));
-                })
-            ]
+                }),
+            ],
         ];
     }
 
