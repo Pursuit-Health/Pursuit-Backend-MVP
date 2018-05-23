@@ -80,6 +80,17 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
                 });
             });
 
+            $app->group(['prefix' => '/saved-templates'], function () use ($app) {
+                $app->get('/', 'SavedTemplateController@get');
+                $app->post('/', 'SavedTemplateController@create');
+
+                $app->group(['prefix' => '/{saved_template_id:[\d]+}'], function () use ($app) {
+                    $app->get('/', 'SavedTemplateController@getById');
+                    $app->put('/', 'SavedTemplateController@update');
+                    $app->delete('/', 'SavedTemplateController@delete');
+                });
+            });
+
             $app->group(['prefix' => '/exercises'], function () use ($app) {
                 $app->post('/search', 'ExerciseController@search');
             });

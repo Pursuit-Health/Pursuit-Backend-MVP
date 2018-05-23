@@ -283,7 +283,7 @@ class Rules
             ],
             [
                 'field' => 'exercises.*.sets_count',
-                'rule'  => 'required|integer',
+                'rule'  => 'required|integer|nullable',
             ],
             [
                 'field' => 'exercises.*.notes',
@@ -349,7 +349,7 @@ class Rules
             ],
             [
                 'field' => 'exercises.*.sets_count',
-                'rule'  => 'required|integer',
+                'rule'  => 'required|integer|nullable',
             ],
             [
                 'field' => 'exercises.*.notes',

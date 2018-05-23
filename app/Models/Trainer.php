@@ -15,14 +15,15 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Trainer
  *
- * @property int $id
- * @property User $user
+ * @property int                                                                       $id
+ * @property User                                                                      $user
  * @method static self query()
  * @mixin Builder
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Client[] $clients
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $events
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Template[] $templates
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Client[]        $clients
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[]         $events
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Template[]      $templates
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Trainer whereId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\SavedTemplate[] $savedTemplates
  */
 class Trainer extends Model
 {
@@ -46,5 +47,10 @@ class Trainer extends Model
     public function events()
     {
         return $this->hasMany(Event::class);
+    }
+
+    public function savedTemplates()
+    {
+        return $this->hasMany(SavedTemplate::class);
     }
 }

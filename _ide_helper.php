@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel Lumen (5.4.7) (Laravel Components 5.4.*) on 2018-05-21.
+ * Generated for Laravel Lumen (5.4.7) (Laravel Components 5.4.*) on 2018-05-22.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -5641,7 +5641,7 @@ namespace Illuminate\Support\Facades {
 
         /**
          * Returns the protocol version.
-         *
+         * 
          * If the application is behind a proxy, the protocol version used in the
          * requests between the client and the proxy and between the proxy and the
          * server might be different. This returns the former (from the "Via" header)
@@ -5650,7 +5650,7 @@ namespace Illuminate\Support\Facades {
          *
          * @return string
          * @static
-         */
+         */ 
         public static function getProtocolVersion()
         {
             //Method inherited from \Symfony\Component\HttpFoundation\Request            

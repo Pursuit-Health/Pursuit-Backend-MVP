@@ -140,7 +140,6 @@ class TemplateController extends Controller
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::SETS,
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
-
             ])
             ->respond();
 
