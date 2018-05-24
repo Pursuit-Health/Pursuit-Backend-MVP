@@ -23,12 +23,12 @@ class SavedTemplateController extends Controller
         $templates = SavedTemplate::query()
             ->linkedTrainer()
             ->search($request['search'])
-            ->get();
+            ->paginate();
 
         return fractal($templates, new SavedTemplateTransformer());
     }
 
-    public function getById(Request $request, $saved_template_id)
+    public function getById($saved_template_id)
     {
         $template = SavedTemplate::query()
             ->linkedTrainer()
@@ -38,7 +38,7 @@ class SavedTemplateController extends Controller
 
     }
 
-    public function delete(Request $request, $saved_template_id)
+    public function delete($saved_template_id)
     {
         $template = SavedTemplate::query()
             ->linkedTrainer()
