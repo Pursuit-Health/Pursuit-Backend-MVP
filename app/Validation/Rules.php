@@ -215,7 +215,7 @@ class Rules
     {
         return [
             'field' => 'start_at',
-            'rule'  => 'required|date_format:Y-m-d|after_or_equal:today|before_or_equal:+14 days',
+            'rule'  => 'required|date_format:Y-m-d|after_or_equal:today',
         ];
     }
 
@@ -283,7 +283,7 @@ class Rules
             ],
             [
                 'field' => 'exercises.*.sets_count',
-                'rule'  => 'required|integer|nullable',
+                'rule'  => 'integer|nullable',
             ],
             [
                 'field' => 'exercises.*.notes',
@@ -349,7 +349,7 @@ class Rules
             ],
             [
                 'field' => 'exercises.*.sets_count',
-                'rule'  => 'required|integer|nullable',
+                'rule'  => 'integer|nullable',
             ],
             [
                 'field' => 'exercises.*.notes',
