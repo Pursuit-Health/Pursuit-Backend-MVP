@@ -21,18 +21,18 @@ class SetRule
                 return true;
                 break;
             case 1:
-                return array_has($value, ['reps_min', 'weight_min'])
-                    && filter_var($value['reps_min'], FILTER_VALIDATE_INT) !== false
-                    && filter_var($value['weight_min'], FILTER_VALIDATE_INT) !== false;
+                return array_has($value[0], ['reps_min', 'weight_min'])
+                    && filter_var($value[0]['reps_min'], FILTER_VALIDATE_INT) !== false
+                    && filter_var($value[0]['weight_min'], FILTER_VALIDATE_INT) !== false;
                 break;
             default:
                 return app()
                     ->make('validator')
                     ->make($value, [
-                        'reps_min'   => 'required|integer',
-                        'reps_max'   => 'required|integer',
-                        'weight_min' => 'required|integer',
-                        'weight_max' => 'required|integer',
+                        '*.reps_min'   => 'required|integer',
+                        '*.reps_max'   => 'required|integer',
+                        '*.weight_min' => 'required|integer',
+                        '*.weight_max' => 'required|integer',
                     ])
                     ->passes();
         }

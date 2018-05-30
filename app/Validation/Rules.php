@@ -263,11 +263,11 @@ class Rules
             ],
             [
                 'field' => 'exercises.*.sets',
-                'rule'  => 'present|array',
+                'rule'  => 'present|array|set',
             ],
             [
                 'field' => 'exercises.*.sets.*',
-                'rule'  => 'required|array|set',
+                'rule'  => 'required|array',
             ],
             [
                 'field' => 'exercises.*.sets.*.reps_min',
@@ -329,11 +329,11 @@ class Rules
             ],
             [
                 'field' => 'exercises.*.sets',
-                'rule'  => 'present|array',
+                'rule'  => 'present|array|set',
             ],
             [
                 'field' => 'exercises.*.sets.*',
-                'rule'  => 'required|array|set',
+                'rule'  => 'required|array',
             ],
             [
                 'field' => 'exercises.*.sets.*.reps_min',
