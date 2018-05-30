@@ -24,19 +24,26 @@ class TemplateController extends Controller
         $templates = Template::query()
             ->linkedClient()
             ->actualOnly()
-            ->with(TemplateRelations::DONE)
-            ->get();
+            ->with([
+                TemplateRelations::DONE,
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::SETS,
+            ])->get();
 
         return fractal($templates, new TemplateTransformer())
-            ->parseIncludes('done');
+            ->parseIncludes([
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::SETS,
+                'done',
+            ]);
     }
 
     public function getById(Request $request)
     {
         $template = Template::query()
             ->with([
-                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::SETS,
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
+
             ])
             ->linkedClient()
             ->actualOnly()
@@ -44,8 +51,11 @@ class TemplateController extends Controller
 
         return fractal($template, new TemplateTransformer())
             ->parseIncludes([
+                'done',
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
+                TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::SETS,
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
+
             ])
             ->respond();
 
