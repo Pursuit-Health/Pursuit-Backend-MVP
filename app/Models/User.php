@@ -53,6 +53,8 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUserableId($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUserableType($value)
+ * @property string|null $uid
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUid($value)
  */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {

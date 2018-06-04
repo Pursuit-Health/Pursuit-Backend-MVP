@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\Auth;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SavedTemplate linkedTrainer()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SavedTemplate search($search = null)
  * @method static self query()
- * @method  self findOrFail($id, $columns = ['*'])
+ * @method self findOrFail($id, $columns = ['*'])
  */
 class SavedTemplate extends Model
 {

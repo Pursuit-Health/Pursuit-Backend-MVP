@@ -3,9 +3,9 @@
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 abstract class Job implements ShouldQueue
 {
@@ -19,6 +19,21 @@ abstract class Job implements ShouldQueue
     | provides access to the "queueOn" and "delay" queue helper methods.
     |
     */
+    public $tries = 999999;
+    protected const DELAY = 5;
+
+    abstract public function fire();
+
+    public function handle()
+    {
+        try {
+            $this->fire();
+        } catch (\Exception $exception) {
+
+            $this->fail($exception);
+        }
+    }
+
 
     use InteractsWithQueue, Queueable, SerializesModels;
 }
