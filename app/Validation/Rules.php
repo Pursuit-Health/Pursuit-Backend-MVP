@@ -279,7 +279,7 @@ class Rules
             ],
             [
                 'field' => 'exercises.*.rest',
-                'rule'  => 'required|string|max:255',
+                'rule'  => 'string|max:255',
             ],
             [
                 'field' => 'exercises.*.sets_count',
@@ -345,7 +345,7 @@ class Rules
             ],
             [
                 'field' => 'exercises.*.rest',
-                'rule'  => 'required|string|max:255',
+                'rule'  => 'string|max:255',
             ],
             [
                 'field' => 'exercises.*.sets_count',

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Redis\RedisServiceProvider;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 try {
@@ -92,6 +94,7 @@ $app->routeMiddleware(array(
 |
 */
 
+$app->register(RedisServiceProvider::class);
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\ValidationProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);

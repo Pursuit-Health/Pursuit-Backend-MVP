@@ -104,7 +104,7 @@ class Template extends Model
     public function scopeActualOnly(Builder $builder)
     {
         /**@var self $builder */
-        return $builder->whereRaw('NOW() + INTERVAL 15 DAY > start_at AND NOW() - INTERVAL 15 DAY < start_at');
+        return $builder->whereRaw('NOW() - INTERVAL 15 DAY < start_at');
     }
 
     public function getDoneAttribute(): bool
