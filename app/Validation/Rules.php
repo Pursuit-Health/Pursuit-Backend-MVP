@@ -207,7 +207,7 @@ class Rules
     {
         return [
             'field' => 'start_at',
-            'rule'  => 'required|date_format:Y-m-d|after_or_equal:today',
+            'rule'  => 'required|date_format:H:i',
         ];
     }
 
