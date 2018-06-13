@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2018-06-04.
+    * Generated on 2018-06-13.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -24,6 +24,8 @@ namespace PHPSTORM_META {
         'Illuminate\Contracts\Debug\ExceptionHandler' => App\Exceptions\Handler::class,
         'Illuminate\Contracts\Console\Kernel' => App\Console\Kernel::class,
         'Illuminate\Contracts\Filesystem\Factory' => Illuminate\Filesystem\FilesystemManager::class,
+        'redis' => Illuminate\Redis\RedisManager::class,
+        'redis.connection' => Illuminate\Redis\Connections\PredisConnection::class,
         'validation.presence' => Illuminate\Validation\DatabasePresenceVerifier::class,
         'translator' => Illuminate\Translation\Translator::class,
         'translation.loader' => Illuminate\Translation\FileLoader::class,
@@ -107,6 +109,8 @@ namespace PHPSTORM_META {
         'Illuminate\Contracts\Debug\ExceptionHandler' => App\Exceptions\Handler::class,
         'Illuminate\Contracts\Console\Kernel' => App\Console\Kernel::class,
         'Illuminate\Contracts\Filesystem\Factory' => Illuminate\Filesystem\FilesystemManager::class,
+        'redis' => Illuminate\Redis\RedisManager::class,
+        'redis.connection' => Illuminate\Redis\Connections\PredisConnection::class,
         'validation.presence' => Illuminate\Validation\DatabasePresenceVerifier::class,
         'translator' => Illuminate\Translation\Translator::class,
         'translation.loader' => Illuminate\Translation\FileLoader::class,
@@ -190,6 +194,8 @@ namespace PHPSTORM_META {
         'Illuminate\Contracts\Debug\ExceptionHandler' => App\Exceptions\Handler::class,
         'Illuminate\Contracts\Console\Kernel' => App\Console\Kernel::class,
         'Illuminate\Contracts\Filesystem\Factory' => Illuminate\Filesystem\FilesystemManager::class,
+        'redis' => Illuminate\Redis\RedisManager::class,
+        'redis.connection' => Illuminate\Redis\Connections\PredisConnection::class,
         'validation.presence' => Illuminate\Validation\DatabasePresenceVerifier::class,
         'translator' => Illuminate\Translation\Translator::class,
         'translation.loader' => Illuminate\Translation\FileLoader::class,
@@ -273,6 +279,8 @@ namespace PHPSTORM_META {
         'Illuminate\Contracts\Debug\ExceptionHandler' => App\Exceptions\Handler::class,
         'Illuminate\Contracts\Console\Kernel' => App\Console\Kernel::class,
         'Illuminate\Contracts\Filesystem\Factory' => Illuminate\Filesystem\FilesystemManager::class,
+        'redis' => Illuminate\Redis\RedisManager::class,
+        'redis.connection' => Illuminate\Redis\Connections\PredisConnection::class,
         'validation.presence' => Illuminate\Validation\DatabasePresenceVerifier::class,
         'translator' => Illuminate\Translation\Translator::class,
         'translation.loader' => Illuminate\Translation\FileLoader::class,
@@ -356,6 +364,8 @@ namespace PHPSTORM_META {
         'Illuminate\Contracts\Debug\ExceptionHandler' => App\Exceptions\Handler::class,
         'Illuminate\Contracts\Console\Kernel' => App\Console\Kernel::class,
         'Illuminate\Contracts\Filesystem\Factory' => Illuminate\Filesystem\FilesystemManager::class,
+        'redis' => Illuminate\Redis\RedisManager::class,
+        'redis.connection' => Illuminate\Redis\Connections\PredisConnection::class,
         'validation.presence' => Illuminate\Validation\DatabasePresenceVerifier::class,
         'translator' => Illuminate\Translation\Translator::class,
         'translation.loader' => Illuminate\Translation\FileLoader::class,
@@ -439,6 +449,8 @@ namespace PHPSTORM_META {
         'Illuminate\Contracts\Debug\ExceptionHandler' => App\Exceptions\Handler::class,
         'Illuminate\Contracts\Console\Kernel' => App\Console\Kernel::class,
         'Illuminate\Contracts\Filesystem\Factory' => Illuminate\Filesystem\FilesystemManager::class,
+        'redis' => Illuminate\Redis\RedisManager::class,
+        'redis.connection' => Illuminate\Redis\Connections\PredisConnection::class,
         'validation.presence' => Illuminate\Validation\DatabasePresenceVerifier::class,
         'translator' => Illuminate\Translation\Translator::class,
         'translation.loader' => Illuminate\Translation\FileLoader::class,
@@ -522,6 +534,8 @@ namespace PHPSTORM_META {
         'Illuminate\Contracts\Debug\ExceptionHandler' => App\Exceptions\Handler::class,
         'Illuminate\Contracts\Console\Kernel' => App\Console\Kernel::class,
         'Illuminate\Contracts\Filesystem\Factory' => Illuminate\Filesystem\FilesystemManager::class,
+        'redis' => Illuminate\Redis\RedisManager::class,
+        'redis.connection' => Illuminate\Redis\Connections\PredisConnection::class,
         'validation.presence' => Illuminate\Validation\DatabasePresenceVerifier::class,
         'translator' => Illuminate\Translation\Translator::class,
         'translation.loader' => Illuminate\Translation\FileLoader::class,

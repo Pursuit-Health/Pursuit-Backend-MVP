@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Template[] $templates
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client whereId($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client whereTrainerId($value)
+ * @property-read \App\Models\Trainer $trainer
  */
 class Client extends Model
 {
@@ -39,6 +40,11 @@ class Client extends Model
     public function user()
     {
         return $this->morphOne(User::class, 'userable');
+    }
+
+    public function trainer()
+    {
+        return $this->belongsTo(Trainer::class);
     }
 
     public function events()

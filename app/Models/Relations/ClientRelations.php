@@ -12,4 +12,5 @@ namespace App\Models\Relations;
 class ClientRelations
 {
     const USER = 'user';
+    const TRAINER = 'trainer';
 }
