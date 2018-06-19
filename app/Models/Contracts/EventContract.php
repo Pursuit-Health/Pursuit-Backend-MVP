@@ -15,6 +15,7 @@ class EventContract
     const _PIVOT = 'events_clients_pivot';
     const ID = 'id';
     const DATE = 'date';
+    const TITLE = 'title';
     const END_AT = 'end_at';
     const LOCATION = 'location';
     const START_AT  = 'start_at';

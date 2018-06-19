@@ -60,6 +60,14 @@ class Rules
         ];
     }
 
+    public static function title(): array
+    {
+        return [
+            'field' => 'name',
+            'rule'  => 'required|string|min:1|max:100',
+        ];
+    }
+
 
     public static function hash(): array
     {

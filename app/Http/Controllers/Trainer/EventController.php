@@ -47,6 +47,7 @@ class EventController extends Controller
         $this->validate($request, [
             Rules::date(),
             Rules::endAt(),
+            Rules::title(),
             Rules::startAt(),
             Rules::clients(),
             Rules::location(),
@@ -74,6 +75,7 @@ class EventController extends Controller
         $this->validate($request, [
             Rules::date(),
             Rules::endAt(),
+            Rules::title(),
             Rules::startAt(),
             Rules::clients(),
             Rules::location(),

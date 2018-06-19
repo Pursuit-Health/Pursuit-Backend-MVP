@@ -24,6 +24,7 @@ class EventTransformer extends TransformerAbstract
     {
         return [
             'id' => $event->id,
+            'title' => $event->title,
             'location' => $event->location,
             'date' => $event->date,
             'end_at' => (new \DateTime($event->end_at))->format('H:i'),

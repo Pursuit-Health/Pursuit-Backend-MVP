@@ -80,6 +80,7 @@ $factory->define(\App\Models\Event::class, function (\Faker\Generator $generator
     $start = $generator->dateTimeBetween('today', '+18 hours');
     return [
         'date'     => $generator->dateTimeBetween('+1 day', '+2 month'),
+        'title'    => $generator->title,
         'start_at' => $start,
         'end_at'   => $start->add(new DateInterval('PT' . $generator->numberBetween(0, 3) . 'H' . $generator->numberBetween(0, 59) . 'M')),
         'location' => $generator->address,

@@ -52,6 +52,7 @@ class Event extends Model
     protected $table = EventContract::_TABLE;
     protected $fillable = [
         EventContract::DATE,
+        EventContract::TITLE,
         EventContract::END_AT,
         EventContract::START_AT,
         EventContract::LOCATION,
