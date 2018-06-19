@@ -33,6 +33,7 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
 
     $app->group(['middleware' => 'jwt.auth'], function () use ($app) {
         $app->post('/auth/logout', 'AuthController@logout');
+        $app->get('/auth/firebase/token', 'AuthController@firebaseToken');
 
         $app->group(['prefix' => '/settings'], function () use ($app) {
             $app->get('/info', 'SettingsController@getInfo');
