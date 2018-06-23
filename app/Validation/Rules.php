@@ -63,7 +63,7 @@ class Rules
     public static function title(): array
     {
         return [
-            'field' => 'name',
+            'field' => 'title',
             'rule'  => 'required|string|min:1|max:100',
         ];
     }
