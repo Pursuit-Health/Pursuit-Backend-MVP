@@ -25,12 +25,14 @@ class TemplateExerciseTransformer extends TransformerAbstract
     public function transform(TemplateExercise $exercise): array
     {
         return [
-            'id'         => $exercise->id,
-            'type'       => $exercise->type,
-            'name'       => $exercise->name,
-            'rest'       => $exercise->rest,
-            'notes'      => $exercise->notes,
-            'sets_count' => $exercise->sets_count,
+            'id'          => $exercise->id,
+            'type'        => $exercise->type,
+            'name'        => $exercise->name,
+            'rest'        => $exercise->rest,
+            'notes'       => $exercise->notes,
+            'sets_count'  => $exercise->sets_count,
+            'is_weighted' => $exercise->is_weighted,
+            'is_straight' => $exercise->is_straight,
 
         ];
     }

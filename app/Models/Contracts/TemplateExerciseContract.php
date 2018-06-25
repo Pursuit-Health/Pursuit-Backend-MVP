@@ -20,6 +20,8 @@ class TemplateExerciseContract
     public const NOTES = 'notes';
     public const WEIGHT = 'weight';
     public const SETS_COUNT = 'sets_count';
+    public const IS_STRAIGHT = 'is_straight';
+    public const IS_WEIGHTED = 'is_weighted';
     public const TEMPLATE_ID = 'template_id';
     public const EXERCISE_ID = 'exercise_id';
 }

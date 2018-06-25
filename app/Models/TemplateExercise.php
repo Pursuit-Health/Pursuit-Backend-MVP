@@ -50,12 +50,19 @@ class TemplateExercise extends Model
     public $timestamps = false;
     protected $fillable = [
         TemplateExerciseContract::NAME,
-        TemplateExerciseContract::SETS_COUNT,
         TemplateExerciseContract::REST,
         TemplateExerciseContract::TYPE,
         TemplateExerciseContract::NOTES,
+        TemplateExerciseContract::SETS_COUNT,
+        TemplateExerciseContract::IS_STRAIGHT,
+        TemplateExerciseContract::IS_WEIGHTED,
         TemplateExerciseContract::EXERCISE_ID,
         TemplateExerciseContract::TEMPLATE_ID,
+    ];
+
+    protected $casts = [
+        TemplateExerciseContract::IS_WEIGHTED => 'bool',
+        TemplateExerciseContract::IS_STRAIGHT => 'bool',
     ];
 
     public function template()

@@ -270,6 +270,14 @@ class Rules
                 'rule'  => 'required_without:exercises.*.name|numeric|exists:exercises,id',
             ],
             [
+                'field' => 'exercises.*.is_weighted',
+                'rule'  => 'present|boolean',
+            ],
+            [
+                'field' => 'exercises.*.is_straight',
+                'rule'  => 'present|boolean',
+            ],
+            [
                 'field' => 'exercises.*.sets',
                 'rule'  => 'present|array|set',
             ],
@@ -334,6 +342,14 @@ class Rules
             [
                 'field' => 'exercises.*.exercise_id',
                 'rule'  => 'required_without_all:exercises.*.id,exercises.*.name|numeric|exists:exercises,id',
+            ],
+            [
+                'field' => 'exercises.*.is_weighted',
+                'rule'  => 'present|boolean',
+            ],
+            [
+                'field' => 'exercises.*.is_straight',
+                'rule'  => 'present|boolean',
             ],
             [
                 'field' => 'exercises.*.sets',
