@@ -62,7 +62,6 @@ class TemplateController extends Controller
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::DONE,
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::SETS,
                 TemplateRelations::TEMPLATE_EXERCISES . '.' . TemplateExerciseRelations::EXERCISE,
-
             ])
             ->respond();
 
@@ -185,9 +184,8 @@ class TemplateController extends Controller
                     ->whereTemplateId($request['template_id'])
                     ->update(
                         collect($exercise)
-                            ->only(['name', 'sets_count', 'rest', 'notes', 'type'])
+                            ->only(['name', 'sets_count', 'rest', 'notes', 'type', 'is_weighted', 'is_straight'])
                             ->toArray()
-
                     );
 
                 Set::whereTemplateExerciseId($exercise['id'])->delete();
