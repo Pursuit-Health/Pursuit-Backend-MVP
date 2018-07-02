@@ -46,6 +46,8 @@ use Illuminate\Support\Facades\Auth;
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereStartAt($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereTrainerId($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereUpdatedAt($value)
+ * @property string $title
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereTitle($value)
  */
 class Event extends Model
 {

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Redis\RedisServiceProvider;
+use Vinkla\Hashids\HashidsServiceProvider;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -95,6 +96,7 @@ $app->routeMiddleware(array(
 */
 
 $app->register(RedisServiceProvider::class);
+$app->register(HashidsServiceProvider::class);
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\ValidationProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);

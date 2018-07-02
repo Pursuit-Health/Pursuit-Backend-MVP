@@ -17,7 +17,8 @@
         "league/flysystem-aws-s3-v3": "1.0.18",
         "predis/predis": "v1.1.1",
         "illuminate/redis": "5.4.x-dev",
-        "firebase/php-jwt": "v5.0.0"
+      "firebase/php-jwt": "v5.0.0",
+      "vinkla/hashids": "3.2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

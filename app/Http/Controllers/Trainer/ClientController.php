@@ -16,6 +16,8 @@ use App\Transformers\ClientTransformer;
 use App\Transformers\WorkoutTransformer;
 use App\Validation\Rules;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Vinkla\Hashids\Facades\Hashids;
 
 class ClientController extends Controller
 {
@@ -41,7 +43,12 @@ class ClientController extends Controller
         $workout = Workout::query()->firstOrCreate($request->all());
 
         return fractal($workout, new WorkoutTransformer());
+    }
 
-
+    public function invitaionCode()
+    {
+        return response()->json([
+            'code' => Hashids::encode(Auth::user()->userable_id),
+        ]);
     }
 }

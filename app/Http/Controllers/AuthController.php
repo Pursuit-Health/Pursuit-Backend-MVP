@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Vinkla\Hashids\Facades\Hashids;
 
 class AuthController extends Controller
 {
@@ -86,6 +87,11 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        //TODO: rewrite this
+        if (($id = $request->get('trainer_id')) && ($id = Hashids::decode($id))) {
+            $request->offsetSet('trainer_id', $id[0]);
+        }
+
         $this->validate($request, [
             Rules::name(),
             Rules::birthday(),

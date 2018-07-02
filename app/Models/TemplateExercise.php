@@ -40,10 +40,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereTemplateId($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereType($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereWeight($value)
- * @property-read \App\Models\ExerciseDay                                            $done
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Set[]         $sets
- * @property int|null                                                                $sets_count
+ * @property-read \App\Models\ExerciseDay                                    $done
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Set[] $sets
+ * @property int|null                                                        $sets_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereSetsCount($value)
+ * @property bool                                                            $is_weighted
+ * @property bool                                                            $is_straight
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereIsStraight($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TemplateExercise whereIsWeighted($value)
  */
 class TemplateExercise extends Model
 {
