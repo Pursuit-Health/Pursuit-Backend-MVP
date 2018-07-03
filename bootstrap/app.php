@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AcceptedOnlyMiddleware;
 use Illuminate\Redis\RedisServiceProvider;
 use Vinkla\Hashids\HashidsServiceProvider;
 
@@ -81,8 +82,9 @@ $app->singleton(
 // ]);
 
 $app->routeMiddleware(array(
-    'user_type' => App\Http\Middleware\UserTypeMiddleware::class,
-    'params' => \App\Http\Middleware\RouterParamsInParamBagMiddleware::class
+    'user_type'     => App\Http\Middleware\UserTypeMiddleware::class,
+    'params'        => \App\Http\Middleware\RouterParamsInParamBagMiddleware::class,
+    'accepted_only' => AcceptedOnlyMiddleware::class,
 ));
 /*
 |--------------------------------------------------------------------------

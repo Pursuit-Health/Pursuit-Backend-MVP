@@ -143,4 +143,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $builder->where(UserContract::ID, $id);
     }
 
+    public function isClient()
+    {
+        return $this->userable_type === Client::class;
+    }
+
 }

@@ -41,7 +41,7 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
             $app->post('/avatar', 'SettingsController@avatar');
         });
 
-        $app->group(['prefix' => '/client', 'middleware' => 'user_type:client', 'namespace' => 'Client'], function () use ($app) {
+        $app->group(['prefix' => '/client', 'middleware' => ['user_type:client', 'accepted_only'], 'namespace' => 'Client'], function () use ($app) {
             $app->group(['prefix' => '/events'], function () use ($app) {
                 $app->get('/', 'EventController@get');
             });
@@ -100,7 +100,13 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
                 $app->get('/', 'ClientController@get');
                 $app->get('/invitation-code', 'ClientController@invitaionCode');
 
+                $app->group(['prefix' => '/pending'], function () use ($app) {
+                    $app->get('/', 'ClientController@pending');
+                    $app->post('/{client_id:[\d]+}/accept', 'ClientController@accept');
+                    $app->post('/{client_id:[\d]+}/reject', 'ClientController@reject');
+                });
                 $app->group(['prefix' => '/{client_id:[\d]+}'], function () use ($app) {
+
                     $app->post('/assign/{template_id:[\d]+}', 'ClientController@assign');
 
 

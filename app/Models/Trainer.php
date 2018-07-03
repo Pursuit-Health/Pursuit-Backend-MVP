@@ -9,6 +9,7 @@
 namespace App\Models;
 
 
+use App\Models\Contracts\ClientContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,6 +25,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Template[]      $templates
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Trainer whereId($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\SavedTemplate[] $savedTemplates
+ * @property string|null                                                               $sub_type
+ * @property string|null                                                               $sub_valid_until
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trainer whereSubType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Trainer whereSubValidUntil($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Client[]        $clientsAll
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Client[]        $clientsPending
  */
 class Trainer extends Model
 {
@@ -35,6 +42,20 @@ class Trainer extends Model
     }
 
     public function clients()
+    {
+        return $this
+            ->hasMany(Client::class)
+            ->where(ClientContract::STATUS, Client::S_ACCEPTED);
+    }
+
+    public function clientsPending()
+    {
+        return $this
+            ->hasMany(Client::class)
+            ->where(ClientContract::STATUS, Client::S_PENDING);
+    }
+
+    public function clientsAll()
     {
         return $this->hasMany(Client::class);
     }

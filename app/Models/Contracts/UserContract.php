@@ -11,15 +11,15 @@ namespace App\Models\Contracts;
 
 class UserContract
 {
-    const _TABLE = 'users';
-    const ID = 'id';
-    const NAME = 'name';
-    const EMAIL = 'email';
-    const BIRTHDAY = 'birthday';
-    const PASSWORD = 'password';
-    const CREATED_AT = 'created_at';
-    const UPDATED_AT = 'updated_at';
-    const USERABLE_ID = 'userable_id';
-    const USERABLE_TYPE = 'userable_type';
+    public const _TABLE = 'users';
+    public const ID = 'id';
+    public const NAME = 'name';
+    public const EMAIL = 'email';
+    public const BIRTHDAY = 'birthday';
+    public const PASSWORD = 'password';
+    public const CREATED_AT = 'created_at';
+    public const UPDATED_AT = 'updated_at';
+    public const USERABLE_ID = 'userable_id';
+    public const USERABLE_TYPE = 'userable_type';
 
 }

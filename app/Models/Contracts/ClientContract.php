@@ -11,8 +11,10 @@ namespace App\Models\Contracts;
 
 class ClientContract
 {
-    const _TABLE = 'clients';
-    const _PIVOT = 'events_clients_pivot';
-    const ID = 'id';
-    const TRAINER_ID = 'trainer_id';
+    public const _TABLE = 'clients';
+    public const _PIVOT = 'events_clients_pivot';
+    public const ID = 'id';
+    public const STATUS = 'status';
+    public const TRAINER_ID = 'trainer_id';
+
 }

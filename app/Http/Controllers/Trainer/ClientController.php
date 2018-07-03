@@ -25,6 +25,7 @@ class ClientController extends Controller
     {
         $clients = Client::query()
             ->linkedTrainer()
+            ->acceptedOnly()
             ->with(['user'])
             ->get();
 
@@ -50,5 +51,36 @@ class ClientController extends Controller
         return response()->json([
             'code' => Hashids::encode(Auth::user()->userable_id),
         ]);
+    }
+
+    public function pending()
+    {
+        $clients = Client::query()
+            ->linkedTrainer()
+            ->pendingOnly()
+            ->with(['user'])
+            ->get();
+
+        return fractal($clients, new ClientTransformer())
+            ->parseIncludes(['user'])
+            ->respond();
+    }
+
+
+    public function accept($client_id)
+    {
+        /**@var \App\Models\Client $client */
+        $client         = Auth::user()->trainer->clientsPending()->findOrFail($client_id);
+        $client->status = Client::S_ACCEPTED;
+        $client->save();
+    }
+
+
+    public function reject($client_id)
+    {
+        /**@var \App\Models\Client $client */
+        $client         = Auth::user()->trainer->clientsPending()->findOrFail($client_id);
+        $client->status = Client::S_REJECTED;
+        $client->save();
     }
 }

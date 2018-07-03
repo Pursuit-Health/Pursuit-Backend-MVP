@@ -11,6 +11,8 @@ namespace App\Models\Contracts;
 
 class TrainerContract
 {
-    const _TABLE = 'trainers';
-    const ID = 'id';
+    public const _TABLE = 'trainers';
+    public const ID = 'id';
+    public const SUB_TYPE = 'sub_type';
+    public const SUB_VALID_UNTIL = 'sub_valid_until';
 }

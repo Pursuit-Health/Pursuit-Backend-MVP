@@ -19,22 +19,30 @@ use Illuminate\Support\Facades\Auth;
  *
  * @method static self query()
  * @mixin Builder
- * @property int $trainer_id
- * @property int $id
- * @property User $user
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $events
+ * @property int                                                                  $trainer_id
+ * @property int                                                                  $id
+ * @property User                                                                 $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[]    $events
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client whereTrainer($id)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client linkedTrainer()
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Template[] $templates
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client whereId($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Client whereTrainerId($value)
- * @property-read \App\Models\Trainer $trainer
+ * @property-read \App\Models\Trainer                                             $trainer
+ * @property string                                                               $status
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Client whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Client acceptedOnly()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Client pendingOnly()
  */
 class Client extends Model
 {
+    public const S_PENDING = 'pending';
+    public const S_ACCEPTED = 'accepted';
+    public const S_REJECTED = 'rejected';
+
     public $timestamps = false;
     protected $fillable = [
-        ClientContract::TRAINER_ID
+        ClientContract::TRAINER_ID,
     ];
 
     public function user()
@@ -67,5 +75,17 @@ class Client extends Model
     {
         /**@var self $builder */
         return $builder->whereTrainer(Auth::user()->userable_id);
+    }
+
+    public function scopeAcceptedOnly(Builder $builder)
+    {
+        /**@var self $builder */
+        return $builder->whereStatus(self::S_ACCEPTED);
+    }
+
+    public function scopePendingOnly(Builder $builder)
+    {
+        /**@var self $builder */
+        return $builder->whereStatus(self::S_PENDING);
     }
 }
