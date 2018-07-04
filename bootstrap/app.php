@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\AcceptedOnlyMiddleware;
+use App\Http\Middleware\SubscriptionValidMiddleware;
 use Illuminate\Redis\RedisServiceProvider;
 use Vinkla\Hashids\HashidsServiceProvider;
 
@@ -81,11 +82,12 @@ $app->singleton(
 //    App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-$app->routeMiddleware(array(
-    'user_type'     => App\Http\Middleware\UserTypeMiddleware::class,
-    'params'        => \App\Http\Middleware\RouterParamsInParamBagMiddleware::class,
-    'accepted_only' => AcceptedOnlyMiddleware::class,
-));
+$app->routeMiddleware([
+    'user_type'          => App\Http\Middleware\UserTypeMiddleware::class,
+    'params'             => \App\Http\Middleware\RouterParamsInParamBagMiddleware::class,
+    'accepted_only'      => AcceptedOnlyMiddleware::class,
+    'subscription_valid' => SubscriptionValidMiddleware::class,
+]);
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers

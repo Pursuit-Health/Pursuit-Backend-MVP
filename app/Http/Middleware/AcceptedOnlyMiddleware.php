@@ -32,13 +32,13 @@ class AcceptedOnlyMiddleware
                     return new JsonResponse([
                         'message' => 'Your request still in review',
                         'code'    => ErrorCodes::REQUEST_PENDING,
-                    ]);
+                    ], 403);
 
                 case 'rejected':
                     return new JsonResponse([
                         'message' => 'Your request was rejected by trainer',
                         'code'    => ErrorCodes::REQUEST_REJECTED,
-                    ]);
+                    ], 403);
 
                 case 'accepted':
                     return $next($request);

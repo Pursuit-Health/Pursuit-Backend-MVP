@@ -10,6 +10,7 @@ namespace App\Models;
 
 
 use App\Models\Contracts\ClientContract;
+use App\Models\Contracts\TrainerContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,6 +36,10 @@ use Illuminate\Database\Eloquent\Model;
 class Trainer extends Model
 {
     public $timestamps = false;
+
+    protected $dates = [
+        TrainerContract::SUB_VALID_UNTIL,
+    ];
 
     public function user()
     {

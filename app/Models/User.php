@@ -148,4 +148,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->userable_type === Client::class;
     }
 
+    public function isTrainer()
+    {
+        return $this->userable_type === Trainer::class;
+    }
+
 }

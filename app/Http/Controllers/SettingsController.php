@@ -15,6 +15,7 @@ use App\Validation\Rules;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Vinkla\Hashids\Facades\Hashids;
 
 class SettingsController extends Controller
 {
@@ -26,19 +27,26 @@ class SettingsController extends Controller
 
         return fractal($user, new UserTransformer())
             ->parseIncludes([UserRelations::USERABLE])
-            ->addMeta([
-                'user_type' => $user->user_type,
-            ])
+            ->addMeta($user->isTrainer()
+                ? [
+                    'invitation_code'      => Hashids::encode($user->userable_id),
+                    'pending_client_count' => $user->trainer->clientsPending()->count(),
+                    'user_type'            => $user->user_type,
+                ]
+                : [
+                    'user_type' => $user->user_type,
+                ]
+            )
             ->respond();
     }
 
     public function password(Request $request)
     {
         $this->validate($request, [
-            Rules::password()
+            Rules::password(),
         ]);
 
-        $user = Auth::user();
+        $user           = Auth::user();
         $user->password = $request['password'];
         $user->save();
     }
@@ -46,7 +54,7 @@ class SettingsController extends Controller
     public function avatar(Request $request)
     {
         $this->validate($request, [
-            Rules::avatar()
+            Rules::avatar(),
         ]);
 
         $disk = Storage::disk();
@@ -56,7 +64,7 @@ class SettingsController extends Controller
             if (!$disk->delete($user->avatar_path)) {
                 Log::critical('Can`t delete previous company logo', [
                     'previous_file' => $user->avatar_path,
-                    'company_id' => $user->id
+                    'company_id'    => $user->id,
                 ]);
             }
         }
@@ -66,7 +74,7 @@ class SettingsController extends Controller
         $path = $file->storePublicly(config('app.avatars_path'));
 
         $user->avatar_path = $path;
-        $user->avatar_url = file_url($path);
+        $user->avatar_url  = file_url($path);
         $user->save();
 
         return fractal($user, new UserTransformer())

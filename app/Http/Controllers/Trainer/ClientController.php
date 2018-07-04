@@ -9,12 +9,14 @@
 namespace App\Http\Controllers\Trainer;
 
 
+use App\Exceptions\ErrorCodes;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Workout;
 use App\Transformers\ClientTransformer;
 use App\Transformers\WorkoutTransformer;
 use App\Validation\Rules;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Vinkla\Hashids\Facades\Hashids;
@@ -69,8 +71,17 @@ class ClientController extends Controller
 
     public function accept($client_id)
     {
+        $trainer      = Auth::user()->trainer;
+        $plan_clients = config("subscription_plans.{$trainer->sub_type}", 0);
+        if ($plan_clients - $trainer->clients()->count() < 0) {
+            return new JsonResponse([
+                'message' => 'Ypu have reached limit of client for your current plan',
+                'code'    => ErrorCodes::PLAN_UPGRADE_NEEDED,
+            ], 402);
+        }
+
         /**@var \App\Models\Client $client */
-        $client         = Auth::user()->trainer->clientsPending()->findOrFail($client_id);
+        $client         = $trainer->clientsPending()->findOrFail($client_id);
         $client->status = Client::S_ACCEPTED;
         $client->save();
     }

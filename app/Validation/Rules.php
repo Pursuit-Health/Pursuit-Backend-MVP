@@ -404,4 +404,18 @@ class Rules
         ];
     }
 
+    public static function subscription(int $trainer_id)
+    {
+        return [
+            [
+                'field' => 'sub_type',
+                'rule'  => ['present', "subscription_type:{$trainer_id}", 'string'],
+            ],
+            [
+                'field' => 'sub_valid_until',
+                'rule'  => 'required_with:sub_type|date_format:Y-m-d|after:today',
+            ],
+        ];
+    }
+
 }
