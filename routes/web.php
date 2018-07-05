@@ -112,7 +112,7 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
                     });
 
                     $app->group(['prefix' => '/{client_id:[\d]+}'], function () use ($app) {
-
+                        $app->delete('/', 'ClientController@delete');
                         $app->post('/assign/{template_id:[\d]+}', 'ClientController@assign');
 
 

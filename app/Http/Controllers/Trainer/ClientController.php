@@ -94,4 +94,12 @@ class ClientController extends Controller
         $client->status = Client::S_REJECTED;
         $client->save();
     }
+
+    public function delete($client_id)
+    {
+        /**@var \App\Models\Client $client */
+        $client         = Auth::user()->trainer->clients()->findOrFail($client_id);
+        $client->status = Client::S_REJECTED;
+        $client->save();
+    }
 }

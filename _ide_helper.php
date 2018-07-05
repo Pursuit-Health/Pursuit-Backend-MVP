@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel Lumen (5.4.7) (Laravel Components 5.4.*) on 2018-07-03.
+ * Generated for Laravel Lumen (5.4.7) (Laravel Components 5.4.*) on 2018-07-04.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -6534,6 +6534,15 @@ namespace Illuminate\Support\Facades {
  
 }
 
+namespace Hashids {
+
+    class Hashids
+    {
+
+    }
+
+}
+
 
 namespace  { 
 
@@ -6563,6 +6572,14 @@ namespace  {
 
     class Storage extends \Illuminate\Support\Facades\Storage {}
  
+}
+
+namespace Vinkla\Hashids\Facades {
+
+    class Hashids extends \Hashids\Hashids
+    {
+    }
+
 }
 
 
