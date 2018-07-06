@@ -35,7 +35,7 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
         $app->post('/auth/logout', 'AuthController@logout');
         $app->get('/auth/firebase/token', 'AuthController@firebaseToken');
 
-        $app->group(['prefix' => '/settings'], function () use ($app) {
+        $app->group(['prefix' => '/settings', 'middleware' => 'accepted_only'], function () use ($app) {
             $app->get('/info', 'SettingsController@getInfo');
             $app->put('/password', 'SettingsController@password');
             $app->post('/avatar', 'SettingsController@avatar');
@@ -59,6 +59,8 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
                     });
                 });
             });
+
+            $app->post('/trainer/change', 'TrainerController@change');
         });
 
         $app->group(['prefix' => '/trainer', 'middleware' => 'user_type:trainer', 'namespace' => 'Trainer'], function () use ($app) {

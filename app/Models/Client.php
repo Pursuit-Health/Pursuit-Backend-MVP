@@ -36,6 +36,7 @@ use Illuminate\Support\Facades\Auth;
  */
 class Client extends Model
 {
+    public const S_DELETED = 'deleted';
     public const S_PENDING = 'pending';
     public const S_ACCEPTED = 'accepted';
     public const S_REJECTED = 'rejected';

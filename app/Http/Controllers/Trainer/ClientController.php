@@ -99,7 +99,7 @@ class ClientController extends Controller
     {
         /**@var \App\Models\Client $client */
         $client         = Auth::user()->trainer->clients()->findOrFail($client_id);
-        $client->status = Client::S_REJECTED;
+        $client->status = Client::S_DELETED;
         $client->save();
     }
 }

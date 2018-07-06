@@ -115,6 +115,14 @@ class Rules
         ];
     }
 
+    public static function trainerId()
+    {
+        return [
+            'field' => 'trainer_id',
+            'rule'  => 'required|integer|exists:trainers,id',
+        ];
+    }
+
     public static function imageId(): array
     {
         return [
