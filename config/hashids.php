@@ -40,8 +40,9 @@ return [
     'connections' => [
 
         'main' => [
-            'salt'   => 'vut4h46oi5wjgqp038gh9p305v',
-            'length' => '8',
+            'salt'     => 'vut4h46oi5wjgqp038gh9p305v',
+            'length'   => '6',
+            'alphabet' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890',
         ],
 
         'alternative' => [
