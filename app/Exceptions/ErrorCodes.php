@@ -16,4 +16,5 @@ class ErrorCodes
     public const PLAN_UPGRADE_NEEDED = 10003;
     public const SUBSCRIPTION_EXPIRED = 10004;
     public const ALREADY_ACCEPTED = 10005;
+    public const REQUEST_DELETED = 10006;
 }

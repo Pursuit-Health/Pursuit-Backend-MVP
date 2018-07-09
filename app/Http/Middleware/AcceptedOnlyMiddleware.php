@@ -40,6 +40,12 @@ class AcceptedOnlyMiddleware
                         'code'    => ErrorCodes::REQUEST_REJECTED,
                     ], 403);
 
+                case 'deleted':
+                    return new JsonResponse([
+                        'message' => 'You was deleted by trainer',
+                        'code'    => ErrorCodes::REQUEST_DELETED,
+                    ], 403);
+
                 case 'accepted':
                     return $next($request);
 
