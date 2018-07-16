@@ -187,7 +187,6 @@ class Rules
                 'required',
                 'array',
                 'min:1',
-                'max:10',
                 Rule::exists(ClientContract::_TABLE, 'id')->where(function ($builder) {
                     /**@var \Illuminate\Database\Eloquent\Builder $builder */
                     return $builder->where(ClientContract::TRAINER_ID, Auth::user()->userable_id);
@@ -421,7 +420,7 @@ class Rules
             ],
             [
                 'field' => 'sub_valid_until',
-                'rule'  => 'required_with:sub_type|date_format:Y-m-d|after:today',
+                'rule'  => 'required_with:sub_type|date_format:Y-m-d H:i:s|after:now',
             ],
         ];
     }

@@ -63,7 +63,7 @@ $app->group(['prefix' => '/v1'], function () use ($app) {
             });
         });
 
-        $app->post('/client/trainer/change', ['middleware' => 'user_type:client', 'uses' => 'Client/TrainerController@change']);
+        $app->post('/client/trainer/change', ['middleware' => 'user_type:client', 'uses' => 'Client\TrainerController@change']);
 
 
         $app->group(['prefix' => '/trainer', 'middleware' => 'user_type:trainer', 'namespace' => 'Trainer'], function () use ($app) {

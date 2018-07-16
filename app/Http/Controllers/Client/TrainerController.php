@@ -33,13 +33,13 @@ class TrainerController extends Controller
 
         if ($client->status === Client::S_ACCEPTED) {
             return new JsonResponse([
-                'code'    => ErrorCodes::ALREADY_ACCEPTED,
+                'code'    => ErrorCodes::TRAINER_ACCEPTED,
                 'message' => 'Trainer already accepted your invite.',
             ], 403);
         }
 
         $client->status     = Client::S_PENDING;
-        $client->trainer_id = $id;
+        $client->trainer_id = $id[0];
         $client->save();
     }
 }
