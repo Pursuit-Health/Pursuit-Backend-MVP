@@ -107,6 +107,8 @@ class ClientController extends Controller
         $client->status = Client::S_DELETED;
         $client->save();
 
+        $client->events()->delete();
+
         dispatch(new DeleteUserAndDialogsInFirebase($client->user));
     }
 }
