@@ -9,7 +9,6 @@
 namespace App\Observers;
 
 
-use App\Jobs\CreateUserAndDialogInFirebase;
 use App\Jobs\CreateUserInFirebase;
 use App\Jobs\UpdateUserInFirebase;
 use App\Models\Trainer;
@@ -21,8 +20,6 @@ class UserObserver
     {
         if ($user->userable_type === Trainer::class) {
             dispatch(new CreateUserInFirebase($user));
-        } else {
-            dispatch(new CreateUserAndDialogInFirebase($user, $user->client->trainer->user));
         }
     }
 

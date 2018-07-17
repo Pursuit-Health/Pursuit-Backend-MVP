@@ -11,6 +11,8 @@ namespace App\Http\Controllers\Trainer;
 
 use App\Exceptions\ErrorCodes;
 use App\Http\Controllers\Controller;
+use App\Jobs\CreateUserAndDialogInFirebase;
+use App\Jobs\DeleteUserAndDialogsInFirebase;
 use App\Models\Client;
 use App\Models\Workout;
 use App\Transformers\ClientTransformer;
@@ -71,7 +73,8 @@ class ClientController extends Controller
 
     public function accept($client_id)
     {
-        $trainer      = Auth::user()->trainer;
+        $user         = Auth::user();
+        $trainer      = $user->trainer;
         $plan_clients = config("subscription_plans.{$trainer->sub_type}", 0);
         if ($plan_clients - $trainer->clients()->count() < 0) {
             return new JsonResponse([
@@ -84,6 +87,8 @@ class ClientController extends Controller
         $client         = $trainer->clientsPending()->findOrFail($client_id);
         $client->status = Client::S_ACCEPTED;
         $client->save();
+
+        dispatch(new CreateUserAndDialogInFirebase($client->user, $user));
     }
 
 
@@ -101,5 +106,7 @@ class ClientController extends Controller
         $client         = Auth::user()->trainer->clients()->findOrFail($client_id);
         $client->status = Client::S_DELETED;
         $client->save();
+
+        dispatch(new DeleteUserAndDialogsInFirebase($client->user));
     }
 }

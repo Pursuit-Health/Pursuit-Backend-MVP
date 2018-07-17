@@ -52,4 +52,11 @@ trait FirebaseFunctions
 
         return $dialog;
     }
+
+    public function deleteUserAndDialogs(User $user)
+    {
+        $this->request('deleteUserAndDialogs', [
+            'uid' => $user->uid,
+        ]);
+    }
 }
