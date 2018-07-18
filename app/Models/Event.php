@@ -114,6 +114,6 @@ class Event extends Model
 
     public function scopeEmpty(Builder $builder)
     {
-        return $builder->whereHas('clients', '=', 0);
+        return $builder->has('clients', '=', 0);
     }
 }
