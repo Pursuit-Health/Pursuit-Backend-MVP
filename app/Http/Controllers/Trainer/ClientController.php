@@ -103,11 +103,13 @@ class ClientController extends Controller
     public function delete($client_id)
     {
         /**@var \App\Models\Client $client */
-        $client         = Auth::user()->trainer->clients()->findOrFail($client_id);
+        $trainer        = Auth::user()->trainer;
+        $client         = $trainer->clients()->findOrFail($client_id);
         $client->status = Client::S_DELETED;
         $client->save();
 
-        $client->events()->delete();
+        $client->events()->detach();
+        $trainer->events()->empty()->delete();
 
         dispatch(new DeleteUserAndDialogsInFirebase($client->user));
     }

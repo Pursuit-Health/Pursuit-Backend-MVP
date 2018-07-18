@@ -48,6 +48,7 @@ use Illuminate\Support\Facades\Auth;
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereUpdatedAt($value)
  * @property string $title
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event empty()
  */
 class Event extends Model
 {
@@ -109,5 +110,10 @@ class Event extends Model
                 ->where(EventContract::DATE, '<=', $end);
 
         });
+    }
+
+    public function scopeEmpty(Builder $builder)
+    {
+        return $builder->whereHas('clients', '=', 0);
     }
 }

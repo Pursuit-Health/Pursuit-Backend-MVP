@@ -70,6 +70,9 @@ class Trainer extends Model
         return $this->hasMany(Template::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany|\App\Models\Event
+     */
     public function events()
     {
         return $this->hasMany(Event::class);

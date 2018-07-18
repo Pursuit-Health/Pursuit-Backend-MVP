@@ -9,6 +9,7 @@
 namespace App\Validation;
 
 
+use App\Models\Client;
 use App\Models\Contracts\ClientContract;
 use App\Models\Contracts\TemplateContract;
 use App\Models\Contracts\WorkoutDayContract;
@@ -189,7 +190,9 @@ class Rules
                 'min:1',
                 Rule::exists(ClientContract::_TABLE, 'id')->where(function ($builder) {
                     /**@var \Illuminate\Database\Eloquent\Builder $builder */
-                    return $builder->where(ClientContract::TRAINER_ID, Auth::user()->userable_id);
+                    return $builder
+                        ->where(ClientContract::TRAINER_ID, Auth::user()->userable_id)
+                        ->where(ClientContract::STATUS, Client::S_ACCEPTED);
                 }),
             ],
         ];
@@ -204,7 +207,9 @@ class Rules
                 'numeric',
                 Rule::exists(ClientContract::_TABLE, 'id')->where(function ($builder) {
                     /**@var \Illuminate\Database\Eloquent\Builder $builder */
-                    return $builder->where(ClientContract::TRAINER_ID, Auth::user()->userable_id);
+                    return $builder
+                        ->where(ClientContract::TRAINER_ID, Auth::user()->userable_id)
+                        ->where(ClientContract::STATUS, Client::S_ACCEPTED);
                 }),
             ],
         ];
