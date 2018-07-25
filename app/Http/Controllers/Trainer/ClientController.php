@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
+
 /**
  * Created by PhpStorm.
  * User: mark
@@ -109,6 +110,7 @@ class ClientController extends Controller
         $client->save();
 
         $client->events()->detach();
+        $client->templates()->delete();
         $trainer->events()->empty()->delete();
 
         dispatch(new DeleteUserAndDialogsInFirebase($client->user));
