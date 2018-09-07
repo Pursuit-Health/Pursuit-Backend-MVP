@@ -19,6 +19,7 @@ use App\Models\TemplateExercise;
 use App\Transformers\TemplateTransformer;
 use App\Validation\Rules;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class TemplateController extends Controller
@@ -105,13 +106,7 @@ class TemplateController extends Controller
         ]);
 
         /**@var array $exercises */
-        $exercises = $request['exercises'];
-        $ids       = [];
-        foreach ($exercises as $exercise) {
-            if (isset($exercise['exercise_id'])) {
-                $ids[] = $exercise['exercise_id'];
-            }
-        }
+        $ids = Arr::pluck($request['exercises'], 'exercise_id');
 
         $e = Exercise::query()->findMany($ids, ['id', 'name'])->keyBy('id');
 

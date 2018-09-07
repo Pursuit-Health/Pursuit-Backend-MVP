@@ -41,6 +41,11 @@ class Trainer extends Model
         TrainerContract::SUB_VALID_UNTIL,
     ];
 
+    public function getSubTypeAttribute()
+    {
+        return $this->attributes['sub_type'] ?? 'free';
+    }
+
     public function user()
     {
         return $this->morphOne(User::class, 'userable');

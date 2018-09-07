@@ -27,7 +27,7 @@ class SubscriptionValidMiddleware
         $user = Auth::user();
         if ($user->isTrainer()) {
             $tr = $user->trainer;
-            if ($tr->sub_type && $tr->sub_valid_until < new \DateTime()) {
+            if ($tr->sub_type !== 'free' && $tr->sub_valid_until < new \DateTime()) {
                 return new JsonResponse([
                     'message' => 'Your subscription expired',
                     'code'    => ErrorCodes::SUBSCRIPTION_EXPIRED,
