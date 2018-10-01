@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Client;
 use App\Exceptions\ErrorCodes;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\User;
 use App\Validation\Rules;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -41,5 +42,23 @@ class TrainerController extends Controller
         $client->status     = Client::S_PENDING;
         $client->trainer_id = $id[0];
         $client->save();
+    }
+    
+    public function get(Request $request){
+      header('Content-Type: application/json');
+      // Convert hash ID to user ID
+
+      $id = Hashids::decode($request->code);
+
+      if(empty($id) || !is_array($id)){
+        http_response_code(404);
+        die(json_encode(array('error'=>'Trainer Not Found')));
+      } else {
+        $trainer = User::where('userable_id', $id[0])->get();
+        die(json_encode($trainer));
+      }
+
+    
+      //dd($request->code);
     }
 }

@@ -18,7 +18,8 @@ $app->get('/', function () use ($app) {
 $app->group(['prefix' => '/v1'], function () use ($app) {
     $app->get('/emails/{destination}/{hash}', ['uses' => 'EmailController@redirect', 'as' => 'email']);
 
-
+    $app->get('/trainer/get/{code}',['uses' => 'Client\TrainerController@get']);
+    
     $app->group(['prefix' => '/auth'], function () use ($app) {
         $app->get('/refresh', ['uses' => 'AuthController@refresh', 'middleware' => 'jwt.refresh']);
 
